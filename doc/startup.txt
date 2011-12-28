@@ -1,0 +1,10 @@
+# アプリケーションの作成
+rails new blanco
+
+# Modelの作成
+rails g model employee name:string profile_selfphoto:string profile_tel:string profile_email:string profile_department:string profile_hobby:string profile_askme:string profile_language:string profile_nationality:string profile_hometown:string profile_focus:string profile_workplace:string
+rails g model post employee_id:integer group_id:integer message:text photo:string
+rails g model group name:string is_feedbackgroup:boolean due:string share_with:string
+rails g model tag name:string type:string
+rails g model employee_tag employee_id:integer tag_id:integer
+rails g model employee_group employee_id:integer group_id:integer
