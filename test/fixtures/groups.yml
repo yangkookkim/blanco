@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  is_feedbackgroup: false
+  due: MyString
+  share_with: MyString
+
+two:
+  name: MyString
+  is_feedbackgroup: false
+  due: MyString
+  share_with: MyString

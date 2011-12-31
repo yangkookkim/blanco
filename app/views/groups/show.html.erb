@@ -1,0 +1,12 @@
+<%= form_for(@new_post) do |f| %>
+	<%= f.text_field :message %>
+	<%= f.hidden_field :employee_id, :value => @employee_id %>
+	<%= f.hidden_field :group_id, :value => @group_id %>
+	<%= f.submit %>
+<% end %>
+
+<% @posts.each do |post| %>
+	<%#= post.employee.name %>
+	<%= post.message %>
+	<br>
+<% end %>
