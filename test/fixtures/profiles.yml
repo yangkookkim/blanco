@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  selfphoto: MyString
+  imagephoto: MyString
+  tel: MyString
+  email: MyString
+  department: MyString
+  hobby: MyString
+  askme: MyString
+  language: MyString
+  nationality: MyString
+  hometown: MyString
+  foucs: MyString
+  workplace: MyString
+
+two:
+  selfphoto: MyString
+  imagephoto: MyString
+  tel: MyString
+  email: MyString
+  department: MyString
+  hobby: MyString
+  askme: MyString
+  language: MyString
+  nationality: MyString
+  hometown: MyString
+  foucs: MyString
+  workplace: MyString

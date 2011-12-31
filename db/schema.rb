@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111228154833) do
+ActiveRecord::Schema.define(:version => 20111231035938) do
 
   create_table "employee_groups", :force => true do |t|
     t.integer  "employee_id"
@@ -29,17 +29,6 @@ ActiveRecord::Schema.define(:version => 20111228154833) do
 
   create_table "employees", :force => true do |t|
     t.string   "name"
-    t.string   "profile_selfphoto"
-    t.string   "profile_tel"
-    t.string   "profile_email"
-    t.string   "profile_department"
-    t.string   "profile_hobby"
-    t.string   "profile_askme"
-    t.string   "profile_language"
-    t.string   "profile_nationality"
-    t.string   "profile_hometown"
-    t.string   "profile_focus"
-    t.string   "profile_workplace"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -60,6 +49,23 @@ ActiveRecord::Schema.define(:version => 20111228154833) do
     t.string   "photo"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "profiles", :force => true do |t|
+    t.string   "selfphoto"
+    t.string   "imagephoto"
+    t.string   "tel"
+    t.string   "email"
+    t.string   "department"
+    t.string   "hobby"
+    t.string   "askme"
+    t.string   "language"
+    t.string   "nationality"
+    t.string   "hometown"
+    t.string   "workplace"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "focus"
   end
 
   create_table "tags", :force => true do |t|
