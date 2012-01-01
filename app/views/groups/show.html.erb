@@ -34,7 +34,7 @@ function save(f){
       }else if(obj.success){
         $("#posts").prepend(obj.html);
         $('#post_status').text('正常に登録しました').css("color", 'green');
-        $('input,textarea').not(':submit').val('');
+        $(':input').not(':submit').val('');
       }
     }
   });
