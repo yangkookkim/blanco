@@ -1,5 +1,12 @@
 class PostsController < ApplicationController
   def create
-    @post = Post.create(params[:post])
+  return redirect_to '/404.html' unless request.xhr?
+  @post = Post.new(params[:post])
+  if @post.save
+    html = render_to_string :partial => "groups/post", :collection => [@post]
+    render :json => {:success => 1, :html => html}
+  else
+    render :json => {:error => @post.errors}
+  end
   end
 end
