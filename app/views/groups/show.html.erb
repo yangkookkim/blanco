@@ -34,6 +34,7 @@ function save(f){
       }else if(obj.success){
         $("#posts").prepend(obj.html);
         $('#post_status').text('正常に登録しました').css("color", 'green');
+        $('input,textarea').not(':submit').val('');
       }
     }
   });
@@ -53,7 +54,6 @@ function save(f){
   ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
   ### In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page".
 %>
-
 <div id="posts" >
-<%= render :partial => "post", :collection => @posts %>
+<%= render :partial => "/post/each_post", :collection => @posts %>
 </div>
