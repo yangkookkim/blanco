@@ -1,3 +1,6 @@
+<%
+=begin
+%>
 <%= form_for(@new_post) do |f| %>
 	<%= f.text_field :message %>
 	<%= f.hidden_field :employee_id, :value => @employee_id %>
@@ -10,3 +13,45 @@
 	<%= post.message %>
 	<br>
 <% end %>
+<%
+=end
+%>
+<script type="text/javascript">
+function save(f){
+  $.ajax({
+    url: $(f).attr('action'),
+    type: 'POST',
+    dataType: 'json',
+    timeout: 1000,
+    data : $(f).serialize(),
+    beforeSend : function(){ $('#post_status').html('送信中...').fadeIn(200); },
+    error: function(){alert('Error Occured');},
+    success: function(obj){
+	if(obj.error){
+        var html = '';
+        $(obj.error).each(function(){ html += this[1] + '<br />'; });
+        $('#post_status').text(html).css("color", 'red');
+      }else if(obj.success){
+        $("p").prepend(obj.html);
+        $('#post_status').text('正常に登録しました').css("color", 'green');
+      }
+    }
+  });
+  return false;
+}
+</script>
+
+<%= form_for @new_post, :html => {:onSubmit => "return save(this);"} do |f| %>
+    <%= f.text_area :message, 'cols' => 40, 'rows' => 5 %>
+	<%= f.hidden_field :employee_id, :value => @employee_id %>
+	<%= f.hidden_field :group_id, :value => @group_id %>
+ <%= f.submit "投稿" %>
+ <div id="post_status" style="display:none;"></div>
+<% end %>
+
+<p>
+
+<%# When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file. %>
+<%# In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page". %>
+<%= render :partial => "post", :collection => @posts %>
+</p>
