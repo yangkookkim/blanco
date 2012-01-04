@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   @post = Post.new(params[:post])
   if @post.save
     html = render_to_string :partial => "/post/each_post", :collection => [@post]
-    render :json => {:success => 1, :html => html}
+    render :json => {:success => 1, :html => html, :lastpost_id => @post.id}
   else
     render :json => {:error => @post.errors}
   end

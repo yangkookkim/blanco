@@ -57,8 +57,11 @@ Blanco::Application.routes.draw do
   # match ':controller(/:action(/:id(.:format)))'
   resources :employees do
     resources :groups do
-        resources :posts do
-        end
+      member do
+         get 'checkupdate_ajax'
+      end   
+      resources :posts do
+      end
     end
   end
 
