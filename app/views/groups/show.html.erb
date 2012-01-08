@@ -1,47 +1,44 @@
-<script type="text/javascript">
-function save(f){
-  $.ajax({
-    url: $(f).attr('action'),
-    type: 'POST',
-    dataType: 'json',
-    timeout: 1000,
-    data : $(f).serialize(),
-    beforeSend : function(){ $('#post_status').html('送信中...').fadeIn(200); },
-    error: function(){alert('Error Occured');},
-    success: function(obj){
-	if(obj.error){
-        var html = '';
-        $(obj.error).each(function(){ html += this[1] + '<br />'; });
-        $('#post_status').text(html).css("color", 'red');
-      }else if(obj.success){
-        $("#posts").prepend(obj.html);
-        $('#lastpost_id').text(obj.lastpost_id);
-        $('#post_status').text('正常に登録しました').css("color", 'green');
-        //$(':input').not(':submit').val('');
-      }
-    }
-  });
-  return false;
-}
-
-function checkupdate_ajax(){
-	$.get("http://localhost:2000/employees/1/groups/1/checkupdate_ajax", {lastpost_id:$('#lastpost_id').text()}, function(data){
-		if (data.updated != 0){
-			var i = 0;
-			for (i in data.new_posts){
-				var new_post = "<div class=post>" + data.new_posts[i].message + "</div>";
-				$("#posts").prepend(new_post);
-			}
-			$("#lastpost_id").text(data.new_posts[i].id);	
-		}else{
-			//alert("noupdate");
-		}
-	});
-}
-setInterval("checkupdate_ajax()", 5000);
-</script>
-<button onclick=checkupdate_ajax()>check</button><br>
-<div id="lastpost_id"><%= @lastpost_id %></div>
+<html>
+	<head>
+	  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'></script>
+		<script type="text/javascript" charset="utf-8">
+			$(function(){
+			    ws = new WebSocket("ws://localhost:51234");
+			    var id = <%= @group_id %>
+			    ws.onmessage = function(evt) {
+			        //$("#msg").append("<p>"+ evt.data +"</p>");
+			        $("#posts").prepend("<div>"+ evt.data +"</div>");
+			    };
+			
+			    ws.onclose = function() {
+			        console.log("closing...-client side")
+			    };
+			
+			    ws.onopen = function() {
+			        //ws.send("connected -client side");
+			        // Should be function START
+			        var data = JSON.stringify({"setup_channel":true, "message":"", "channel":id});
+			        ws.send(data);
+			        // Should be function END
+			    };		    	
+			});
+			
+			function submit_post(f){
+				var id = <%= @group_id %>
+			    var val = $("#input").val();
+		        var data = JSON.stringify({"message":val, "channel":id});
+	            ws.send(data);
+		        $("#input").val("");
+		   	}
+		</script>
+	</head>
+ 	<body>
+   		<%= @group_id %>
+	    <input id="input" type="text" />
+	    <input id="submit_post" type="button" value="投稿" onclick="submit_post();"/>
+	    <div id="msg"></div>
+<!--
 <%= form_for @new_post, :html => {:onSubmit => "return save(this);"} do |f| %>
     <%= f.text_area :message, 'cols' => 40, 'rows' => 5 %>
 	<%= f.hidden_field :employee_id, :value => @employee_id %>
@@ -49,11 +46,14 @@ setInterval("checkupdate_ajax()", 5000);
  <%= f.submit "投稿" %>
  <div id="post_status" style="display:none;"></div>
 <% end %>
+-->
 
 <%#
   ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
   ### In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page".
 %>
-<div id="posts" >
-<%= render :partial => "/post/each_post", :collection => @posts %>
-</div>
+		<div id="posts" >
+			<%= render :partial => "/post/each_post", :collection => @posts %>
+		</div>
+	</body>
+</html>
