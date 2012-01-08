@@ -22,7 +22,7 @@ class GroupsController < ApplicationController
     @group_id = params[:id]
     @employee_id = params[:employee_id]
     @group = Group.find(@group_id)
-    @lastpost_id = @group.posts.last.id
+    #@lastpost_id = @group.posts.last.id
     @posts = @group.posts.sort.reverse # Get posts sorted by descending order
     @new_post = @group.posts.new
   end

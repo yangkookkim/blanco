@@ -7,7 +7,6 @@
 			    ws = new WebSocket("ws://localhost:51234");
 			    var id = <%= @group_id %>
 			    ws.onmessage = function(evt) {
-			        //$("#msg").append("<p>"+ evt.data +"</p>");
 			        $("#posts").prepend("<div>"+ evt.data +"</div>");
 			    };
 			
@@ -16,19 +15,28 @@
 			    };
 			
 			    ws.onopen = function() {
-			        //ws.send("connected -client side");
-			        // Should be function START
-			        var data = JSON.stringify({"setup_channel":true, "message":"", "channel":id});
-			        ws.send(data);
-			        // Should be function END
+			    	var grp_id = <%= @group_id %>
+					var emp_id = <%= @employee_id %>
+			        var data_json = {
+			        				  "channel":{"id":grp_id},
+			        				  "post":{"message":"", "employee_id":emp_id, "group_id":grp_id}
+			        				};
+			        var data_str = JSON.stringify(data_json);
+			        ws.send(data_str);
 			    };		    	
 			});
 			
 			function submit_post(f){
-				var id = <%= @group_id %>
+				var grp_id = <%= @group_id %>
+				var emp_id = <%= @employee_id %>
 			    var val = $("#input").val();
-		        var data = JSON.stringify({"message":val, "channel":id});
-	            ws.send(data);
+			    var data_json = {
+			        			  "channel":{"id":grp_id},
+			        		      "post":{"message":val, "employee_id":emp_id, "group_id":grp_id}
+			        			};
+		        var data_str = JSON.stringify(data_json);
+		        // Send data to websocket
+	            ws.send(data_str);
 		        $("#input").val("");
 		   	}
 		</script>
@@ -38,20 +46,10 @@
 	    <input id="input" type="text" />
 	    <input id="submit_post" type="button" value="投稿" onclick="submit_post();"/>
 	    <div id="msg"></div>
-<!--
-<%= form_for @new_post, :html => {:onSubmit => "return save(this);"} do |f| %>
-    <%= f.text_area :message, 'cols' => 40, 'rows' => 5 %>
-	<%= f.hidden_field :employee_id, :value => @employee_id %>
-	<%= f.hidden_field :group_id, :value => @group_id %>
- <%= f.submit "投稿" %>
- <div id="post_status" style="display:none;"></div>
-<% end %>
--->
-
-<%#
-  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
-  ### In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page".
-%>
+		<%#
+		  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
+		  ### In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page".
+		%>
 		<div id="posts" >
 			<%= render :partial => "/post/each_post", :collection => @posts %>
 		</div>
