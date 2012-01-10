@@ -1,6 +1,4 @@
 Blanco::Application.routes.draw do
-  get "employees/show"
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -59,8 +57,8 @@ Blanco::Application.routes.draw do
   # match ':controller(/:action(/:id(.:format)))'
   resources :employees do
     resources :groups do
-      member do
-         get 'checkupdate_ajax'
+      collection do
+         get 'search_employees'
       end   
       resources :posts do
       end

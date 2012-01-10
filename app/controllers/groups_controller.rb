@@ -1,5 +1,18 @@
 class GroupsController < ApplicationController
   layout 'employees_groups_posts'
+  def search_employees
+    @employee = Employee.find_by_id(params[:employee_id])
+    @groups = @employee.groups
+    @new_group = Group.new
+    
+    if params[:search_string].empty?
+       @employees_matched = nil
+    else
+       @employees_matched = Employee.find(:all, :conditions=>["name like ?", "%#{params[:search_string]}%"])
+    end
+    render :action => 'new' 
+  end
+  
   def create
     @employee = Employee.find_by_id(1)
     @groups = @employee.groups

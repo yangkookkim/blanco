@@ -42,16 +42,16 @@
 		</script>
 	</head>
  	<body>
-   		<%= @group.id %>
-	    <input id="input" type="text" />
-	    <input id="submit_post" type="button" value="投稿" onclick="submit_post();"/>
-	    <div id="msg"></div>
-		<%#
-		  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
-		  ### In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page".
-		%>
-		<div id="posts" >
-			<%= render :partial => "/post/each_post", :collection => @posts %>
-		</div>
+   			<%= @group.id %>
+		    <input id="input" type="text" />
+		    <input id="submit_post" type="button" value="投稿" onclick="submit_post();"/>
+		    <div id="msg"></div>
+			<%#
+			  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
+			  ### In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page".
+			%>
+			<div id="posts" >
+				<%= render :partial => "/post/each_post", :collection => @posts %>
+			</div>
 	</body>
 </html>
