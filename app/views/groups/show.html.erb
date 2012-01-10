@@ -5,7 +5,7 @@
 		<script type="text/javascript" charset="utf-8">
 			$(function(){
 			    ws = new WebSocket("ws://localhost:51234");
-			    var id = <%= @group_id %>
+			    var id = <%= @group.id %>
 			    ws.onmessage = function(evt) {
 			        $("#posts").prepend("<div>"+ evt.data +"</div>");
 			    };
@@ -15,8 +15,8 @@
 			    };
 			
 			    ws.onopen = function() {
-			    	var grp_id = <%= @group_id %>
-					var emp_id = <%= @employee_id %>
+			    	var grp_id = <%= @group.id %>
+					var emp_id = <%= @employee.id %>
 			        var data_json = {
 			        				  "channel":{"id":grp_id},
 			        				  "post":{"message":"", "employee_id":emp_id, "group_id":grp_id}
@@ -27,8 +27,8 @@
 			});
 			
 			function submit_post(f){
-				var grp_id = <%= @group_id %>
-				var emp_id = <%= @employee_id %>
+				var grp_id = <%= @group.id %>
+				var emp_id = <%= @employee.id %>
 			    var val = $("#input").val();
 			    var data_json = {
 			        			  "channel":{"id":grp_id},
@@ -42,7 +42,7 @@
 		</script>
 	</head>
  	<body>
-   		<%= @group_id %>
+   		<%= @group.id %>
 	    <input id="input" type="text" />
 	    <input id="submit_post" type="button" value="投稿" onclick="submit_post();"/>
 	    <div id="msg"></div>

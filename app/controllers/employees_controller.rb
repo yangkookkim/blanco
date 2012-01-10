@@ -1,8 +1,11 @@
 class EmployeesController < ApplicationController
+  layout 'employees_groups_posts'
   def show
-    e = Employee.find(1)
-    g = e.groups.find(1)
-    p = g.posts.find(1)
-    render :text => "a"
+    @employee = Employee.find(params[:id])
+    @id = @employee.id
+    @name = @employee.name
+    @groups = @employee.groups
+    @group = Group.find(1)
   end
+
 end
