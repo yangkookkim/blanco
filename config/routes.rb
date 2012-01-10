@@ -66,6 +66,9 @@ Blanco::Application.routes.draw do
       end
     end
   end
+  
+  resources :groups do
+  end
 
   resources :posts do
   end
