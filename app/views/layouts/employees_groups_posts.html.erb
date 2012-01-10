@@ -1,0 +1,22 @@
+<%= render :template => 'layouts/application' %>
+<div id="employees_groups_posts_template" style="background-color : #AAEEDD">
+	<div id="display_name">
+		Name: <%= @employee.name %>
+	</div>
+	<div id="display_group_list">
+		<table>
+			<div id="subscribing_groups">
+			Your groups
+			<% @groups.each do |g| %>
+				<tr>
+					<td>id: <%= g.id %></td>	
+					<td><%= link_to g.name, employee_group_path(@employee.id, g.id) %></td>
+				</tr>
+			<% end %>
+			</div>
+		</table>
+	</div>
+</div>
+<div id="display_posts">
+</div>
+<%= yield %>
