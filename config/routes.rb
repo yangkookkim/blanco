@@ -59,6 +59,7 @@ Blanco::Application.routes.draw do
     resources :groups do
       collection do
          get 'search_employees'
+         get 'instant_search'
       end   
       resources :posts do
       end

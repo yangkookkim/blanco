@@ -1,15 +1,66 @@
-<p id="search_employees_title">
-	Search employees
-</p>
-<%= form_tag({:action => "search_employees"}, :method => :get) do %>
-	<%= text_field_tag :search_string %>
-	<%= submit_tag 'search' %>
-<% end %>
+<script type="text/javascript">
+    var runningRequest = false;
+    var request;
+   //Identify the typing action
+$(function(){
+    $('input#q').keyup(function(e){
+        e.preventDefault();
+        var $q = $(this);
 
-<div id="search_result">
-	<% if @employees_matched %>
-		<% @employees_matched.each do |e| %>
-			<%= e.name%><br />
-		<% end %>
-	<% end %>
-</div><!-- /search_result>
+        if($q.val() == ''){
+            $('div#instant_search_results').html('');
+            return false;
+        }
+
+        //Abort opened requests to speed it up
+        if(runningRequest){
+            request.abort();
+        }
+
+        runningRequest=true;
+        request = $.getJSON('instant_search',{
+            q:$q.val()
+        },function(data){           
+            showResults(data,$q.val());
+            runningRequest=false;
+        });
+
+    $('.hoge').click(function(){
+	alert("ok");
+	});
+
+function showResults(data, highlight){
+           var resultHtml = '';
+            $.each(data, function(i,item){
+                resultHtml+='<div class="instant_search_result">';
+                resultHtml+='<p>'+ item.name +'</p>';
+                resultHtml+='</div>';
+            });
+
+            $('div#instant_search_results').html(resultHtml);
+        }
+
+        $('form').submit(function(e){
+            e.preventDefault();
+        });
+    });
+})
+
+$(function(){
+	$(".instant_search_result").live("click", function(){
+		alert("ok");
+	});
+});
+
+</script>
+
+<p>Search employees</p>
+<div id="instant_search">
+	<form method="get" action="">
+		<input type="text" id="q" name="q" />
+		<input type="submit" value="Search" />
+	</form>
+</div>
+
+<div id="instant_search_results"></div>
+<div id="group_members"></div>

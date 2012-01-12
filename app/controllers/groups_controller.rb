@@ -1,5 +1,11 @@
 class GroupsController < ApplicationController
   layout 'employees_groups_posts'
+
+  def instant_search
+    @results = Employee.find(:all, :conditions=>["name like ?", "%#{params[:q]}%"])
+    render :json => @results.to_json
+  end
+    
   def search_employees
     @employee = Employee.find_by_id(params[:employee_id])
     @groups = @employee.groups
