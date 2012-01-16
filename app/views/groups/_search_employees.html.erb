@@ -35,10 +35,6 @@ function showResults(data, highlight){
 
             $('div#instant_search_results').html(resultHtml);
         }
-
-        $('form').submit(function(e){
-            e.preventDefault();
-        });
     });
 })
 
@@ -85,7 +81,6 @@ $(function(){
 <div id="instant_search">
 	<form method="get" action="">
 		<input type="text" id="q" name="q" />
-		<input type="submit" value="Search" />
 	</form>
 </div>
 
