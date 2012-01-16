@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   layout 'employees_groups_posts'
 
   def instant_search
-    @results = Employee.find(:all, :conditions=>["name like ?", "%#{params[:q]}%"])
+    @results = Employee.find(:all, :conditions=>["name like ? and not name like ?", "%#{params[:q]}%", "%#{params[:m]}%"]) #exclude myself from query
     render :json => @results.to_json
   end
     
@@ -20,11 +20,16 @@ class GroupsController < ApplicationController
   end
   
   def create
-  		puts "DEBUG"
-  		puts params[:members].class
-    @employee = Employee.find_by_id(1)
+    group_members = []
+    group_members = params[:group_members]
+    myid = params[:myid]
+    @employee = Employee.find_by_id(myid)
     @groups = @employee.groups
     @new_group = @employee.groups.new(params[:group])
+    group_members.each do |m|
+      @emp = Employee.find_by_name(m)
+      @new_group.employees << @emp
+    end
     if @groups << @new_group
       redirect_to(employee_path(@employee.id))
     end
