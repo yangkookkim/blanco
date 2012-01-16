@@ -1,6 +1,7 @@
 <h2>Creating new group</h2>
 <%= form_for(@new_group) do |f| %>
 	<label>Name:<%= f.text_field :name %><br /></label>
+	<%= f.text_field 
 	<%= f.submit %>
 <% end %>
 <div id="search_employee">

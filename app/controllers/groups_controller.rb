@@ -20,6 +20,8 @@ class GroupsController < ApplicationController
   end
   
   def create
+  		puts "DEBUG"
+  		puts params[:members].class
     @employee = Employee.find_by_id(1)
     @groups = @employee.groups
     @new_group = @employee.groups.new(params[:group])

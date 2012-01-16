@@ -42,9 +42,11 @@ $(function(){
         $(".instant_search_result").live("click", function(){
                 var flag = false;
                 var group_member = '';
+                var members = 'members[]';
                 group_member+='<div class="group_member">';
                 group_member+='<p>'+ $(this).text() +'</p>';
                 group_member+='</div>'
+                input_member ='<input id="inputmember" name='+ members +' type="hidden" value='+ $(this).text()+ ' />'
                 var expr = $(this).text();
 		// Check if any members already selected
                 if($(".group_member p").length != 0){
@@ -60,18 +62,22 @@ $(function(){
 			// Now you know that the member you want to add is not selected yet, so add it
                         if(flag == true){
                                 $("#group_members").append(group_member);
+                                $("#new_group").append(input_member);
                         }
 		// If no members is selected yet, just add it
                 }else{
                         $("#group_members").append(group_member);
+                        $("#new_group").append(input_member);
                 }
         });
 });
 
 $(function(){
 	$(".group_member").live("click", function(){
-		//alert($(this).text());
+	 var member_name = $(".group_member p").text()
+	 alert($("#inputmember").html()); // <---ここからやる
 		$(this).empty();
+		$("input[name='members']").empty();	
 	});
 });
 
