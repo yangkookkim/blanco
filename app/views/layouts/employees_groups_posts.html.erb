@@ -1,11 +1,9 @@
-<div id="inner">
-<%= render :template => 'layouts/application' %>
+<% content_for :content do %>
 	<div id="sideWrap" >
 		<div id="employees_groups_posts_template" >
 			<div id="display_name">
 				<p><%= @employee.name %></p>
 			</div>
-			<br />
 			<div id ="add_group_button" >
 				<%= link_to "Add new group", new_employee_group_path(@employee.id) %>
 			</div>
@@ -26,11 +24,11 @@
 		</div>
 			<div id="display_posts">
 			</div>
-			</div><!-- /sideWrap -->
+	</div><!-- /sideWrap -->
 	<div id="mainWrap" >
 		<div id="display_action_template" >
 		<%= yield %>
 		</div>
 	</div><!-- /mainWrap -->
-</div><!-- /inner -->
-
+<% end %>
+<%= render :template => 'layouts/application' %>

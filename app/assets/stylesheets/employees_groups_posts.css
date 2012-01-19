@@ -1,6 +1,13 @@
-#inner { margin:0 10px; background-color:#FFFFDD;}
-#mainWrap { width:500px; float:right; background-color:#E5E5E5; text-align:left;}
-#sideWrap { width:250px; float:left; background-color:#AAE0DD; text-align:left;}
+#mainWrap { width:500px;
+			float:right;
+			text-align:left;
+}
+
+#sideWrap { width:250px;
+			float:left;
+			background-color:#E5E5E5;
+			text-align:left;
+}
 
 /* style for instant search */
 #instant_search form input[type=submit]{

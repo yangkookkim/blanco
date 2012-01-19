@@ -5,12 +5,55 @@
 	  <%= stylesheet_link_tag    "application" %>
 	  <%= javascript_include_tag "application" %>
 	  <%= csrf_meta_tags %>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'></script>
+	  <script type="text/javascript" charset="utf-8">
+			$(function(){
+			    ws = new WebSocket("ws://localhost:51234");
+			    var id = <%= @group.id %>
+			    ws.onmessage = function(evt) {
+			    	if (evt.data) {
+			        	$("#posts").prepend('<div class="post">'+ evt.data +'</div>');
+			    	}
+			    };
+			
+			    ws.onclose = function() {
+			        console.log("closing...-client side")
+			    };
+			
+			    ws.onopen = function() {
+			    	var grp_id = <%= @group.id %>
+					var emp_id = <%= @employee.id %>
+			        var data_json = {
+			        				  "channel":{"id":grp_id},
+			        				  "post":{"message":"", "employee_id":emp_id, "group_id":grp_id}
+			        				};
+			        var data_str = JSON.stringify(data_json);
+			        ws.send(data_str);
+			    };		    	
+			});
+			
+			function submit_post(f){
+				var grp_id = <%= @group.id %>
+				var emp_id = <%= @employee.id %>
+			    var val = $("#input").val();
+			    var data_json = {
+			        			  "channel":{"id":grp_id},
+			        		      "post":{"message":val, "employee_id":emp_id, "group_id":grp_id}
+			        			};
+		        var data_str = JSON.stringify(data_json);
+		        // Send data to websocket
+	            ws.send(data_str);
+		        $("#input").val("");
+		   	}
+		</script>
 	</head>
 	<body>
-		<div id="wrap">
-			<div id="header" style="background-color : #2676AE">
+		<div id="container">
+			<div id="header">
 			<h1>Blanco</h1>
 			</div><!-- /header -->
-		</div><!-- /wrap -->
+			<%= content_for?(:content) ? yield(:content) : yield %>
+		</div><!-- /container -->
 	</body>
 </html>

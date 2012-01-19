@@ -37,6 +37,7 @@ class GroupsController < ApplicationController
   
   def new
     @employee = Employee.find_by_id(params[:employee_id])
+    @group = Group.find(1)
     @groups = @employee.groups
     @new_group = Group.new
   end

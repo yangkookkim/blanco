@@ -7,5 +7,4 @@ class EmployeesController < ApplicationController
     @groups = @employee.groups
     @group = Group.find(1)
   end
-
 end
