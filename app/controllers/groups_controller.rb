@@ -1,6 +1,18 @@
 class GroupsController < ApplicationController
   layout 'employees_groups_posts'
-
+  
+  def show_js
+    # This action is called from javascript_include_tag in groups/show.
+    # Reason why doing .delete(".js") is that javascript_include_tag automatically add .js at the end of url.
+    group_id = params[:id].delete(".js")
+    employee_id = params[:employee_id].delete(".js")
+    @employee = Employee.find_by_id(group_id)
+    @group = Group.find_by_id(employee_id)    
+    respond_to do |format|
+      format.js   {render :layout => false}
+    end
+  end
+  
   def instant_search
     @results = Employee.find(:all, :conditions=>["name like ? and not name like ?", "%#{params[:q]}%", "%#{params[:m]}%"]) #exclude myself from query
     render :json => @results.to_json

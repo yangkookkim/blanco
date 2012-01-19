@@ -60,6 +60,7 @@ Blanco::Application.routes.draw do
       collection do
          get 'search_employees'
          get 'instant_search'
+         get 'show_js'
       end   
       resources :posts do
       end

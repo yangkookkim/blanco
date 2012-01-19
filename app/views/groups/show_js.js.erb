@@ -1,0 +1,38 @@
+function submit_post(f){
+	var grp_id = <%= @group.id %>
+	var emp_id = <%= @employee.id %>
+    var val = $("#input").val();
+    var data_json = {
+        			  "channel":{"id":grp_id},
+        		      "post":{"message":val, "employee_id":emp_id, "group_id":grp_id}
+	};
+	var data_str = JSON.stringify(data_json);
+	// Send data to websocket
+	ws.send(data_str);
+	$("#input").val("");
+}
+
+$(function(){
+    ws = new WebSocket("ws://localhost:51234");
+    var id = <%= @group.id %>
+    ws.onmessage = function(evt) {
+    	if (evt.data) {
+        	$("#posts").prepend('<div class="post">'+ evt.data +'</div>');
+    	}
+    };
+
+    ws.onclose = function() {
+        console.log("closing...-client side")
+    };
+
+    ws.onopen = function() {
+    	var grp_id = <%= @group.id %>
+		var emp_id = <%= @employee.id %>
+        var data_json = {
+        				  "channel":{"id":grp_id},
+        				  "post":{"message":"", "employee_id":emp_id, "group_id":grp_id}
+        				};
+        var data_str = JSON.stringify(data_json);
+        ws.send(data_str);
+    };		    	
+});
