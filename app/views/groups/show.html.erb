@@ -1,4 +1,4 @@
-<%= javascript_include_tag url_for({:controller => :groups, :action => :show_js, :id => params[:employee_id]}) %>
+<%= javascript_include_tag url_for({:controller => :groups, :action => :show_js, :id => params[:id]}) %>
 <%= @group.id %>
 <input id="input" type="text" />
 <input id="submit_post" type="button" value="投稿" onclick="submit_post();"/>

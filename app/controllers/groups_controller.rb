@@ -4,10 +4,10 @@ class GroupsController < ApplicationController
   def show_js
     # This action is called from javascript_include_tag in groups/show.
     # Reason why doing .delete(".js") is that javascript_include_tag automatically add .js at the end of url.
-    group_id = params[:id].delete(".js")
     employee_id = params[:employee_id].delete(".js")
-    @employee = Employee.find_by_id(group_id)
-    @group = Group.find_by_id(employee_id)    
+    group_id = params[:id].delete(".js")
+    @employee = Employee.find_by_id(employee_id)
+    @group = Group.find_by_id(group_id)    
     respond_to do |format|
       format.js   {render :layout => false}
     end
@@ -49,7 +49,6 @@ class GroupsController < ApplicationController
   
   def new
     @employee = Employee.find_by_id(params[:employee_id])
-    @group = Group.find(1)
     @groups = @employee.groups
     @new_group = Group.new
   end

@@ -5,6 +5,5 @@ class EmployeesController < ApplicationController
     @id = @employee.id
     @name = @employee.name
     @groups = @employee.groups
-    @group = Group.find(1)
   end
 end
