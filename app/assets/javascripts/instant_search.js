@@ -24,7 +24,7 @@ $(function(){
         },function(data){           
             showResults(data,$q.val());
             runningRequest=false;
-        });
+});
 
 function showResults(data, highlight){
            var resultHtml = '';
