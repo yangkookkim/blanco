@@ -8,5 +8,5 @@
 	  ### In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page".
 	%>
 <div id="posts" >
-	<%= render :partial => "/post/each_post", :collection => @posts %>
+	<%= render :partial => "/posts/each_post", :collection => @posts %>
 </div>
