@@ -1,3 +1,5 @@
-<div class="post">
+<% if each_post.message != "" %>
+<li class="post">
  <%=h each_post.message %>
-</div>
+</li>
+<% end %>

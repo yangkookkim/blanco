@@ -17,7 +17,7 @@ $(function(){
     var id = <%= @group.id %>
     ws.onmessage = function(evt) {
     	if (evt.data) {
-        	$("#posts").prepend('<div class="post">'+ evt.data +'</div>');
+        	$("#posts").prepend('<li class="post">'+ evt.data +'</li');
     	}
     };
 

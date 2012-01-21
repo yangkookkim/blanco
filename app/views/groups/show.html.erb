@@ -9,6 +9,6 @@
 	  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
 	  ### In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page".
 	%>
-<div id="posts" >
+<ul id="posts" >
 	<%= render :partial => "/posts/each_post", :collection => @posts %>
-</div>
+</ul>
