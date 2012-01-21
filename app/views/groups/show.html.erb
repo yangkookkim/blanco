@@ -1,7 +1,7 @@
 <%= javascript_include_tag url_for({:controller => :groups, :action => :show_js, :id => params[:id]}) %>
 <%= @group.id %>
 <input id="input" type="text" />
-<input id="submit_post" type="button" value="投稿" onclick="submit_post();"/>
+<input id="submit_post" type="button" value="Submit" onclick="submit_post();"/>
 <div id="msg"></div>
 	<%#
 	  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.

@@ -49,7 +49,7 @@ $(function(){
                 group_member+='<p>'+ $(this).text() +'</p>';
                 group_member+='</div>'
                 group_member_input+='<div class="group_member_input">'
-                group_member_input+='<input name='+ group_members +' type="hidden" value='+ $(this).text()+ ' />'
+                group_member_input+='<input name='+ group_members +' type="hidden" value="'+ $(this).text()+ '" />'
                 group_member_input+='</div>'
                 var expr = $(this).text();
 				// Check if any members already selected
