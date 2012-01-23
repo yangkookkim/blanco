@@ -14,12 +14,23 @@ function submit_post(f){
 
 $(function(){
     ws = new WebSocket("ws://localhost:51234");
-    var id = <%= @group.id %>
+    var id = <%= @group.id %>;
     var expr = /(\r\n|\r|\n)/g
     ws.onmessage = function(evt) {
     	if (evt.data) {
-        	$("#posts").prepend('<li class="post">'+ evt.data.replace(expr, '<br />') +'</li>');
-    	}
+		    var txt = evt.data
+		    txt = txt.replace(/\r\n/g, '\n');
+		    txt = txt.replace(/\r/g, '\n');
+		    var lines = txt.split('\n');
+
+			$("#posts").prepend('<li class="post"><p></p></li>');
+		    for (var i = 0; i < lines.length; i++) { // > dummy tag
+		      if (0 < i) { // > dummy tag
+		        $(".post:first p").append('<br />');
+		      };
+		      $(".post:first p").append(document.createTextNode(lines[i]));
+		    };
+    	};
     };
 
     ws.onclose = function() {
@@ -27,8 +38,8 @@ $(function(){
     };
 
     ws.onopen = function() {
-    	var grp_id = <%= @group.id %>
-		var emp_id = <%= @employee.id %>
+    	var grp_id = <%= @group.id %>;
+		var emp_id = <%= @employee.id %>;
         var data_json = {
         				  "channel":{"id":grp_id},
         				  "post":{"message":"", "employee_id":emp_id, "group_id":grp_id}
