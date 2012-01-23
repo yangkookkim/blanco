@@ -1,5 +1,5 @@
 <% if each_post.message != "" %>
 <li class="post">
- <%=h each_post.message %>
+ <%= simple_format(h(each_post.message)) %>
 </li>
 <% end %>
