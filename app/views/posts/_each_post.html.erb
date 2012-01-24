@@ -1,5 +1,15 @@
 <% if each_post.message != "" %>
 <li class="post">
- <%= simple_format(h(each_post.message)) %>
+	<div class="post_header">
+		<span class="post_header_image">
+			<%= image_tag("vnc_log.gif", :size => "40x40", :align => "middle") %>
+		</span>
+		<span class="post_header_senderinfo">
+			<%= each_post.employee.name %> wrote at: <%= each_post.created_at.to_s(:db) %>
+		</span>
+	</div>
+	<div class="post_message">
+		<%= simple_format(h(each_post.message)) %>
+	</div>
 </li>
 <% end %>

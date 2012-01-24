@@ -28,6 +28,19 @@ ul#posts {
 	padding: 0;
 	list-style-type: none;
 }
+
+li.post_header {
+}
+
+.post_header_image {
+	margin: 0 5px 0 0;
+}
+
+.post_header_senderinfo {
+	font-weight: bold;
+	font-size: 10px;
+}
+
 li.post {
 	margin: 0 0 10px 0;
 	font-size: 20px;
