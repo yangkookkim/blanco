@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111231035938) do
+ActiveRecord::Schema.define(:version => 20120124211118) do
 
   create_table "employee_groups", :force => true do |t|
     t.integer  "employee_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20111231035938) do
     t.string   "photo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image"
   end
 
   create_table "profiles", :force => true do |t|

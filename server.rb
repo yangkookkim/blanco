@@ -22,6 +22,16 @@ def create_post_via_http(host, port, data)
     return res
 end
 
+def update_post_via_http(host, port, data)
+    Net::HTTP.version_1_2
+    http = Net::HTTP.new(host, port)
+    pst_id = data["withimage"]["id"]
+    pst_msg = data["post"]["message"]
+    res = http.put("/employees/1/groups/1/posts/#{pst_id}",
+                   "post[message]=#{pst_msg}")
+    return res
+end
+
 Process.daemon(nochdir=true) if ARGV[0] == "-D"
 connections = Array.new
 channels = Hash.new
@@ -37,7 +47,11 @@ EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 51234) do |ws|
     setup_channel(ws, channel_id, channels) unless channels.key?(channel_id)
     # People who join the channel already setup
     join_channel(ws, channel_id, channels) unless channels[channel_id].include?(ws)
-    create_post_via_http("127.0.0.1", 3000, msg)
+    if msg.key?("withimage")
+      update_post_via_http("127.0.0.1", 3000, msg)
+    else
+      create_post_via_http("127.0.0.1", 3000, msg)      
+    end
     ws.send(msg["post"]["message"].force_encoding("UTF-8")) #to myself
     channels[channel_id].each {|con|
       con.send(msg["post"]["message"].force_encoding("UTF-8")) unless con == ws #to other people

@@ -1,10 +1,27 @@
+var imageid;
+
+function upload_image(){
+	var grp_id = <%= @group.id %>;
+	var emp_id = <%= @employee.id %>;
+	
+    $('#upload').upload(
+    '/employees/1/groups/1/posts', 
+    {"employee_id":emp_id, "group_id":"grp_id", "type":"image"},
+    function (res) {
+    	imageid = res;
+    },
+    	'text'
+    );
+}
+
 function submit_post(f){
 	var grp_id = <%= @group.id %>;
 	var emp_id = <%= @employee.id %>;
     var val = $("#input").val();
     var data_json = {
         			  "channel":{"id":grp_id},
-        		      "post":{"message":val, "employee_id":emp_id, "group_id":grp_id}
+        		      "post":{"message":val, "employee_id":emp_id, "group_id":grp_id},
+        		      "withimage":{"id":imageid}
 	};
 	var data_str = JSON.stringify(data_json);
 	// Send data to websocket

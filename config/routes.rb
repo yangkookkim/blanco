@@ -63,6 +63,9 @@ Blanco::Application.routes.draw do
          get 'show_js'
       end   
       resources :posts do
+        collection do
+          get 'upload_image'
+        end
       end
     end
   end

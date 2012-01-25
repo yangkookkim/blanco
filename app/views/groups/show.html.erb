@@ -1,9 +1,13 @@
 <%= javascript_include_tag url_for({:controller => :groups, :action => :show_js, :id => params[:id]}) %>
+<%= javascript_include_tag "upload.js" %>
+
 <div id="groupname">
 	<%= @group.name %>
 </div><!-- groupname -->
 <textarea id="input" name="freeans" rows="4" cols="40"></textarea>
 <input id="submit_post" type="button" value="Submit" onclick="submit_post();"/>
+<input id="upload" type="file" name="post[image]" enctype="multipart/form-data">
+<button onclick="upload_image()">アップロード</button><br>
 <div id="msg"></div>
 	<%#
 	  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
