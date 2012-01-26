@@ -4,11 +4,16 @@
 <div id="groupname">
 	<%= @group.name %>
 </div><!-- groupname -->
-<textarea id="input" name="freeans" rows="4" cols="40"></textarea>
-<input id="submit_post" type="button" value="Submit" onclick="submit_post();"/>
-<input id="upload" type="file" name="post[image]" enctype="multipart/form-data">
-<button onclick="upload_image()">アップロード</button><br>
-<div id="image_id"></div>
+
+<div id="new_post">
+	<textarea id="input" name="freeans" rows="4" cols="40"></textarea>
+	<input id="submit_post" type="button" value="Submit" onclick="submit_post();"/>
+	<input id="upload" type="file" name="post[image]" enctype="multipart/form-data">
+	<button onclick="upload_image()">アップロード</button><br>
+</div>
+
+<div hidden id="image_id"></div>
+<div id="display_image"></div>
 <div id="msg"></div>
 	<%#
 	  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.

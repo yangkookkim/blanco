@@ -3,15 +3,20 @@ var imageid;
 function upload_image(){
 	var grp_id = <%= @group.id %>;
 	var emp_id = <%= @employee.id %>;
+	var url = "/employees/"+ emp_id +"/groups/"+ grp_id +"/posts"
 	
     $('#upload').upload(
-    '/employees/1/groups/1/posts', 
+    url, 
     {"employee_id":emp_id, "group_id":"grp_id", "type":"image"},
     function (res) {
-    	$("#image_id").text(res)
-    	imageid = res;
+    	image = res.image
+    	thumb = image.thumb
+    	imageurl = thumb.url
+    	$("#image_id").text(res.id);
+    	html = '<img alt="The image you uploaded" height="100" src="'+ imageurl +'"  width="100" />';
+    	$("#display_image").html(html);
     },
-    	'text'
+    	'json'
     );
 }
 
@@ -48,6 +53,8 @@ $(function(){
 		      };
 		      $(".post:first p").append(document.createTextNode(lines[i]));
 		    };
+		    $(".post:first p").prepend('<div class="post_image">'+ $("#display_image").html() +'</div>');
+		    $("#display_image").html("");
     	};
     };
 

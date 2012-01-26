@@ -23,6 +23,10 @@
 	font-weight: bold;
 }
 
+#new_post {
+	margin: 0 0 50px 0;
+}
+
 ul#posts {
 	margin: 0 0 0 0;
 	padding: 0;
@@ -30,6 +34,7 @@ ul#posts {
 }
 
 li.post_header {
+	margin: 0 0 10px 0;
 }
 
 .post_header_image {
@@ -44,8 +49,12 @@ li.post_header {
 li.post {
 	margin: 0 0 10px 0;
 	font-size: 20px;
-	border-bottom: 1px solid #D2D9E7;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: #D2D9E7;
+	border-top: 1px solid #D2D9E7;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #D2D9E7;
+}
+
+.post_image {
+	margin: 20px 0 0 0;
 }
