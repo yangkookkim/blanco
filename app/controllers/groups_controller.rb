@@ -56,7 +56,7 @@ class GroupsController < ApplicationController
   end
   
   def show
-    @imagepost = Post.find(300)
+    #@imagepost = Post.find(300)
     @employee = Employee.find_by_id(params[:employee_id])
     @group = Group.find_by_id(params[:id])
     @groups = @employee.groups

@@ -16,3 +16,6 @@
 
 # Ignore vi swap file
 *.swp
+
+# Ignore picture
+*public/uploads/post/image*
