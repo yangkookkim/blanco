@@ -1,4 +1,4 @@
-var imageid;
+var imageid = 999;
 
 function upload_image(){
 	var grp_id = <%= @group.id %>;
@@ -12,7 +12,7 @@ function upload_image(){
     	image = res.image
     	thumb = image.thumb
     	imageurl = thumb.url
-    	$("#image_id").text(res.id);
+    	imageid = res.id
     	html = '<img alt="The image you uploaded" height="100" src="'+ imageurl +'"  width="100" />';
     	$("#display_image").html(html);
     },
@@ -21,18 +21,19 @@ function upload_image(){
 }
 
 function submit_post(f){
+	alert(imageid)
 	var grp_id = <%= @group.id %>;
 	var emp_id = <%= @employee.id %>;
     var val = $("#input").val();
-    var imageid = $("#image_id").text();
     var data_json = {
         			  "channel":{"id":grp_id},
-        		   "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "img_id":imageid}
+        		   	  "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "img_id":imageid}
 	};
 	var data_str = JSON.stringify(data_json);
 	// Send data to websocket
 	ws.send(data_str);
 	$("#input").val("");
+	imageid = 0;
 }
 
 $(function(){
@@ -41,7 +42,11 @@ $(function(){
     var expr = /(\r\n|\r|\n)/g
     ws.onmessage = function(evt) {
     	if (evt.data) {
-		    var txt = evt.data
+			var json = $.parseJSON(evt.data)
+			var post = json.post
+			var employee = json.employee
+
+		    var txt = post.message
 		    txt = txt.replace(/\r\n/g, '\n');
 		    txt = txt.replace(/\r/g, '\n');
 		    var lines = txt.split('\n');
@@ -71,5 +76,6 @@ $(function(){
         				};
         var data_str = JSON.stringify(data_json);
         ws.send(data_str);
+        imageid = 0;
     };		    	
 });
