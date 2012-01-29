@@ -13,7 +13,11 @@ ActiveRecord::Base.establish_connection(
    :database => './db/development.sqlite3'
  )
 
-#
+# This is required to avoid the error of "url.rb:18:in `expand_path': can't convert nil into String (TypeError)"
+CarrierWave.configure do |config|
+  config.root = File.expand_path(File.dirname($0)) + "/public"
+end
+
 def concat_json_object(*object)
   str = ""
   object.each {|j|

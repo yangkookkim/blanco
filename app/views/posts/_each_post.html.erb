@@ -9,7 +9,7 @@
 		</span>
 	</div>
 	<div class="post_image">
-		<%= image_tag each_post.image_url(:thumb).to_s, :size => "100x100" %>
+		<%= image_tag each_post.image_url(:thumb).to_s, :size => "100x100" if each_post.image? %>
 	</div>
 	<div class="post_message">
 		<%= simple_format(h(each_post.message)) %>
