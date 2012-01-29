@@ -1,4 +1,4 @@
-var imageid = 999;
+var imageid = 0;
 
 function upload_image(){
 	var grp_id = <%= @group.id %>;
@@ -26,7 +26,8 @@ function submit_post(f){
     var val = $("#input").val();
     var data_json = {
         			  "channel":{"id":grp_id},
-        		   	  "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "img_id":imageid}
+        		   	  "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "img_id":imageid},
+        		   	  "ops":"sendmsg"
 	};
 	var data_str = JSON.stringify(data_json);
 	// Send data to websocket
@@ -49,16 +50,22 @@ $(function(){
 		    txt = txt.replace(/\r\n/g, '\n');
 		    txt = txt.replace(/\r/g, '\n');
 		    var lines = txt.split('\n');
-		    
-var post_html = $("<li/>").attr("class", "post")
-$(post_html).append($("<div/>").addClass("post_header"))
-$("div.post_header", post_html).append($("<span/>").addClass("post_header_image"))
-$("span.post_header_image", post_html).after($("<span/>").addClass("post_header_senderinfo").text(employee.name + ' wrote at ' + post.created_at))
-$(post_html).append($($("<div/>").addClass("post_image")).html($("#display_image").html()))
-$("div.post_image", post_html).after($($("<div/>").addClass("post_message")))
-$("div.post_message", post_html).append($("<p/>"))
+		
+    	if (post.image.url == null) {
+    		imagehtml = "";
+    	} else {
+    		imageurl = post.image.thumb.url;
+    		imagehtml = '<img alt="The image you uploaded" height="100" src="'+ imageurl +'"  width="100" />';
+    	}
+    			    
+		var post_html = $("<li/>").attr("class", "post")
+		$(post_html).append($("<div/>").addClass("post_header"))
+		$("div.post_header", post_html).append($("<span/>").addClass("post_header_image"))
+		$("span.post_header_image", post_html).after($("<span/>").addClass("post_header_senderinfo").text(employee.name + ' wrote at ' + post.created_at))
+		$(post_html).append($($("<div/>").addClass("post_image")).html(imagehtml))
+		$("div.post_image", post_html).after($($("<div/>").addClass("post_message")))
+		$("div.post_message", post_html).append($("<p/>"))
 
-			//$("#posts").prepend('<li class="post"><div class="post_header"><span class="post_header_image"></span><span class="post_header_senderinfo">'+ employee.name + ' wrote at ' + post.created_at +'</span></div><div class="post_image"><img alt="Thumb_13" height="100" src="/uploads/post/image/93/thumb_13.gif" width="100" /></div><div class="post_message"><p></p></div></li>');
 		    $("#posts").prepend(post_html)
 		    for (var i = 0; i < lines.length; i++) { // > dummy tag
 		      if (0 < i) { // > dummy tag
@@ -66,7 +73,6 @@ $("div.post_message", post_html).append($("<p/>"))
 		      };
 		      $(".post:first p").append(document.createTextNode(lines[i]));
 		    };
-		    //$(".post:first p").prepend('<div class="post_image">'+ $("#display_image").html() +'</div>');
 		    $("#display_image").html("");
     	};
     };
@@ -80,7 +86,8 @@ $("div.post_message", post_html).append($("<p/>"))
 		var emp_id = <%= @employee.id %>;
         var data_json = {
         				  "channel":{"id":grp_id},
-        				  "post":{"message":"", "employee_id":emp_id, "group_id":grp_id, "img_id":imageid}
+        				  "post":{"message":"", "employee_id":emp_id, "group_id":grp_id, "img_id":imageid},
+        				  "ops":"setupcon"
         				};
         var data_str = JSON.stringify(data_json);
         ws.send(data_str);

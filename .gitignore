@@ -18,4 +18,4 @@
 *.swp
 
 # Ignore picture
-*public/uploads/post/image*
+*/uploads/post/image*
