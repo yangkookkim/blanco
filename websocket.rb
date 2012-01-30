@@ -60,6 +60,8 @@ EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 51234) do |ws|
         @post = Post.new(:message => message, :employee_id => employee_id, :group_id => group_id)
         @post.save
         @employee = @post.employee
+        puts "DEBUG URL"
+        puts @employee.icon.url
         s = concat_json_object(@post, @employee)
         ws.send(s)
         channels[channel_id].each {|con|

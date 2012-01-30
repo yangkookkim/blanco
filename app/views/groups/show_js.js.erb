@@ -50,7 +50,19 @@ $(function(){
 		    txt = txt.replace(/\r\n/g, '\n');
 		    txt = txt.replace(/\r/g, '\n');
 		    var lines = txt.split('\n');
-		
+
+	var iconurl;
+	var iconhtml;
+	var imageurl
+	var imagehtml
+
+    	if (employee.icon.thumb.url == null) {
+    		iconhtml = "";
+    	} else {
+    		iconurl = employee.icon.thumb.url;
+    		iconhtml = '<img alt="Your icon" height="40" src="'+ iconurl +'" align="middle" width="40" />';
+    	}
+    			    
     	if (post.image.url == null) {
     		imagehtml = "";
     	} else {
@@ -60,7 +72,7 @@ $(function(){
     			    
 		var post_html = $("<li/>").attr("class", "post")
 		$(post_html).append($("<div/>").addClass("post_header"))
-		$("div.post_header", post_html).append($("<span/>").addClass("post_header_image"))
+		$("div.post_header", post_html).append($("<span/>").addClass("post_header_image").html(iconhtml))
 		$("span.post_header_image", post_html).after($("<span/>").addClass("post_header_senderinfo").text(employee.name + ' wrote at ' + post.created_at))
 		$(post_html).append($($("<div/>").addClass("post_image")).html(imagehtml))
 		$("div.post_image", post_html).after($($("<div/>").addClass("post_message")))

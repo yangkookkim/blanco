@@ -5,4 +5,5 @@ class Employee < ActiveRecord::Base
   has_many :tags, :through => :employee_tags
   has_many :posts
   has_one :profile
+  mount_uploader :icon, EmployeeUploader
 end

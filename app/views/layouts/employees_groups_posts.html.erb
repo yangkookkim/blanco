@@ -1,34 +1,49 @@
 <% content_for :content do %>
-	<div id="sideWrap" >
-		<div id="employees_groups_posts_template" >
-			<div id="display_name">
-				<p><%= @employee.name %></p>
-			</div>
-			<div id ="add_group_button" >
-				<%= link_to "Add new group", new_employee_group_path(@employee.id) %>
-			</div>
-			<div id="display_group_list">
-				<table>
-					<div id="subscribing_groups">
-					<% @groups.each do |g| %>
-						<tr>
-						<% if g.id %>
-							<td>id: <%= g.id %></td>	
-							<td><%= link_to g.name, employee_group_path(@employee.id, g.id) %></td>
-						<% end %>
-						</tr>
-					<% end %>
-					</div>
-				</table>
-			</div>
-		</div>
-			<div id="display_posts">
-			</div>
-	</div><!-- /sideWrap -->
-	<div id="mainWrap" >
-		<div id="display_action_template" >
-		<%= yield %>
-		</div>
-	</div><!-- /mainWrap -->
+        <div id="sideWrap" >
+                <div id="employees_groups_posts_template" >
+                        <div id="profile">
+		                       <div id="display_name">
+		                               <p><%= @employee.name %></p>
+		                       </div><!-- display_name -->
+		                       <div id="photo">
+		                               <%= image_tag @employee.icon_url.to_s if @employee.icon? %>
+		                       </div><!-- photo -->
+		                       <div id="photo_form">
+		                               <%= form_for(@employee) do |f| %>
+		                                       <%= f.file_field :icon %>
+		                                       <%= f.submit "Upload picture" %>
+		                               <% end %>
+		                       </div><!-- photo_form -->
+                        </div><!-- profile -->
+			
+			<div id="group">
+		                       <div id ="add_group_button" >
+		                               <%= link_to "Add new group", new_employee_group_path(@employee.id) %>
+		                       </div><!-- add_group_button -->
+		                       <div id="display_group_list">
+		                               <table>
+		                                       <div id="subscribing_groups">
+		                                       <% @groups.each do |g| %>
+		                                               <tr>
+		                                               <% if g.id %>
+		                                                       <td>id: <%= g.id %></td>
+		                                                       <td><%= link_to g.name, employee_group_path(@employee.id, g.id) %></td>
+		                                               <% end %>
+		                                               </tr>
+		                                       <% end %>
+		                                       </div><!-- subscribing_groups -->
+		                               </table>
+		                       </div><!-- display_group_list -->
+			</div><!-- group -->
+                </div><!-- employees_groups_posts_template -->
+	
+                <div id="display_posts">
+                </div><!-- /display_posts -->
+        </div><!-- /sideWrap -->
+        <div id="mainWrap">
+                <div id="display_action_template" >
+                <%= yield %>
+                </div><!-- display_action_template -->
+        </div><!-- /mainWrap -->
 <% end %>
 <%= render :template => 'layouts/application' %>
