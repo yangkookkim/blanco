@@ -18,6 +18,10 @@
     font-weight: bold;
 }
 
+#group {
+	margin: 0 0 20px 20px;
+}
+
 #groupname {
 	font-size: 20px;
 	font-weight: bold;
@@ -27,6 +31,9 @@
 	margin: 0 0 50px 0;
 }
 
+#profile {
+	margin: 0 0 20px 20px;
+}
 #photo {
 }
 

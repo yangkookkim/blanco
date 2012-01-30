@@ -18,4 +18,5 @@
 *.swp
 
 # Ignore picture
-*/uploads/post/image*
+*/uploads/post/*
+*/uploads/employee/*
