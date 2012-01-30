@@ -2,8 +2,7 @@
 <li class="post">
 	<div class="post_header">
 		<span class="post_header_image">
-			<!-- <%= image_tag each_post.image_url(:thumb).to_s, :size => "40x40", :align => "middle"%> -->
-			<%= image_tag each_post.employee.icon_url(:thumb).to_s, :size => "40x40", :align => "middle" if each_post.employee.icon? %>
+			<%= image_tag each_post.employee.icon_url(:thumb).to_s, :align => "middle" if each_post.employee.icon? %>
 		</span>
 		<span class="post_header_senderinfo">
 			<%= each_post.employee.name %> wrote at: <%= each_post.created_at.to_s(:db) %>

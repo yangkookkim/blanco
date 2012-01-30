@@ -6,7 +6,7 @@
 		                               <p><%= @employee.name %></p>
 		                       </div><!-- display_name -->
 		                       <div id="photo">
-		                               <%= image_tag @employee.icon_url.to_s if @employee.icon? %>
+		                               <%= image_tag @employee.icon_url(:icon).to_s if @employee.icon? %>
 		                       </div><!-- photo -->
 		                       <div id="photo_form">
 		                               <%= form_for(@employee) do |f| %>
