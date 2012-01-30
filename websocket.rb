@@ -19,73 +19,57 @@ CarrierWave.configure do |config|
   config.root = File.expand_path(File.dirname($0)) + "/public"
 end
 
-def concat_json_object(*object)
-  str = ""
-  object.each {|j|
-    str = str + j.to_json
-  }
-  return str.sub(/}{/, ',')
+module BlancoWebSocket
+  def join_channel(id, channels)
+      channels[id] = [] unless channels.key?(id)
+      channels[id] << self unless channels[id].include?(self)
+      puts "DEBUG join_channel"
+      puts channels[id]
+  end
 end
 
-def setup_channel(ws, id, channels)
-    channels[id] = Array.new
+module JsonHelper
+  def concat_json_object(*object)
+    str = ""
+    object.each {|j|
+      str = str + j.to_json
+    }
+    return str.sub(/}{/, ',')
+  end
 end
 
-def join_channel(ws, id, channels)
-    channels[id] << ws
-end
-
-connections = Array.new
 channels = Hash.new
-
 EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 51234) do |ws|
+  include JsonHelper
+  ws.extend(BlancoWebSocket)
+  
   ws.onopen {
   }
   
-  ws.onmessage { |data| 
+  ws.onmessage { |data|
     msg = JSON.parse(data) # msg is JSON
-    channel_id = msg["channel"]["id"]
-  if msg["ops"] == "setupcon"
-        puts "OPS: START CON"
-        # First person to join this channel
-        setup_channel(ws, channel_id, channels) unless channels.key?(channel_id)
-        # People who join the channel already setup
-        join_channel(ws, channel_id, channels) unless channels[channel_id].include?(ws)
-        puts "DEBUG CHANNELS"
-  elsif msg["ops"] == "sendmsg"
-      if msg["post"]["img_id"] == 0
-        puts "OPS: SENDMSG, NEW POST"
-        message = msg["post"]["message"]
-        employee_id  = msg["post"]["employee_id"]
-        group_id = msg["post"]["group_id"]
-        @post = Post.new(:message => message, :employee_id => employee_id, :group_id => group_id)
-        @post.save
+    post = msg["post"]
+    operation = msg["operation"]
+    channel = msg["channel"]    
+
+  if operation == "setupcon"
+        puts "operation: START CON"
+        ws.join_channel(channel["id"], channels) # People who join the channel already setup
+  elsif operation == "sendmsg"
+      if post["id"] == nil
+        @post = Post.create(post) # post is a hash which contains attributes of post
         @employee = @post.employee
-        puts "DEBUG URL"
-        puts @employee.icon.url
-        s = concat_json_object(@post, @employee)
-        ws.send(s)
-        channels[channel_id].each {|con|
-          con.send(s) unless con == ws #to other people
-        }
       else
-        puts "OPS: SENDMSG, UPDATE POST"
-        id = msg["post"]["img_id"].to_i
-        message = msg["post"]["message"]
-        employee_id  = msg["post"]["employee_id"]
-        group_id = msg["post"]["group_id"]
-        @post = Post.find(id)
-        @post.to_json
-        @post.update_attribute(:message, message)
+        @post = Post.find(post["id"])
+        @post.update_attribute(:message, post["message"])
         @employee = @post.employee
-        s = concat_json_object(@post, @employee)
-        ws.send(s)
-        channels[channel_id].each {|con|
-          con.send(s) unless con == ws #to other people
+      end       
+        json_objects = concat_json_object(@post, @employee) # jsonize objects and put them together
+        channels[channel["id"]].each {|con|
+          con.send(json_objects) #send message to clients
         }
-      end
   else
-    puts "OPS: UNKNOWN"
+    puts "operation: UNKNOWN"
   end
   }
   
