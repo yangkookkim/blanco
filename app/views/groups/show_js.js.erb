@@ -1,5 +1,13 @@
 var postid = null;
 
+$(function($){
+    $("#upload")
+      .change(function(){ 
+	upload_image();
+      });
+
+});
+
 function upload_image(){
 	var grp_id = <%= @group.id %>;
 	var emp_id = <%= @employee.id %>;
@@ -18,6 +26,7 @@ function upload_image(){
     },
     	'json'
     );
+	$("#upload").change(triggerUpload);
 }
 
 function submit_post(f){

@@ -28,7 +28,20 @@
 }
 
 #new_post {
-	margin: 0 0 50px 0;
+	margin: 0 0 20px 0;
+}
+
+#display_image {
+	margin: 0 0 20px 0;
+}
+
+#submit_post_button {
+	text-align:right;
+}
+
+#submit_post {
+	background-color:#33CC00;
+	font-weight: bold;
 }
 
 #profile {

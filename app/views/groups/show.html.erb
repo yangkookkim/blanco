@@ -7,13 +7,11 @@
 
 <div id="new_post">
 	<textarea id="input" name="freeans" rows="4" cols="40"></textarea>
-	<input id="submit_post" type="button" value="Submit" onclick="submit_post();"/>
 	<input id="upload" type="file" name="post[image]" enctype="multipart/form-data">
-	<button onclick="upload_image()">アップロード</button><br>
 </div>
 
-<div hidden id="image_id">1</div>
 <div id="display_image"></div>
+<div id="submit_post_button"><input id="submit_post" type="button" value="Submit" onclick="submit_post();"/></div>
 <div id="msg"></div>
 	<%#
 	  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
