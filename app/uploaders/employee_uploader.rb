@@ -1,7 +1,9 @@
 class EmployeeUploader < ImageUploader
-  process :resize_to_fill => [100, 100]
-
   version :thumb do
-    process :resize_to_fill => [50, 50]
+    process :resize_to_fill => [40, 40]
+  end
+
+  version :icon do
+    process :resize_to_fill => [100, 100]
   end
 end

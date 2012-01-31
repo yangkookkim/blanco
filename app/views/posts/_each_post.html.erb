@@ -1,4 +1,3 @@
-<% if each_post.message != "" %>
 <li class="post">
 	<div class="post_header">
 		<span class="post_header_image">
@@ -9,10 +8,9 @@
 		</span>
 	</div>
 	<div class="post_image">
-		<%= image_tag each_post.image_url(:thumb).to_s, :size => "100x100" if each_post.image? %>
+		<%= image_tag each_post.image_url.to_s if each_post.image? %>
 	</div>
 	<div class="post_message">
 		<%= simple_format(h(each_post.message)) %>
 	</div>
 </li>
-<% end %>

@@ -10,6 +10,7 @@
 	<input id="upload" type="file" name="post[image]" enctype="multipart/form-data">
 </div>
 
+<div id="loader"><%= image_tag "ajax-loader.gif", :id => "spinner", :style => "display:none" %></div>
 <div id="display_image"></div>
 <div id="submit_post_button"><input id="submit_post" type="button" value="Submit" onclick="submit_post();"/></div>
 <div id="msg"></div>

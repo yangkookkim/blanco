@@ -9,7 +9,6 @@ class PostsController < ApplicationController
       g.posts << @post
       
       if @post.save
-        #render :text => @post.id
         # Caution!! "render :json => @post" does not work with jQuery.upload plugin.
         # If you do, jQuery upload cannot parse the response as json.
         # Only render:text => object.to_json works.

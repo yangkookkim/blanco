@@ -1,11 +1,10 @@
 var postid = null;
 
 $(function($){
-    $("#upload")
-      .change(function(){ 
+    $("#upload").change(function(){ 
+	$("#spinner").show();
 	upload_image();
       });
-
 });
 
 function upload_image(){
@@ -18,11 +17,11 @@ function upload_image(){
     {"employee_id":emp_id, "group_id":"grp_id", "type":"image"},
     function (res) {
     	image = res.image
-    	thumb = image.thumb
-    	imageurl = thumb.url
+    	imageurl = image.url
     	postid = res.id
     	html = '<img alt="The image you uploaded" height="100" src="'+ imageurl +'"  width="100" />';
     	$("#display_image").html(html);
+	$("#spinner").hide();
     },
     	'json'
     );
@@ -32,8 +31,8 @@ function upload_image(){
 function submit_post(f){
 	var grp_id = <%= @group.id %>;
 	var emp_id = <%= @employee.id %>;
-    var val = $("#input").val();
-    var data_json = {
+	var val = $("#input").val();
+	var data_json = {
         			  "channel":{"id":grp_id},
         		   	  "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "id":postid},
         		   	  "operation":"sendmsg"
@@ -75,8 +74,8 @@ $(function(){
     	if (post.image.url == null) {
     		imagehtml = "";
     	} else {
-    		imageurl = post.image.thumb.url;
-    		imagehtml = '<img alt="The image you uploaded" height="100" src="'+ imageurl +'"  width="100" />';
+    		imageurl = post.image.url;
+    		imagehtml = '<img alt="The image you uploaded" src="'+ imageurl +'" />';
     	}
     			    
 		var post_html = $("<li/>").attr("class", "post")
