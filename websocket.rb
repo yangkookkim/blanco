@@ -68,8 +68,16 @@ EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 51234) do |ws|
         channels[channel["id"]].each {|con|
           con.send(json_objects) #send message to clients
         }
+  elsif operation == "deletepost"
+    puts "operation: DELETEPOST"
+    @post = Post.find(post["id"])
+    @post.destroy
+    res_json = {"res" => {"success" => "1", "id" => post["id"]}}.to_json
+        channels[channel["id"]].each {|con|
+          con.send(res_json) #send message to clients
+        }
   else
-    puts "operation: UNKNOWN"
+    puts "operation: #{msg["operation"]} is UNKNOWN"
   end
   }
   

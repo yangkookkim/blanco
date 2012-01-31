@@ -26,6 +26,13 @@ class PostsController < ApplicationController
     end
   end
   
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+
+    render :json => {:res => 1}
+  end
+  
   def update
     msg = params[:post][:message]
     id = params[:id]

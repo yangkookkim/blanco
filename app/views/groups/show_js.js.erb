@@ -7,6 +7,23 @@ $(function($){
       });
 });
 
+$(function(){
+	$(".delete_post_button").click(function(){
+		var grp_id = <%= @group.id %>;
+		var emp_id = <%= @employee.id %>;
+		var pst_id = $(this).attr("name");
+		var url = "/posts/"+ pst_id;
+
+		var data_json = {
+        			  "channel":{"id":grp_id},
+        		   	  "post":{"message":null, "employee_id":emp_id, "group_id":grp_id, "id":pst_id},
+        		   	  "operation":"deletepost"
+		};
+		var data_str = JSON.stringify(data_json);
+		ws.send(data_str);
+	});
+});
+
 function upload_image(){
 	var grp_id = <%= @group.id %>;
 	var emp_id = <%= @employee.id %>;
@@ -53,7 +70,19 @@ $(function(){
 			var json = $.parseJSON(evt.data)
 			var post = json.post
 			var employee = json.employee
-
+			
+			// Delete post
+			var res = json.res
+			if (res != null) {
+				suc = res.success;
+				if (suc == 1){
+					pst_id = res.id;
+					$("[name ="+ pst_id +"]", "#posts").css({"color":"#999999", "background-color":"#CCCCCC"});
+					return false;
+				}
+			}
+			// Delete post
+			
 		    var txt = post.message
 		    txt = txt.replace(/\r\n/g, '\n');
 		    txt = txt.replace(/\r/g, '\n');

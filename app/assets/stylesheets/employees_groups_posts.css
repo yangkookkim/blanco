@@ -62,6 +62,16 @@ ul#posts {
 
 li.post_header {
 	margin: 0 0 10px 0;
+	float:left;
+}
+
+.delete_post {
+	float:right;
+}
+
+.delete_post_button {
+	background-color:#FF0000;
+	font-weight: bold;
 }
 
 .post_header_image {
@@ -85,3 +95,7 @@ li.post {
 .post_image {
 	margin: 20px 0 0 0;
 }
+
+
+
+
