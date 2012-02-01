@@ -1,0 +1,27 @@
+#display_action_template {
+}
+
+#search_employee {
+    width:300px;
+    float: left;
+}
+
+#group_members {
+}
+
+#instant_search_results {
+    text-align:left;
+    width:300px;
+}
+
+.eachresult {
+	margin:10px 0 10px 0;
+}
+
+.resulticon {
+	margin:0 0 0 0;
+}
+
+.resultname {
+	margin:0 0 0 10px;
+}

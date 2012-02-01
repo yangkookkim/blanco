@@ -28,9 +28,16 @@ $(function(){
 
 function showResults(data, highlight){
            var resultHtml = '';
+
             $.each(data, function(i,item){
+	   var iconurl = '';
+	   var iconhtml = '';
+		if (item.icon.thumb.url != null) {
+			iconurl = item.icon.thumb.url
+			iconhtml = '<img alt="employee image" src='+ iconurl +' align="middle" />';
+		}
                 resultHtml+='<div class="instant_search_result">';
-                resultHtml+='<p>'+ item.name +'</p>';
+                resultHtml+='<div>' + '<div class="eachresult">' + '<span class="resulticon">'+ iconhtml +'</span>'+ '<span class="resultname">'+ item.name +'</span>' + '</div>' + '</div>';
                 resultHtml+='</div>';
             });
 
@@ -80,7 +87,7 @@ $(function(){
 $(function(){
 	$(".group_member").live("click", function(){
 		var name = $(this).text();
-	 	$('.group_member_input input[value='+ name+ ']').remove();
+	 	//$('.group_member_input input[value='+ name+ ']').remove();
 		$(this).empty();
 	});
 });

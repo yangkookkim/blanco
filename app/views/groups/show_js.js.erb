@@ -8,7 +8,7 @@ $(function($){
 });
 
 $(function(){
-	$(".delete_post_button").click(function(){
+	$(".delete_post_button").live("click", function(){
 		var grp_id = <%= @group.id %>;
 		var emp_id = <%= @employee.id %>;
 		var pst_id = $(this).attr("name");
@@ -77,7 +77,7 @@ $(function(){
 				suc = res.success;
 				if (suc == 1){
 					pst_id = res.id;
-					$("[name ="+ pst_id +"]", "#posts").css({"color":"#999999", "background-color":"#CCCCCC"});
+					$("[name ="+ pst_id +"]", "#posts").remove();
 					return false;
 				}
 			}
@@ -107,10 +107,13 @@ $(function(){
     		imagehtml = '<img alt="The image you uploaded" src="'+ imageurl +'" />';
     	}
     			    
-		var post_html = $("<li/>").attr("class", "post")
+		var post_html = $("<li/>").attr({class:"post", name:post.id})
+		$(post_html).attr("class", "post")
 		$(post_html).append($("<div/>").addClass("post_header"))
 		$("div.post_header", post_html).append($("<span/>").addClass("post_header_image").html(iconhtml))
 		$("span.post_header_image", post_html).after($("<span/>").addClass("post_header_senderinfo").text(employee.name + ' wrote at ' + post.created_at))
+		$("span.post_header_senderinfo", post_html).after($("<div/>").addClass("delete_post"))
+		$("div.delete_post", post_html).prepend('<button class="delete_post_button" name='+ post.id +' >X</button>')
 		$(post_html).append($($("<div/>").addClass("post_image")).html(imagehtml))
 		$("div.post_image", post_html).after($($("<div/>").addClass("post_message")))
 		$("div.post_message", post_html).append($("<p/>"))
