@@ -9,15 +9,6 @@
 			text-align:left;
 }
 
-/* style for instant search */
-#instant_search form input[type=submit]{
-    display:none;
-}
-.instant_search_result {
-    color: blue;
-    font-weight: bold;
-}
-
 #group {
 	margin: 0 0 20px 20px;
 }

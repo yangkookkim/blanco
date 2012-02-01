@@ -1,17 +1,40 @@
 #display_action_template {
 }
 
+#instant_search form input[type=submit]{
+    display:none;
+}
+
+.instant_search_result {
+    color: blue;
+}
+
+#create_group {
+	text-align: right;
+}
+
+#create_group_button {
+	background-color:#33CC00;
+	font-weight: bold;	
+}
+
 #search_employee {
-    width:300px;
+    width:250px;
     float: left;
 }
 
 #group_members {
+	float: left;
+}
+
+.group_member {
+	color: #33CC00;
 }
 
 #instant_search_results {
     text-align:left;
     width:300px;
+    height:400px;
 }
 
 .eachresult {

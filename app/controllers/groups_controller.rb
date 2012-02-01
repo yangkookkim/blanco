@@ -39,8 +39,6 @@ class GroupsController < ApplicationController
     @groups = @employee.groups
     @new_group = @employee.groups.new(params[:group])
     group_members.each do |m|
-      puts "DEBUG"
-      puts m
       @emp = Employee.find_by_name(m)
       @new_group.employees << @emp
     end

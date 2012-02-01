@@ -2,11 +2,11 @@
 <%= form_for(@new_group) do |f| %>
 	<label>Name:<%= f.text_field :name %><br /></label>
 	<%= hidden_field_tag("myid", @employee.id) %>
-	<%= f.submit %>
+	<div id="create_group"><%= f.submit 'Create', :id => 'create_group_button' %></div>
 <% end %>
 <div id="search_employee">
 		<%= render :partial => 'search_employees' %>
 </div><!-- /search_employee -->
 <div id="group_members">
-<p>p</p>
+	<p>Group members</p>
 </div>

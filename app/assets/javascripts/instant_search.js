@@ -87,7 +87,8 @@ $(function(){
 $(function(){
 	$(".group_member").live("click", function(){
 		var name = $(this).text();
-	 	//$('.group_member_input input[value='+ name+ ']').remove();
+	 	$('.group_member_input input[value="'+ name +'"]').remove();
+	 	//$('.group_member_input input[value="Yamazaki, Takehiro"]').remove();
 		$(this).empty();
 	});
 });
