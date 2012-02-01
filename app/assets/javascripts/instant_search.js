@@ -52,8 +52,11 @@ $(function(){
                 var group_member = '';
                 var group_member_input = '';
                 var group_members = 'group_members[]';
+				var iconhtml = $("span.resulticon", this).html();
+				
                 group_member+='<div class="group_member">'
-                group_member+='<p>'+ $(this).text() +'</p>';
+                //group_member+='<p>'+ $(this).text() +'</p>';
+                group_member+='<span class="membericon">' + iconhtml + '</span>' + '<span class="membername">'+ $(this).text() +'</span>';
                 group_member+='</div>'
                 group_member_input+='<div class="group_member_input">'
                 group_member_input+='<input name='+ group_members +' type="hidden" value="'+ $(this).text()+ '" />'

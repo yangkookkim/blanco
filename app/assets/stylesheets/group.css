@@ -28,7 +28,6 @@
 }
 
 .group_member {
-	color: #33CC00;
 }
 
 #instant_search_results {
@@ -46,5 +45,17 @@
 }
 
 .resultname {
+	margin:0 0 0 10px;
+}
+
+.group_member {
+	margin:10px 0 10px 0;	
+}
+
+.membericon {
+	margin:0 0 0 0;
+}
+
+.membername {
 	margin:0 0 0 10px;
 }

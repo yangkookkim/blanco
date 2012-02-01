@@ -3,10 +3,14 @@
 			text-align:left;
 }
 
-#sideWrap { width:250px;
-			float:left;
-			background-color:#E5E5E5;
-			text-align:left;
+#sideWrap { 
+	width:250px;
+	float:left;
+	text-align:left;
+	border: 1px solid #D2D9E7;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D2D9E7;
 }
 
 #group {
