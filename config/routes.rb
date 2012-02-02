@@ -1,4 +1,10 @@
 Blanco::Application.routes.draw do
+  get "profiles/show"
+
+  get "profiles/new"
+
+  get "profiles/index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -67,6 +73,8 @@ Blanco::Application.routes.draw do
           get 'upload_image'
         end
       end
+    end
+    resources :profiles do
     end
   end
   

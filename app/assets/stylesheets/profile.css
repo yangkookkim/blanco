@@ -1,0 +1,25 @@
+#mainWrap { 
+	width:500px;
+	float:right;
+	text-align:left;
+	background-color:#33CC00;
+}
+
+#sideWrap { 
+	width:250px;
+	float:left;
+	text-align:left;
+	border: 1px solid #D2D9E7;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D2D9E7;
+	background-color:#BB3C3C;
+}
+
+#profile_basic {
+	margin: 0 0 0 20px;
+}
+
+.profile_basic_field {
+	margin: 5px 0 5px 0;
+}

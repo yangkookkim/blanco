@@ -1,0 +1,39 @@
+<div id="sideWrap" >
+	<div id="profile_basic">
+		<div id="profile_basic_header">
+			<%= @employee.name%>'s profile
+		</div>
+		<div id="profile_basic_icon_image">
+			<%= image_tag @employee.icon_url(:icon).to_s if @employee.icon? %>
+		</div>
+		<div id="profile_basic_basic_info">
+			<div class="profile_basic_field">
+				<div class="profile_field_description">
+					Tel
+				</div>
+				<div class="profile_basic_value">
+					<%= @profile.tel %>
+				</div>
+			</div>
+			<div class="profile_basic_field">
+				<div class="profile_field_description">
+					E-mail
+				</div>
+				<div class="profile_basic_value">
+					<%= @profile.email %>
+				</div>
+			</div>
+			<div class="profile_basic_field">
+				<div class="profile_field_description">
+					Department
+				</div>
+				<div class="profile_basic_value">
+					<%= @profile.department %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!-- sideWrap -->
+<div id="mainWrap">
+	mainWrap
+</div><!-- mainWrap -->
