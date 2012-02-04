@@ -1,20 +1,3 @@
-#mainWrap { 
-	width:500px;
-	float:right;
-	text-align:left;
-	background-color:#33CC00;
-}
-
-#sideWrap { 
-	width:250px;
-	float:left;
-	text-align:left;
-	border: 1px solid #D2D9E7;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #D2D9E7;
-	background-color:#BB3C3C;
-}
 
 #profile_basic {
 	margin: 0 0 0 20px;
@@ -23,3 +6,37 @@
 .profile_basic_field {
 	margin: 5px 0 5px 0;
 }
+
+.profile_field_description {
+	margin: 5px 0 5px 0;
+	font-weight: bold;
+}
+
+.profile_value {
+}
+.profile_basic_field {
+	margin: 0 100px 0 0;	
+}
+
+#profile_menu{
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0;  
+	padding: 0;  
+	width: ***;  
+	height: 40px;  
+}  
+  
+#profile_menu ul{  
+	list-style-type: none;  
+	margin: 0;  
+	padding: 0;  
+}  
+  
+#profile_menu li{
+	float:left;  
+	width: 100px;  
+	margin: 0;  
+	padding: 0;  
+}
+

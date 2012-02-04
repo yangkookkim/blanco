@@ -5,11 +5,92 @@
  *= require_self
  *= require_tree . 
 */
-body { text-align:center; }
-#header { color:#33CC00; background-color: #000000 }
+body {
+	text-align:center;
+}
+#header {
+	color:#33CC00;
+	background-color: #000000;
+	margin-bottom: 20px;
+}
+
+#header h1 {
+	margin: 0;
+	padding: 0;
+}
 
 #container { width:780px;
 			 text-align:left;
 			 margin-left: auto;
 			 margin-right: auto;
+}
+.clear {
+    clear:both;　/*floatの解除、ここがポイント*/
+}
+
+/* CSS for menu pull down list */
+ul#pulldown-menu {
+	margin: 0px;
+}
+
+ul#pulldown-menu a {
+        color: #FFFFFF;
+        text-decoration: none;
+}
+
+ul#pulldown-menu a:hover,
+ul#pulldown-menu a:active {
+	background: #E6E6E6;
+}
+
+ul#pulldown-menu li {
+		color: #FFFFFF;
+        float: left;
+        left:30%;
+        position: relative;
+        margin: 0 0.5em;
+        width: 9em;
+        height: 2em;
+        font-weight: bold;
+        line-height: 2em;
+        list-style:none;
+}
+ul#pulldown-menu li a {
+        display: block;
+        width: 9em;
+        height: 2em;
+        text-align: left;
+        color: blue;
+}
+
+/* 下層のメニューを不可視に */
+ul#pulldown-menu li ul {
+        display: none;
+}
+
+/* 疑似要素 :hover で下層のメニューを可視に */
+ul#pulldown-menu li:hover ul {
+        display: block;
+        position: absolute;
+        z-index: 100;
+        margin-left:0px;
+        padding-left:0px;
+        right:45%;
+}
+
+ul#pulldown-menu li ul li {
+    float: none;
+    margin: 0;
+    font-size: 12px;
+	font-weight: bold;
+	background: #FFFFFF;
+	border: 0 1px 0 1px solid #D2D9E7;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D2D9E7;
+}
+
+#menu_search_box {
+	text-align: right;
+	margin: 0 10px 10px 0;
 }

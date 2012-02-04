@@ -1,6 +1,7 @@
-#mainWrap { width:500px;
-			float:right;
-			text-align:left;
+#mainWrap { 
+	width:500px;
+	float:right;
+	text-align:left;
 }
 
 #sideWrap { 

@@ -35,5 +35,52 @@
 	</div>
 </div><!-- sideWrap -->
 <div id="mainWrap">
-	mainWrap
+		<div id="profile_main">
+			<table>
+				<tr>
+					<td class="profile_main_td">
+						<div class="profile_basic_field">
+							<div class="profile_field_description">
+								Workplace
+							</div>
+							<div class="profile_basic_value">
+								<%= @profile.workplace %>
+							</div>
+						</div>
+					</td>
+					<td class="profile_main_td">
+						<div class="profile_basic_field">
+							<div class="profile_field_description">
+								Nationality
+							</div>
+							<div class="profile_basic_value">
+								<%= @profile.nationality %>
+							</div>
+						</div>						
+					</td>
+				</tr>
+					<td class="profile_main_td">
+						<div class="profile_basic_field">
+							<div class="profile_field_description">
+								Language
+							</div>
+							<div class="profile_basic_value">
+								<%= @profile.language %>
+							</div>
+						</div>						
+					</td>
+					<td class="profile_main_td">
+						<div class="profile_basic_field">
+							<div class="profile_field_description">
+								Ask me about
+							</div>
+							<div class="profile_basic_value">
+								<%= @profile.askme %>
+							</div>
+						</div>						
+					</td>
+				<tr>
+				</tr>
+			</table>
+		</div>
 </div><!-- mainWrap -->

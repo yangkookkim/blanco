@@ -11,8 +11,36 @@
 		<div id="container">
 			<div id="header">
 			<h1>Blanco</h1>
+			<div id="menu">
+				<ul id="pulldown-menu">
+					<li>Home
+					    <ul>
+					    <li><a href="http://c-brains.jp/">コーポレート</a></li>
+					    <li><a href="http://c-brains.jp/web-site/">WEBサイト制作</a></li>
+					    <li><a href="http://c-brains.jp/document/">マニュアル制作</a></li>
+					    <li><a href="http://c-brains.jp/localization/">ローカライズ</a></li>
+					    </ul>
+					</li>
+					<li>Profile
+					    <ul>
+					    <li><a href="http://c-brains.jp/">コーポレート</a></li>
+					    <li><a href="http://c-brains.jp/web-site/">WEBサイト制作</a></li>
+					    <li><a href="http://c-brains.jp/document/">マニュアル制作</a></li>
+					    <li><a href="http://c-brains.jp/localization/">ローカライズ</a></li>
+					    </ul>
+					</li>
+				</ul>
+			</div>
+			<div id="menu_search_box">
+				KVH社員を検索
+				<form method="get" action="">
+					<input type="text" id="q" name="q" placeholder="Enter search keyword"/>
+				</form>
+			</div>
+			<div class="clear"></div>
 			</div><!-- /header -->
 			<%= content_for?(:content) ? yield(:content) : yield %>
+			<div class="clear"></div>
 		</div><!-- /container -->
 	</body>
 </html>

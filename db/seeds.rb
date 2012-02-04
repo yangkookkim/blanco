@@ -32,16 +32,16 @@ g4.employees << e10
 g5.employees << e1 << e2 << e3 << e4 << e6 << e7 << e8 << e9
 g6.employees << e1 << e2
 # Create profile
-p1 = Profile.create(:tel => "03-4560-1111", :email => "kimh@kvh.co.jp", :department => "Service Operation", :nationality => "Korea", :workplace => "Tamachi")
-p2 = Profile.create(:tel => "03-4560-2222", :email => "ogawaj@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi")
-p3 = Profile.create(:tel => "03-4560-3333", :email => "shut@kvh.co.jp", :department => "Service Operation", :nationality => "China", :workplace => "Tamachi")
-p4 = Profile.create(:tel => "03-4560-4444", :email => "yamazakit@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi")
-p5 = Profile.create(:tel => "03-4560-5555", :email => "umedah@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi")
-p6 = Profile.create(:tel => "03-4560-6666", :email => "okadam@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi")
-p7 = Profile.create(:tel => "03-4560-7777", :email => "imaizumin@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi")
-p8 = Profile.create(:tel => "03-4560-8888", :email => "namihirah@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi")
-p9 = Profile.create(:tel => "03-4560-9999", :email => "matsuday@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi")
-p10 = Profile.create(:tel => "03-4560-0000", :email => "muia@kvh.co.jp", :department => "Service Operation", :nationality => "USA", :workplace => "Tamachi")
+p1 = Profile.create(:tel => "03-4560-1111", :email => "kimh@kvh.co.jp", :department => "Service Operation", :nationality => "Korea", :workplace => "Tamachi", :askme => "IaaS", :language => "Japanese")
+p2 = Profile.create(:tel => "03-4560-2222", :email => "ogawaj@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Asset management", :language => "Japanese")
+p3 = Profile.create(:tel => "03-4560-3333", :email => "shut@kvh.co.jp", :department => "Service Operation", :nationality => "China", :workplace => "Tamachi", :askme => "Remote hands", :language => "Japanese")
+p4 = Profile.create(:tel => "03-4560-4444", :email => "yamazakit@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Monitoring", :language => "Japanese")
+p5 = Profile.create(:tel => "03-4560-5555", :email => "umedah@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Mail", :language => "Japanese")
+p6 = Profile.create(:tel => "03-4560-6666", :email => "okadam@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Load balancer", :language => "Japanese")
+p7 = Profile.create(:tel => "03-4560-7777", :email => "imaizumin@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Windows", :language => "Japanese")
+p8 = Profile.create(:tel => "03-4560-8888", :email => "namihirah@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Storage", :language => "Japanese")
+p9 = Profile.create(:tel => "03-4560-9999", :email => "matsuday@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Solaris", :language => "Japanese")
+p10 = Profile.create(:tel => "03-4560-0000", :email => "muia@kvh.co.jp", :department => "Service Operation", :nationality => "USA", :workplace => "Tamachi", :askme => "Savvion", :language => "English")
 # Add profiles to employees
 e1.profile = p1
 e2.profile = p2
