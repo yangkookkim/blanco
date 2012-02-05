@@ -1,10 +1,4 @@
 Blanco::Application.routes.draw do
-  get "profiles/show"
-
-  get "profiles/new"
-
-  get "profiles/index"
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -61,12 +55,14 @@ Blanco::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+  match '/instant_search' => 'application#instant_search'
   resources :employees do
     resources :groups do
       collection do
          get 'search_employees'
          get 'instant_search'
          get 'show_js'
+         get 'instant_search_show_result'
       end   
       resources :posts do
         collection do

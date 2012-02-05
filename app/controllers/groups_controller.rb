@@ -1,5 +1,10 @@
 class GroupsController < ApplicationController
   layout 'employees_groups_posts'
+  def instant_search_show_result
+    respond_to do |format|
+      format.js   {render :layout => false}
+    end    
+  end
   
   def show_js
     # This action is called from javascript_include_tag in groups/show.
