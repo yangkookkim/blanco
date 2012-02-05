@@ -113,7 +113,7 @@ $(function(){
 		$("div.post_header", post_html).append($("<span/>").addClass("post_header_image").html(iconhtml))
 		$("span.post_header_image", post_html).after($("<span/>").addClass("post_header_senderinfo").text(employee.name + ' wrote at ' + post.created_at))
 		$("span.post_header_senderinfo", post_html).after($("<div/>").addClass("delete_post"))
-		$("div.delete_post", post_html).prepend('<button class="delete_post_button" name='+ post.id +' >X</button>')
+		$("div.delete_post", post_html).prepend('<input class="delete_post_button" type="image" src="/assets/close_button.png" name='+ post.id +' >')
 		$(post_html).append($($("<div/>").addClass("post_image")).html(imagehtml))
 		$("div.post_image", post_html).after($($("<div/>").addClass("post_message")))
 		$("div.post_message", post_html).append($("<p/>"))

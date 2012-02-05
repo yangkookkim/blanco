@@ -14,6 +14,40 @@
 	border-color: #D2D9E7;
 }
 
+#add_group_button {
+	margin: 0 0 10px 0;
+	position: relative;
+}
+
+#add_group_button_link {
+	position: absolute;
+	top: -2px; 
+	left: 30px;
+}
+
+#add_group_button_link a {
+	text-decoration: none;
+	color: #000000;
+}
+
+.image_group {
+	position: relative;
+}
+
+.group_name_inside_image {
+	position: absolute;
+	top: 8px; 
+	left: 10px;
+	width: 100px;
+}
+
+.group_name_inside_image a {
+	text-decoration: none;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+}
+
 #group {
 	margin: 0 0 20px 20px;
 }
@@ -27,17 +61,19 @@
 	margin: 0 0 20px 0;
 }
 
+#new_post textarea {
+	border: 1px solid #D2D9E7;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D2D9E7;	
+}
+
 #display_image {
 	margin: 0 0 20px 0;
 }
 
 #submit_post_button {
 	text-align:right;
-}
-
-#submit_post {
-	background-color:#33CC00;
-	font-weight: bold;
 }
 
 #loader {
@@ -64,11 +100,6 @@ li.post_header {
 
 .delete_post {
 	float:right;
-}
-
-.delete_post_button {
-	background-color:#FF0000;
-	font-weight: bold;
 }
 
 .post_header_image {

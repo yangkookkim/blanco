@@ -17,8 +17,11 @@
                         </div><!-- profile -->
 			
 			<div id="group">
-		                       <div id ="add_group_button" >
+		                       <div id ="add_group_button">
+		                               <%= image_tag 'add_group_button.png'%>
+		                               <div id="add_group_button_link">
 		                               <%= link_to "Add new group", new_employee_group_path(@employee.id) %>
+		                               </div>
 		                       </div><!-- add_group_button -->
 		                       <div id="display_group_list">
 		                               <table>
@@ -26,8 +29,12 @@
 		                                       <% @groups.each do |g| %>
 		                                               <tr>
 		                                               <% if g.id %>
-		                                                       <td>id: <%= g.id %></td>
-		                                                       <td><%= link_to g.name, employee_group_path(@employee.id, g.id) %></td>
+															<div class="image_group">
+																<img src="/assets/icon_group.png" width="100">
+																<div class="group_name_inside_image">
+																	<%= link_to g.name, employee_group_path(@employee.id, g.id) %>
+																</div>
+															</div>
 		                                               <% end %>
 		                                               </tr>
 		                                       <% end %>

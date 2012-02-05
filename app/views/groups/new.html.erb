@@ -2,7 +2,8 @@
 <%= form_for(@new_group) do |f| %>
 	<label>Name:<%= f.text_field :name %><br /></label>
 	<%= hidden_field_tag("myid", @employee.id) %>
-	<div id="create_group"><%= f.submit 'Create', :id => 'create_group_button' %></div>
+	<!-- <div id="create_group"><%= f.submit 'Create', :id => 'create_group_button' %></div> -->
+	<div id="create_group"><%= image_submit_tag '/assets/create_button_en.png', :id => 'create_group_button' %></div>
 <% end %>
 <div id="search_employee">
 		<%= render :partial => 'search_employees' %>

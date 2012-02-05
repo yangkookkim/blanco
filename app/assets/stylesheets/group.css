@@ -13,11 +13,6 @@
 	text-align: right;
 }
 
-#create_group_button {
-	background-color:#33CC00;
-	font-weight: bold;	
-}
-
 #search_employee {
     width:250px;
     float: left;
