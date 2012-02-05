@@ -8,7 +8,7 @@ $(function(){
         var $q = $(this);
 
         if($q.val() == ''){
-            $('div#instant_search_results').html('');
+            $('ul#search_employees_result').html('');
             return false;
         }
 
@@ -27,9 +27,9 @@ $(function(){
 });
 
 function showResults(data, highlight){
-           var resultHtml = '';
+       var resultHtml = '';
 
-            $.each(data, function(i,item){
+       $.each(data, function(i,item){
 	   var iconurl = '';
 	   var iconhtml = '';
 		if (item.icon.thumb.url != null) {
@@ -40,8 +40,10 @@ function showResults(data, highlight){
                 resultHtml+='<div>' + '<div class="eachresult">' + '<span class="resulticon">'+ iconhtml +'</span>'+ '<span class="resultname">'+ item.name +'</span>' + '</div>' + '</div>';
                 resultHtml+='</div>';
             });
-
+			/* Below works for create new group page	
             $('div#instant_search_results').html(resultHtml);
+            */
+            $('ul#search_employees_result').html("<li>"+ resultHtml +"</li>");
         }
     });
 })

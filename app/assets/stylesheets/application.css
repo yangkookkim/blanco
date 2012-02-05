@@ -28,6 +28,37 @@ body {
     clear:both;
 }
 
+ul#search_employees_result {
+	position: relative;
+	text-align:left;	
+}
+
+ul#search_employees_result li {
+	list-style:none;
+	position:absolute;
+	margin:0;
+	padding:0;
+	right:-10px;
+	top:-15px;
+	background:#FFFFFF;
+	font-size: 5px;
+	border: 1px 1px 1px 1px solid #D2D9E7;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D2D9E7;	
+}
+
+/*
+ul#search_employees_result li:hover ul {
+        display: block;
+        position: absolute;
+        z-index: 100;
+        margin-left:0px;
+        padding-left:0px;
+        right:45%;
+}
+*/
+
 /* CSS for menu pull down list */
 ul#pulldown-menu {
 	margin: 0px;
