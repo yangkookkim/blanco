@@ -22,7 +22,7 @@ $(function(){
         request = $.getJSON('/instant_search',{
         	//Not to search myself, m: passes the name of myself to query
             q:$q.val(), query_type:type
-        },function(data){           
+        },function(data){
             showResults(data,$q.val());
             runningRequest=false;
 });
@@ -38,7 +38,7 @@ function showResults(data, highlight){
 			iconhtml = '<img alt="employee image" src='+ iconurl +' align="middle" />';
 		}
                 resultHtml+='<div class="instant_search_result">';
-                resultHtml+='<div>' + '<div class="eachresult">' + '<span class="resulticon">'+ iconhtml +'</span>'+ '<span class="resultname">'+ item.name +'</span>' + '</div>' + '</div>';
+                resultHtml+='<div>' + '<div class="eachresult">' + '<span class="resulticon">'+ iconhtml +'</span>'+ '<span class="resultname">' + '<a href="/employees/' + item.id + '/profiles/' + item.id + '" >' + item.name +'</a>' + '</span>' + '</div>' + '</div>';
                 resultHtml+='</div>';
             });
             $('ul#instant_search_result').html("<li>"+ resultHtml +"</li>");
