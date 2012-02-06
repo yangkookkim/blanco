@@ -146,3 +146,9 @@ $(function(){
         postid = null;
     };		    	
 });
+
+$(function(){
+	alert($.cookie("unread_posts"));
+	var unread_posts_json = jQuery.parseJSON($.cookie("unread_posts"));
+	alert(unread_posts_json.lunch);
+})

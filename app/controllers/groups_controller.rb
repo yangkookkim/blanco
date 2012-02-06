@@ -65,5 +65,11 @@ class GroupsController < ApplicationController
     @groups = @employee.groups
     @posts = @group.posts.sort.reverse # Get posts sorted by descending order
     @new_post = @group.posts.new
+    puts "DEBUG"
+    cookie_val = Hash.new
+    @groups.each {|g|
+      cookie_val[g.name] = "0" # I want to pass g.id to the key of cookie_val, but jquery does not understand this for some reason. So use g.name, instead. 
+    }
+    cookies[:unread_posts] = {:value => cookie_val.to_json }
   end
 end
