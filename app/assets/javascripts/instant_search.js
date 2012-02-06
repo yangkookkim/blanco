@@ -21,7 +21,7 @@ $(function(){
         runningRequest=true;
         request = $.getJSON('/instant_search',{
         	//Not to search myself, m: passes the name of myself to query
-            q:$q.val(), m:$("#display_name p").text(), query_type:type
+            q:$q.val(), query_type:type
         },function(data){           
             showResults(data,$q.val());
             runningRequest=false;
@@ -45,3 +45,11 @@ function showResults(data, highlight){
         }
     });
 })
+
+$('html').click(function(event) {
+	if(!$(event.target).is("ul#instant_search_result *")) {
+		$('.instant_search_result').html('');
+		$('input.instant_search_box').val('');
+	};
+});
+
