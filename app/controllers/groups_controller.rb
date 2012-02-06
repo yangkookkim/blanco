@@ -68,7 +68,9 @@ class GroupsController < ApplicationController
     puts "DEBUG"
     cookie_val = Hash.new
     @groups.each {|g|
-      cookie_val[g.name] = "0" # I want to pass g.id to the key of cookie_val, but jquery does not understand this for some reason. So use g.name, instead. 
+      unless g.id == params[:id].to_i
+        cookie_val[g.name] = "0" # I want to pass g.id to the key of cookie_val, but jquery does not understand this for some reason. So use g.name, instead. 
+      end
     }
     cookies[:unread_posts] = {:value => cookie_val.to_json }
   end
