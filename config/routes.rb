@@ -63,6 +63,7 @@ Blanco::Application.routes.draw do
          get 'instant_search'
          get 'show_js'
          get 'instant_search_show_result'
+         get 'monitor_posts_js'
       end   
       resources :posts do
         collection do

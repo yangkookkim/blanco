@@ -1,0 +1,73 @@
+$(function(){
+    // To send data to monitor_posts.rb, data format should be json type string. (not json data)
+    // So, first convert cookie string to json data, and then convert it to json type string.
+    var unread_posts_json = jQuery.parseJSON($.cookie("unread_posts"));
+    var unread_posts_str = JSON.stringify(unread_posts_json);
+    monitor_posts_ws = new WebSocket("ws://localhost:51233");
+    
+    //<% @groups.each do |g| %>
+    //console.log(<%= g.posts.last.id if g.posts.last %>)
+    //<% end %>
+    
+    $.each(unread_posts_json, function(i,item){
+    	<% @groups.each do |g| %>
+    		if ("<%= g.name %>" == i) {
+		    	if ( "<%= escape_javascript(@group.name) %>" == i ) {
+					$('span.unread_messages[name=' + i + ']').text("0");
+					unread_posts_json[i] = String(<%= @newest_post.id %>);
+				} else {
+					var diff = <%= @newest_post.id %> - item
+					$('span.unread_messages[name=' + i + ']').text(diff);
+				}
+			}
+		<% end %>
+    });
+	$.cookie("unread_posts", null, { path: '/'});
+	$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
+	
+ 
+    monitor_posts_ws.onmessage = function(evt) {
+    	json_data = jQuery.parseJSON(evt.data);
+    	updated_group = json_data["group"];
+
+	    group_name = updated_group["name"];
+	    updated_post = json_data["post"];   	
+    	if ( updated_group["id"] != <%= @group.id %> ) {	    	
+	    	last_post = unread_posts_json[group_name];
+	    	newest_post = updated_post["id"];
+	    	difference = newest_post-last_post;
+	
+			$('span.unread_messages[name=' + group_name + ']').text(difference);
+			$.each(unread_posts_json, function(i,item){
+				if (i != updated_group["name"]) {
+					
+					val = Number(unread_posts_json[i]) + 1
+					unread_posts_json[i] = String(val)
+				};
+			});
+			$.cookie("unread_posts", null, { path: '/'});
+			$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
+    	} else {
+    	// updateされたpostがアクティブなgroupのpostの場合
+    	//unread_posts_json[group_name] = String(updated_post["id"]);
+    	//$.cookie("unread_posts", null, { path: '/'});
+    	//$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
+    	//console.log($.cookie("unread_posts"));
+    	//console.log(difference);
+			$.each(unread_posts_json, function(i,item){
+					var val = Number(item) + 1
+					unread_posts_json[i] = String(val);
+			});
+			$.cookie("unread_posts", null, { path: '/'});
+			$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
+    	}
+    };
+
+    monitor_posts_ws.onclose = function() {
+        console.log("closing from monitor_posts.rb...-client side")
+    };
+
+    monitor_posts_ws.onopen = function() {
+        monitor_posts_ws.send(unread_posts_str);
+    };		    	
+});
