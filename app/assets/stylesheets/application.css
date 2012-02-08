@@ -9,7 +9,7 @@ body {
 	text-align:center;
 }
 #header {
-	color:#33CC00;
+	color:#FF9900;
 	background-color: #000000;
 	margin-bottom: 20px;
 }
@@ -28,12 +28,12 @@ body {
     clear:both;
 }
 
-ul#instant_search_result {
+ul#global_instant_search_result {
 	position: relative;
 	text-align:left;
 }
 
-ul#instant_search_result li {
+ul#global_instant_search_result li {
 	list-style:none;
 	position:absolute;
 	margin:0;

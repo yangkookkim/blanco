@@ -39,7 +39,7 @@ module JsonHelper
 end
 
 channels = Hash.new
-EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 51234) do |ws|
+EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 10000) do |ws|
   include JsonHelper
   ws.extend(BlancoWebSocket)
   

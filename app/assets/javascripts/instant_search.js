@@ -3,13 +3,13 @@ var request;
 
 //Identify the typing action
 $(function(){
-    $('input.instant_search_box').keyup(function(e){
+    $('input.global_instant_search_box').keyup(function(e){
         e.preventDefault();
         var $q = $(this);
         var type = $(this).attr("name");
 
         if($q.val() == ''){
-            $('.instant_search_result').html('');
+            $('.global_instant_search_result').html('');
             return false;
         }
 
@@ -37,19 +37,19 @@ function showResults(data, highlight){
 			iconurl = item.icon.thumb.url
 			iconhtml = '<img alt="employee image" src='+ iconurl +' align="middle" />';
 		}
-                resultHtml+='<div class="instant_search_result">';
+                resultHtml+='<div class="global_instant_search_result">';
                 resultHtml+='<div>' + '<div class="eachresult">' + '<span class="resulticon">'+ iconhtml +'</span>'+ '<span class="resultname">' + '<a href="/employees/' + item.id + '/profiles/' + item.id + '" >' + item.name +'</a>' + '</span>' + '</div>' + '</div>';
                 resultHtml+='</div>';
             });
-            $('ul#instant_search_result').html("<li>"+ resultHtml +"</li>");
+            $('ul#global_instant_search_result').html("<li>"+ resultHtml +"</li>");
         }
     });
 })
 
 $('html').click(function(event) {
-	if(!$(event.target).is("ul#instant_search_result *")) {
-		$('.instant_search_result').html('');
-		$('input.instant_search_box').val('');
+	if(!$(event.target).is("ul#global_instant_search_result *")) {
+		$('.global_instant_search_result').html('');
+		$('input.global_instant_search_box').val('');
 	};
 });
 

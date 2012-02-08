@@ -40,7 +40,6 @@ function showResults(data, highlight){
                 resultHtml+='<div>' + '<div class="eachresult">' + '<span class="resulticon">'+ iconhtml +'</span>'+ '<span class="resultname">'+ item.name +'</span>' + '</div>' + '</div>';
                 resultHtml+='</div>';
             });
-
             $('div#instant_search_results').html(resultHtml);
         }
     });
@@ -62,11 +61,11 @@ $(function(){
                 group_member_input+='<input name='+ group_members +' type="hidden" value="'+ $(this).text()+ '" />'
                 group_member_input+='</div>'
                 var expr = $(this).text();
+                
 				// Check if any members already selected
-
-                if($(".group_member p").length != 0){
+                if($(".group_member span").length != 0){
 				// Get each members already selected
-                        $(".group_member p").each(function(index, domEle){
+                        $("span.membername").each(function(index, domEle){
 								// If the membere that you want add already exists, exit from the loop
                                 if($(domEle).text() == expr){
                                         flag = false;

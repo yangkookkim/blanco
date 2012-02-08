@@ -3,11 +3,8 @@ $(function(){
     // So, first convert cookie string to json data, and then convert it to json type string.
     var unread_posts_json = jQuery.parseJSON($.cookie("unread_posts"));
     var unread_posts_str = JSON.stringify(unread_posts_json);
-    monitor_posts_ws = new WebSocket("ws://localhost:51233");
-    
-    //<% @groups.each do |g| %>
-    //console.log(<%= g.posts.last.id if g.posts.last %>)
-    //<% end %>
+    //monitor_posts_ws = new WebSocket("ws://lagavulin.servebeer.com:20000");
+    monitor_posts_ws = new WebSocket("ws://localhost:20000");
     
     $.each(unread_posts_json, function(i,item){
     	<% @groups.each do |g| %>
@@ -49,11 +46,6 @@ $(function(){
 			$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
     	} else {
     	// updateされたpostがアクティブなgroupのpostの場合
-    	//unread_posts_json[group_name] = String(updated_post["id"]);
-    	//$.cookie("unread_posts", null, { path: '/'});
-    	//$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
-    	//console.log($.cookie("unread_posts"));
-    	//console.log(difference);
 			$.each(unread_posts_json, function(i,item){
 					var val = Number(item) + 1
 					unread_posts_json[i] = String(val);

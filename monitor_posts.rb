@@ -31,7 +31,7 @@ module JsonHelper
   end
 end
 
-EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 51233) do |ws|
+EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 20000) do |ws|
   include JsonHelper
   ws.onopen { |data|
     puts "client connected..."

@@ -73,7 +73,8 @@ function submit_post(f){
 }
 
 $(function(){
-    ws = new WebSocket("ws://localhost:51234");
+    //ws = new WebSocket("ws://lagavulin.servebeer.com:10000");
+    ws = new WebSocket("ws://localhost:10000");
     var id = <%= @group.id %>;
     var expr = /(\r\n|\r|\n)/g
     ws.onmessage = function(evt) {
