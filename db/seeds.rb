@@ -12,6 +12,21 @@ g3 = Group.create(:name => "iaas", :is_feedbackgroup => false, :due => "", :shar
 g4 = Group.create(:name => "dev", :is_feedbackgroup => false, :due => "", :share_with => "")
 g5 = Group.create(:name => "complain", :is_feedbackgroup => false, :due => "", :share_with => "")
 g6 = Group.create(:name => "nico", :is_feedbackgroup => false, :due => "", :share_with => "")
+# Create some posts
+p1 = Post.create(:message => "fisrt post")
+p2 = Post.create(:message => "fisrt post")
+p3 = Post.create(:message => "fisrt post")
+p4 = Post.create(:message => "fisrt post")
+p5 = Post.create(:message => "fisrt post")
+p6 = Post.create(:message => "fisrt post")
+# Add posts to groups
+g1.posts << p1
+g2.posts << p2
+g3.posts << p3
+g4.posts << p4
+g5.posts << p5
+g6.posts << p6
+
 # Create employees
 f = File.open("#{Rails.root}/app/assets/images/noimage.gif")
 e1 = Employee.create(:name => "Kim, Hirokuni",:icon => f) 
@@ -31,6 +46,13 @@ g3.employees << e1 << e2 << e3
 g4.employees << e10
 g5.employees << e1 << e2 << e3 << e4 << e6 << e7 << e8 << e9
 g6.employees << e1 << e2
+# Add posts to employees
+e1.posts << p1
+e1.posts << p2
+e1.posts << p3
+e1.posts << p4
+e1.posts << p5
+e1.posts << p6
 # Create profile
 p1 = Profile.create(:tel => "03-4560-1111", :email => "kimh@kvh.co.jp", :department => "Service Operation", :nationality => "Korea", :workplace => "Tamachi", :askme => "IaaS", :language => "Japanese")
 p2 = Profile.create(:tel => "03-4560-2222", :email => "ogawaj@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Asset management", :language => "Japanese")

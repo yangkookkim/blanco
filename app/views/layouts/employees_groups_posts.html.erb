@@ -34,7 +34,9 @@
 																<div class="group_name_inside_image">
 																	<%= link_to g.name, employee_group_path(@employee.id, g.id) %>
 																</div>
+																	<% if @monitoring_post %>
 																	<img src="/assets/unread_posts.png" class="unread_messages_oval">
+																	<% end %>
 																	<span class="unread_messages" name=<%=g.name %>></span>
 															</div>
 		                                               <% end %>

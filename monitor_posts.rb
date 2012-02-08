@@ -42,7 +42,7 @@ EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 20000) do |ws|
     msg = JSON.parse(data)
     
     if msg["operation"] == "update"
-      sleep(2) # Wait for the access to database by creating post finishes
+      sleep(0.5) # Wait for the access to database by creating post finishes
       channel = msg["channel"]
       grp_id = channel["id"]
       updated_group = Group.find(grp_id)

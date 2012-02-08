@@ -9,12 +9,16 @@ $(function(){
     $.each(unread_posts_json, function(i,item){
     	<% @groups.each do |g| %>
     		if ("<%= g.name %>" == i) {
-		    	if ( "<%= escape_javascript(@group.name) %>" == i ) {
+		    	if ( "<%= escape_javascript(@group.name) if @group %>" == i ) {
 					$('span.unread_messages[name=' + i + ']').text("0");
 					unread_posts_json[i] = String(<%= @newest_post.id %>);
 				} else {
 					var diff = <%= @newest_post.id %> - item
-					$('span.unread_messages[name=' + i + ']').text(diff);
+					if (diff > 0 ) {
+						$('span.unread_messages[name=' + i + ']').text(diff);
+					} else {
+						$('span.unread_messages[name=' + i + ']').text("0");
+					}
 				}
 			}
 		<% end %>
@@ -28,31 +32,48 @@ $(function(){
     	updated_group = json_data["group"];
 
 	    group_name = updated_group["name"];
-	    updated_post = json_data["post"];   	
-    	if ( updated_group["id"] != <%= @group.id %> ) {	    	
-	    	last_post = unread_posts_json[group_name];
-	    	newest_post = updated_post["id"];
-	    	difference = newest_post-last_post;
-	
-			$('span.unread_messages[name=' + group_name + ']').text(difference);
-			$.each(unread_posts_json, function(i,item){
-				if (i != updated_group["name"]) {
-					
-					val = Number(unread_posts_json[i]) + 1
-					unread_posts_json[i] = String(val)
-				};
-			});
-			$.cookie("unread_posts", null, { path: '/'});
-			$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
-    	} else {
-    	// updateされたpostがアクティブなgroupのpostの場合
-			$.each(unread_posts_json, function(i,item){
-					var val = Number(item) + 1
-					unread_posts_json[i] = String(val);
-			});
-			$.cookie("unread_posts", null, { path: '/'});
-			$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
-    	}
+	    updated_post = json_data["post"];
+	       	
+	    <% if @group %>
+	    	if ( updated_group["id"] != <%= @group.id %> ) {	    	
+		    	last_post = unread_posts_json[group_name];
+		    	newest_post = updated_post["id"];
+		    	difference = newest_post-last_post;
+		
+				$('span.unread_messages[name=' + group_name + ']').text(difference);
+				$.each(unread_posts_json, function(i,item){
+					if (i != updated_group["name"]) {
+						
+						val = Number(unread_posts_json[i]) + 1
+						unread_posts_json[i] = String(val)
+					};
+				});
+				$.cookie("unread_posts", null, { path: '/'});
+				$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
+	    	} else {
+				$.each(unread_posts_json, function(i,item){
+						var val = Number(item) + 1
+						unread_posts_json[i] = String(val);
+				});
+				$.cookie("unread_posts", null, { path: '/'});
+				$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
+	    	}
+	    <% else %>
+		    	last_post = unread_posts_json[group_name];
+		    	newest_post = updated_post["id"];
+		    	difference = newest_post-last_post;
+		
+				$('span.unread_messages[name=' + group_name + ']').text(difference);
+				$.each(unread_posts_json, function(i,item){
+					if (i != updated_group["name"]) {
+						
+						val = Number(unread_posts_json[i]) + 1
+						unread_posts_json[i] = String(val)
+					};
+				});
+				$.cookie("unread_posts", null, { path: '/'});
+				$.cookie("unread_posts", JSON.stringify(unread_posts_json), { path: '/'});
+		<% end %>	    	
     };
 
     monitor_posts_ws.onclose = function() {

@@ -1,3 +1,4 @@
+<%= javascript_include_tag url_for({:controller => :groups, :action => :monitor_posts_js}) %>
 <h2>Creating new group</h2>
 <%= form_for(@new_group) do |f| %>
 	<label>Name:<%= f.text_field :name %><br /></label>

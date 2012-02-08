@@ -21,11 +21,13 @@ class GroupsController < ApplicationController
   def monitor_posts_js
     # This action is called from javascript_include_tag in groups/show.
     # Reason why doing .delete(".js") is that javascript_include_tag automatically add .js at the end of url.
+    if params[:id]
+        group_id = params[:id].delete(".js")
+        @group = Group.find_by_id(group_id)
+    end
     employee_id = params[:employee_id].delete(".js")
-    group_id = params[:id].delete(".js")
     @employee = Employee.find_by_id(employee_id)
     @groups = @employee.groups
-    @group = Group.find_by_id(group_id)
     @newest_post = Post.last
     respond_to do |format|
       format.js   {render :layout => false}
@@ -79,6 +81,7 @@ class GroupsController < ApplicationController
     @posts = @group.posts.sort.reverse # Get posts sorted by descending order
     @new_post = @group.posts.new
     cookie_val = Hash.new
+    @monitoring_post = true
     if cookies[:unread_posts]
       newest_post_id = Group.find(params[:id]).posts.last.id unless Group.find(params[:id]).posts.empty?
       cookie = JSON.parse(cookies[:unread_posts])
@@ -87,12 +90,11 @@ class GroupsController < ApplicationController
     else
       puts "no cookies"
       @groups.each {|g|
-          #if g.posts.last
-          #  cookie_val[g.name] = g.posts.last.id.to_s # I want to pass g.id to the key of cookie_val, but jquery does not understand this for some reason. So use g.name, instead.
-          #else
-          #  cookie_val[g.name] = "0"
-          #end
+        if Post.last
           cookie_val[g.name] = Post.last.id
+        else
+          cookie_val[g.name] = 0
+        end
       }
       cookies[:unread_posts] = {:value => cookie_val.to_json}
     end
