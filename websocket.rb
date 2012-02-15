@@ -8,6 +8,7 @@ require './app/uploaders/image_uploader'
 Dir.glob('./app/uploaders/*').each { |r| require r }
 Dir.glob('./app/models/*').each { |r| require r }
 
+
 ActiveRecord::Base.establish_connection(
    :adapter => 'sqlite3',
    :host => 'localhost',

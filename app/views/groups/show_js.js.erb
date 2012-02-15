@@ -66,15 +66,15 @@ function submit_post(f){
         		   	  "operation":"update"
 	};
 	var update_str = JSON.stringify(update_json);
-	monitor_posts_ws.send(update_str);
+	//monitor_posts_ws.send(update_str);
 	
 	$("#input").val("");
 	postid = null;
 }
 
 $(function(){
-    //ws = new WebSocket("ws://lagavulin.servebeer.com:10000");
-    ws = new WebSocket("ws://localhost:10000");
+    ws = new WebSocket("ws://websocket.servebeer.com:443");
+    //ws = new WebSocket("ws://localhost:10000");
     var id = <%= @group.id %>;
     var expr = /(\r\n|\r|\n)/g
     ws.onmessage = function(evt) {

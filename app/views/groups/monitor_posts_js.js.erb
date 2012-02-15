@@ -3,8 +3,8 @@ $(function(){
     // So, first convert cookie string to json data, and then convert it to json type string.
     var unread_posts_json = jQuery.parseJSON($.cookie("unread_posts"));
     var unread_posts_str = JSON.stringify(unread_posts_json);
-    //monitor_posts_ws = new WebSocket("ws://lagavulin.servebeer.com:20000");
-    monitor_posts_ws = new WebSocket("ws://localhost:20000");
+    monitor_posts_ws = new WebSocket("ws://192.168.0.3:20000");
+    //monitor_posts_ws = new WebSocket("ws://localhost:20000");
     
     $.each(unread_posts_json, function(i,item){
     	<% @groups.each do |g| %>
