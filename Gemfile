@@ -5,6 +5,8 @@ gem 'rails', '3.1.3'
 gem 'em-websocket'
 gem 'rmagick'
 gem 'carrierwave'
+gem 'omniauth'
+gem 'httparty'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
