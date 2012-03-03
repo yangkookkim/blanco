@@ -58,7 +58,6 @@ Blanco::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   match '/auth/:provider/callback', :to => 'sessions#create'
-  match '/auth/failure', :to => 'sessions#fail'
 
   match '/instant_search' => 'application#instant_search'
   resources :employees do

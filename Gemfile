@@ -6,6 +6,9 @@ gem 'em-websocket'
 gem 'rmagick'
 gem 'carrierwave'
 gem 'omniauth'
+gem 'omniauth-oauth'
+gem 'omniauth-salesforce'
+gem 'databasedotcom'
 gem 'httparty'
 
 # Bundle edge Rails instead:
