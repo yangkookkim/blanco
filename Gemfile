@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'therubyracer'
 gem 'rails', '3.1.3'
+gem 'bcrypt-ruby'
 gem 'em-websocket'
 gem 'rmagick'
 gem 'carrierwave'

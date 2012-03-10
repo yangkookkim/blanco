@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120206044618) do
+ActiveRecord::Schema.define(:version => 20120305155551) do
 
   create_table "employee_groups", :force => true do |t|
     t.integer  "employee_id"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(:version => 20120206044618) do
     t.datetime "updated_at"
     t.string   "icon"
     t.string   "portrait"
+    t.string   "username"
+    t.string   "passwd"
   end
 
   create_table "groups", :force => true do |t|
@@ -72,9 +74,27 @@ ActiveRecord::Schema.define(:version => 20120206044618) do
     t.integer  "employee_id"
   end
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

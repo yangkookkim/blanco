@@ -29,7 +29,7 @@ g6.posts << p6
 
 # Create employees
 f = File.open("#{Rails.root}/app/assets/images/noimage.gif")
-e1 = Employee.create(:name => "Kim, Hirokuni",:icon => f) 
+e1 = Employee.create(:name => "Kim, Hirokuni",:icon => f, :username => "kimh", :passwd => "kimh") 
 e2 = Employee.create(:name => "Ogawa, Junpei",:icon => f)
 e3 = Employee.create(:name => "Shu, Tosei",:icon => f)
 e4 = Employee.create(:name => "Yamazaki, Takehiro",:icon => f)

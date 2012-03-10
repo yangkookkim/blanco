@@ -1,5 +1,5 @@
 Blanco::Application.routes.draw do
-  get "sessions/create"
+  get 'employees/login'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -57,7 +57,8 @@ Blanco::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
-  match '/auth/:provider/callback', :to => 'sessions#create'
+  match '/auth/:provider/callback', :to => 'sessions#sfdc_login'
+  get "sessions/sfdc_login"
 
   match '/instant_search' => 'application#instant_search'
   resources :employees do
@@ -74,8 +75,12 @@ Blanco::Application.routes.draw do
           get 'upload_image'
         end
       end
+      resources :chattergroups do
+      end
     end
     resources :profiles do
+      resources :chatterprofile do
+      end
     end
   end
   
@@ -84,4 +89,6 @@ Blanco::Application.routes.draw do
 
   resources :posts do
   end
+
+  resources :sessions
 end
