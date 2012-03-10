@@ -1,16 +1,30 @@
 require 'chatterprofile'
 class ChatterprofileController < ApplicationController
   layout "profile_chatterprofile"
+  before_filter :sfdc_authenticate
   def show
     @profile = Profile.find(params[:id])
     @employee = @profile.employee
     @feeds = []
-    client = Databasedotcom::Client.new(:client_id => "3MVG9rFJvQRVOvk6eOvf6uX9Du7WbJr2pMF763J57TCTvvz80FcA4pk23RdAyfBG0p7df3KqcDzkOg6o7r78X", :client_secret => "2647515227667638785")
-    client.authenticate :token => session[:sfdc_access_token], :instance_url => session[:sfdc_instance_url]
-    mycomments = Chatterprofile.get_my_comments(client)
-    puts mycomments
+
+    cp = Chatterprofile.new()
+    posts = cp.all_feeds_of(session[:sfdc_client], "me")
+    @feeds = []
+    posts.each do |p|
+      txt = p[:parent]["body"]["text"]
+      @feeds << txt.to_ue
+    end
   end
 
   def index
+  end 
+
+  private
+  def sfdc_authenticate
+    if session[:sfdc_client].nil?
+      session[:redirect_to] = request.fullpath
+      redirect_to '/auth/salesforce'
+      return
+    end  
   end
 end

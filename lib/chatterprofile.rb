@@ -2,11 +2,23 @@ require 'pp'
 require 'cgi'
 require 'databasedotcom'
 require 'databasedotcom/chatter'
+
+module Chatterhelper
+  def comments_from_feeditem(feeditem)
+    comments = []
+    feeditem.comments.each do |c|
+      comments << c["body"]["text"]
+    end
+    comments
+  end
+
+  def body_from_feeditem(feeditem)
+    feeditem.raw_hash["body"]
+  end
+end
+
+include Chatterhelper
 class Chatterprofile < Databasedotcom::Chatter::Group
-  #def initialize(token, instance_url)
-  #  @client = Databasedotcom::Client.new(:client_id => "3MVG9rFJvQRVOvk6eOvf6uX9Du7WbJr2pMF763J57TCTvvz80FcA4pk23RdAyfBG0p7df3KqcDzkOg6o7r78X", :client_secret => "2647515227667638785")
-  #  @client.authenticate :token => token, :instance_url => instance_url
-  #end
   def initialize()
   end
 
@@ -37,25 +49,3 @@ class String
   end
 end
 
-module Chatterhelper
-  def comments_from_feeditem(feeditem)
-    comments = []
-    feeditem.comments.each do |c|
-      comments << c["body"]["text"]
-    end
-    comments
-  end
-
-  def body_from_feeditem(feeditem)
-    feeditem.raw_hash["body"]
-  end
-end
-
-include Chatterhelper
-
-#cp = Chatterprofile.new("yangkookkim@kvh.co.jp", "mika0507qWFzQkU3w9VYDa8fDC0JspdX")
-#posts = cp.all_feeds_of("me")
-#posts.each do |p|
-#  txt = p[:parent]["body"]["text"]
-#  puts txt.to_ue
-#end
