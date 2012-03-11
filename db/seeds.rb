@@ -30,7 +30,7 @@ g6.posts << p6
 # Create employees
 f = File.open("#{Rails.root}/app/assets/images/noimage.gif")
 e1 = Employee.create(:name => "Kim, Hirokuni",:icon => f, :username => "kimh", :passwd => "kimh") 
-e2 = Employee.create(:name => "Ogawa, Junpei",:icon => f)
+e2 = Employee.create(:name => "Orimoto, Kazuyuki",:icon => f)
 e3 = Employee.create(:name => "Shu, Tosei",:icon => f)
 e4 = Employee.create(:name => "Yamazaki, Takehiro",:icon => f)
 e5 = Employee.create(:name => "Umeda, Hisakazu",:icon => f)
@@ -54,8 +54,8 @@ e1.posts << p4
 e1.posts << p5
 e1.posts << p6
 # Create profile
-p1 = Profile.create(:tel => "03-4560-1111", :email => "kimh@kvh.co.jp", :department => "Service Operation", :nationality => "Korea", :workplace => "Tamachi", :askme => "IaaS", :language => "Japanese")
-p2 = Profile.create(:tel => "03-4560-2222", :email => "ogawaj@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Asset management", :language => "Japanese")
+p1 = Profile.create(:tel => "03-4560-1111", :email => "kimh@kvh.co.jp", :department => "Service Operation", :nationality => "Korea", :workplace => "Tamachi", :askme => "IaaS", :language => "Japanese", :chatterid => "00510000000Y5JO")
+p2 = Profile.create(:tel => "03-4560-2222", :email => "orimotok@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Asset management", :language => "Japanese", :chatterid => "00510000000VMXp")
 p3 = Profile.create(:tel => "03-4560-3333", :email => "shut@kvh.co.jp", :department => "Service Operation", :nationality => "China", :workplace => "Tamachi", :askme => "Remote hands", :language => "Japanese")
 p4 = Profile.create(:tel => "03-4560-4444", :email => "yamazakit@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Monitoring", :language => "Japanese")
 p5 = Profile.create(:tel => "03-4560-5555", :email => "umedah@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Mail", :language => "Japanese")

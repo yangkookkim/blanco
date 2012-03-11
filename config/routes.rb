@@ -19,11 +19,9 @@ Blanco::Application.routes.draw do
           get 'upload_image'
         end
       end
-      resources :chattergroups do
-      end
     end
     resources :profiles do
-      resources :chatterprofile do
+      resources :chatterprofiles do
       end
     end
   end

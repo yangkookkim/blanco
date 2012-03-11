@@ -19,6 +19,6 @@ class SessionsController < ApplicationController
     client = Databasedotcom::Client.new(:client_id => ENV['sfdc_consumer_key'], :client_secret => ENV['sfdc_consumer_secret'])
     client.authenticate :token => session[:sfdc_access_token], :instance_url => session[:sfdc_instance_url]
     session[:sfdc_client] = client
-    redirect_to session[:redirect_to]
+    redirect_to session[:redirect_to] 
   end
 end

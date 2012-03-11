@@ -22,8 +22,14 @@ class Chatterprofile < Databasedotcom::Chatter::Group
   def initialize()
   end
 
+  # You can get almost the same information with NewsFeed and UserProfileFeed for your account.
+  # Howerver, you cannot get other people's NewsFeed.
   def get_news_feed(client, id)
     nf = Databasedotcom::Chatter::NewsFeed.find(client, id)
+  end
+
+  def get_user_profile_feed(client, id)
+    nf = Databasedotcom::Chatter::UserProfileFeed.find(client, id)
   end
 
   # Returns array where each elemet is a hash. The has has following keys.
@@ -31,7 +37,7 @@ class Chatterprofile < Databasedotcom::Chatter::Group
   # :parent is the post which starts the feed
   # :comment is the array of comments for parent post.
   def all_feeds_of(client, id)
-    news_feeds = self.get_news_feed(client, id)
+    news_feeds = self.get_user_profile_feed(client, id)
     posts = []
     news_feeds.each do |n|
       n.comment("This is created by blanco")
