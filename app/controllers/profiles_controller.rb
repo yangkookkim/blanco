@@ -1,8 +1,8 @@
-require 'chatterprofile'
 class ProfilesController < ApplicationController
   def show
-    @profile = Profile.find(params[:id])
-    @employee = @profile.employee
+    @employee = Employee.find(params[:employee_id])
+    @profile = @employee.profile
+    @chatterprofile = @profile.chatterprofile
   end
 
   def new

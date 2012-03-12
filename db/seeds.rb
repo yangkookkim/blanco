@@ -54,8 +54,8 @@ e1.posts << p4
 e1.posts << p5
 e1.posts << p6
 # Create profile
-p1 = Profile.create(:tel => "03-4560-1111", :email => "kimh@kvh.co.jp", :department => "Service Operation", :nationality => "Korea", :workplace => "Tamachi", :askme => "IaaS", :language => "Japanese", :chatterid => "00510000000Y5JO")
-p2 = Profile.create(:tel => "03-4560-2222", :email => "orimotok@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Asset management", :language => "Japanese", :chatterid => "00510000000VMXp")
+p1 = Profile.create(:tel => "03-4560-1111", :email => "kimh@kvh.co.jp", :department => "Service Operation", :nationality => "Korea", :workplace => "Tamachi", :askme => "IaaS", :language => "Japanese")
+p2 = Profile.create(:tel => "03-4560-2222", :email => "orimotok@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Asset management", :language => "Japanese")
 p3 = Profile.create(:tel => "03-4560-3333", :email => "shut@kvh.co.jp", :department => "Service Operation", :nationality => "China", :workplace => "Tamachi", :askme => "Remote hands", :language => "Japanese")
 p4 = Profile.create(:tel => "03-4560-4444", :email => "yamazakit@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Monitoring", :language => "Japanese")
 p5 = Profile.create(:tel => "03-4560-5555", :email => "umedah@kvh.co.jp", :department => "Service Operation", :nationality => "Japan", :workplace => "Tamachi", :askme => "Mail", :language => "Japanese")
@@ -75,3 +75,12 @@ e7.profile = p7
 e8.profile = p8
 e9.profile = p9
 e10.profile = p10
+
+# Create chatterprofile
+c1 = Chatterprofile.create(:chatterid => "00510000000Y5JO")
+c2 = Chatterprofile.create(:chatterid => "00510000000VMXp")
+
+# Add chatterprofile to profile
+p1.chatterprofile = c1
+p2.chatterprofile = c2
+

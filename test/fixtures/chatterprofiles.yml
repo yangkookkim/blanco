@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  chatter_id: MyString
+  profile_id: 1
+
+two:
+  chatter_id: MyString
+  profile_id: 1

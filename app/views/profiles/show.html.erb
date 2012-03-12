@@ -37,7 +37,7 @@
 <div id="mainWrap">
                 <table>
                     <tr>
-                        <td><%= link_to 'Chatter', :action=>"show", :controller=>"chatterprofiles", :action => 'show' %></td>
+                        <td><%= link_to 'Chatter', employee_profile_chatterprofile_path(@employee.id, @profile.id, @chatterprofile.chatterid) %></td>
                         <td>2</td>
                     </tr>
                 </table>

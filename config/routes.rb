@@ -6,6 +6,9 @@ Blanco::Application.routes.draw do
 
   get 'employees/login'
   resources :employees do
+    resources :profiles do
+      resources :chatterprofiles
+    end
     resources :groups do
       collection do
          get 'search_employees'
@@ -20,10 +23,6 @@ Blanco::Application.routes.draw do
         end
       end
     end
-    resources :profiles do
-      resources :chatterprofiles do
-      end
-    end
   end
   
   resources :groups do
@@ -35,4 +34,5 @@ Blanco::Application.routes.draw do
   resource :sessions do
     get 'sfdc_client_auth'
   end
+
 end

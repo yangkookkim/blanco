@@ -1,14 +1,13 @@
-require 'chatterprofile'
+require 'chatterrails'
 class ChatterprofilesController < ApplicationController
   layout "profile_chatterprofile"
   before_filter :sfdc_authenticate
   def show
-    #@profile = Profile.find(params[:id])
-    @profile = Profile.find(params[:profile_id])
-    @employee = @profile.employee
+    @employee = Employee.find(params[:employee_id])
+    @profile = @employee.profile
     @feeds = []
 
-    cp = Chatterprofile.new()
+    cp = ChatterRails.new()
     posts = cp.all_feeds_of(session[:sfdc_client], params[:id])
     @feeds = []
     posts.each do |p|
