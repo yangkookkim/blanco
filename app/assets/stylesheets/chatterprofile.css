@@ -1,0 +1,52 @@
+ul#feeds {
+	margin: 0 0 0 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+li.feed {
+	margin: 0 0 10px 0;
+	font-size: 15px;
+	border-top: 1px solid #D2D9E7;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #D2D9E7;
+}
+
+.feed_header {
+	margin: 5px 0 10px 0;
+}
+
+.feed_header_image {
+}
+
+.feed_header_senderinfo {
+	font-weight: bold;
+	font-size: 10px;
+}
+
+.feed_conent {
+}
+.feed_comments {
+	margin: 0 0 10px 50px;
+}
+
+.feed_comment {
+	margin: 0 0 10px 0;
+	font-size: 15px;
+	border-top: 1px solid #D2D9E7;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #D2D9E7;
+}
+
+.feed_comment_header {
+	margin: 5px 0 10px 0;
+}
+.feed_comment_header_image {
+}
+
+.feed_comment_header_senderinfo {
+	font-weight: bold;
+	font-size: 10px;
+}

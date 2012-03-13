@@ -1,3 +1,4 @@
+require 'pp'
 require 'chatterrails'
 class ChatterprofilesController < ApplicationController
   layout "profile_chatterprofile"
@@ -8,12 +9,9 @@ class ChatterprofilesController < ApplicationController
     @feeds = []
 
     cp = ChatterRails.new()
-    posts = cp.all_feeds_of(session[:sfdc_client], params[:id])
-    @feeds = []
-    posts.each do |p|
-      txt = p[:parent]["body"]["text"]
-      @feeds << txt.to_ue
-    end
+    fds = cp.all_feeds_of(session[:sfdc_client], params[:id])
+    @feeds = unescape_feeds(fds)
+    pp @feeds
   end
 
   def index
@@ -27,4 +25,19 @@ class ChatterprofilesController < ApplicationController
       return
     end  
   end
+
+  def unescape_feeds(feeds)
+    if feeds.is_a?(Array)
+      feeds.each do |feed|
+        feed[:parent]["body"]["text"] = feed[:parent]["body"]["text"].to_ue
+        feed[:comments].each do |comment|
+          comment["body"]["text"] = comment["body"]["text"].to_ue
+        end
+      end
+    else
+      raise "Wrong argument type. Must be array"
+    end
+    feeds
+  end
+  
 end

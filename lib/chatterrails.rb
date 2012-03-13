@@ -40,7 +40,6 @@ class ChatterRails < Databasedotcom::Chatter::Group
     news_feeds = self.get_user_profile_feed(client, id)
     posts = []
     news_feeds.each do |n|
-      n.comment("This is created by blanco")
       post = {:feeditem =>n, :parent => n.raw_hash, :comments => n.comments}
       posts << post
     end

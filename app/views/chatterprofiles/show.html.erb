@@ -1,3 +1,34 @@
-<% @feeds.each do |feed| %>
-<%= feed %><br>
-<% end %>
+<ul id="feeds" >
+    <% @feeds.each do |feed| %>
+    <li class="feed" >
+        <div class="feed_header" >
+            <span class="feed_header_image">
+                <%= image_tag feed[:parent]["parent"]["photo"]["smallPhotoUrl"], :align => "middle" %>
+            </span>
+            <span class="feed_header_senderinfo">
+                <%= feed[:parent]["parent"]["name"] %> wrote at <%= feed[:parent]["createdDate"] %>
+            </span>
+        </div>
+        <div class="feed_content" >
+            <div class="feed_parent" >
+                <%= feed[:parent]["body"]["text"] %><br>
+            </div>
+            <div class="feed_comments" >
+                <% feed[:comments].each do |comment| %>
+                <div class="feed_comment">
+                    <div class="feed_comment_header">
+                        <span class="feed_comment_header_image">
+                            <%= image_tag comment["user"]["photo"]["smallPhotoUrl"], :align => "middle" %>
+                        </span>
+                        <span class="feed_comment_header_senderinfo">
+                            <%= comment["user"]["name"] %> commented on <%= comment["createdDate"] %>
+                        </span>
+                    </div>
+                        <%= comment["body"]["text"] %><br>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+    </li>
+</ul>

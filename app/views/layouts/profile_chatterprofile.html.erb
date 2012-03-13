@@ -35,7 +35,11 @@
 		</div>
 	</div>
 </div><!-- sideWrap -->
-<%= yield %>
+<div id="mainWrap">
+    <div id="display_action_template" >
+        <%= yield %>
+    </div><!-- display_action_template -->
+</div><!-- mainWrap -->
 <% end %>
 <%= render :template => 'layouts/application' %>
 

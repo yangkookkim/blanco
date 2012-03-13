@@ -77,7 +77,8 @@ e9.profile = p9
 e10.profile = p10
 
 # Create chatterprofile
-c1 = Chatterprofile.create(:chatterid => "00510000000Y5JO")
+#c1 = Chatterprofile.create(:chatterid => "00510000000Y5JO") # KVH Chatter
+c1 = Chatterprofile.create(:chatterid => "005d0000000jI0P") # Dev Chatter
 c2 = Chatterprofile.create(:chatterid => "00510000000VMXp")
 
 # Add chatterprofile to profile
