@@ -7,7 +7,12 @@ Blanco::Application.routes.draw do
   get 'employees/login'
   resources :employees do
     resources :profiles do
-      resources :chatterprofiles
+      resources :chatterprofiles do
+        collection do
+          get 'show_js'
+          get 'post_feed_comment'
+        end
+      end
     end
     resources :groups do
       collection do

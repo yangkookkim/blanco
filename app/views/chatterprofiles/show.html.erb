@@ -1,3 +1,4 @@
+<%= javascript_include_tag url_for({:controller => :chatterprofiles, :action => :show_js, :id => params[:id]}) %>
 <ul id="feeds" >
     <% @feeds.each do |feed| %>
     <li class="feed" >
@@ -29,6 +30,10 @@
                 <% end %>
             </div>
         </div>
+        <div class="feed_comment_form">
+	    <textarea class="feed_comment_form_textarea" name=<%= feed[:parent]["parent"]["id"] %> rows="3" cols="50" placeholder="Write a comment here..."></textarea>
+        </div>
+            <input class="submit_comment_feed_button" name=<%= feed[:parent]["parent"]["id"] %> type="image" src="/assets/submit_button_en.png" />
     <% end %>
     </li>
 </ul>

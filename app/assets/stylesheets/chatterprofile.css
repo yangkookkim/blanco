@@ -40,6 +40,10 @@ li.feed {
 	border-top-color: #D2D9E7;
 }
 
+.feed_comment_form {
+	margin: 0 0 10px 50px;
+}
+
 .feed_comment_header {
 	margin: 5px 0 10px 0;
 }

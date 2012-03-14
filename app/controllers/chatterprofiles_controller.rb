@@ -12,7 +12,27 @@ class ChatterprofilesController < ApplicationController
     fds = cp.all_feeds_of(session[:sfdc_client], params[:id])
     @feeds = unescape_feeds(fds)
     pp @feeds
+    
   end
+
+  def post_feed_comment
+    employee_id = params[:employee_id]
+    feed_id = params[:feed_id]
+    feed_comment = params[:feed_comment]
+    @employee = Employee.find(employee_id)
+    @profile = @employee.profile
+    cp = ChatterRails.new()
+    @result = cp.post_comment(session[:sfdc_client], feed_id, feed_comment)
+    puts "RESULT"
+    render :json => @result
+  end
+
+  def show_js
+    @employee = Employee.find(params[:employee_id])
+    respond_to do |format|
+      format.js   {render :layout => false}
+    end
+  end 
 
   def index
   end 

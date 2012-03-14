@@ -1,0 +1,15 @@
+function post_comment_feed(f){
+  alert($(".submit_comment_feed_button").attr);
+}
+
+$(function(){
+    $(".submit_comment_feed_button").live("click", function(){
+        var employee_id = <%= @employee.id %>;
+        var feed_id = $(this).attr("name");
+        var feed_comment = $(".feed_comment_form_textarea[name=" + feed_id + "]").val();
+        $.get("post_feed_comment", {feed_id:feed_id, feed_comment:feed_comment, employee_id:employee_id},
+            function(data){
+                alert(data);
+        });
+    });
+});

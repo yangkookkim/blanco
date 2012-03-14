@@ -45,6 +45,11 @@ class ChatterRails < Databasedotcom::Chatter::Group
     end
     posts
   end
+  
+  def post_comment(client, parent_post_id, comment)
+    feeditem = Databasedotcom::Chatter::FeedItem.find(client, "0D5d0000008nqC9CAI")
+    feeditem.comment(comment)
+  end
 
 end
 
