@@ -15,6 +15,15 @@ class ChatterprofilesController < ApplicationController
     
   end
 
+  def update_status
+    employee_id = params[:employee_id]
+    text = params[:text]
+    @employee = Employee.find(employee_id)
+    @profile = @employee.profile
+    @result = ChatterRails.update_status(session[:sfdc_client], @profile.chatterprofile.chatterid, text)
+    render :json => @result
+  end
+
   def post_feed_comment
     employee_id = params[:employee_id]
     feed_id = params[:feed_id]
@@ -23,7 +32,6 @@ class ChatterprofilesController < ApplicationController
     @profile = @employee.profile
     cp = ChatterRails.new()
     @result = cp.post_comment(session[:sfdc_client], feed_id, feed_comment)
-    puts "RESULT"
     render :json => @result
   end
 

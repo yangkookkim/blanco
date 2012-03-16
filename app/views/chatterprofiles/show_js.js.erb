@@ -13,3 +13,14 @@ $(function(){
         });
     });
 });
+
+$(function(){
+    $("#submit_status_update_button").live("click", function(){
+        var employee_id = <%= @employee.id %>;
+        var text = $("#status_update_form_textarea").val();
+        $.get("update_status", {text:text, employee_id:employee_id},
+            function(data){
+                alert(data);
+        });
+    });
+});

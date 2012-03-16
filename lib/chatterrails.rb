@@ -22,6 +22,10 @@ class ChatterRails < Databasedotcom::Chatter::Group
   def initialize()
   end
 
+  def self.update_status(client, user_id, text)
+    result = Databasedotcom::Chatter::UserProfileFeed.post(client, user_id, :text => text)
+  end
+
   # You can get almost the same information with NewsFeed and UserProfileFeed for your account.
   # Howerver, you cannot get other people's NewsFeed.
   def get_news_feed(client, id)
@@ -47,7 +51,7 @@ class ChatterRails < Databasedotcom::Chatter::Group
   end
   
   def post_comment(client, parent_post_id, comment)
-    feeditem = Databasedotcom::Chatter::FeedItem.find(client, "0D5d0000008nqC9CAI")
+    feeditem = Databasedotcom::Chatter::FeedItem.find(client, parent_post_id)
     feeditem.comment(comment)
   end
 

@@ -11,6 +11,7 @@ Blanco::Application.routes.draw do
         collection do
           get 'show_js'
           get 'post_feed_comment'
+          get 'update_status'
         end
       end
     end
