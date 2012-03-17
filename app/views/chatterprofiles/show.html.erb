@@ -7,6 +7,7 @@
             <input id="submit_status_update_button" type="image" src="/assets/submit_button_en.png" />
     </li>
     <% @feeds.each do |feed| %>
+    <div id="feed_content_area" >
     <li class="feed" >
         <div class="feed_header" >
             <span class="feed_header_image">
@@ -17,10 +18,10 @@
             </span>
         </div>
         <div class="feed_content" >
-            <div class="feed_parent" >
+            <div class="feed_parent">
                 <%= feed[:parent]["body"]["text"] %><br>
             </div>
-            <div class="feed_comments" >
+            <div class="feed_comments" name=<%= feed[:parent]["id"] %>>
                 <% feed[:comments].each do |comment| %>
                 <div class="feed_comment">
                     <div class="feed_comment_header">
@@ -42,4 +43,5 @@
             <input class="submit_comment_feed_button" name=<%= feed[:parent]["id"] %> type="image" src="/assets/submit_button_en.png" />
     <% end %>
     </li>
+    </div>
 </ul>

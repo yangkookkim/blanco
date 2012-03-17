@@ -1,0 +1,11 @@
+<div class="feed_comment">
+    <div class="feed_comment_header">
+        <span class="feed_comment_header_image">
+            <%= image_tag @new_comment["user"]["photo"]["smallPhotoUrl"], :align => "middle" %>
+        </span>
+        <span class="feed_comment_header_senderinfo">
+            <%= @new_comment["user"]["name"] %> commented on <%= @new_comment["createdDate"] %>
+        </span>
+    </div>
+        <%= @new_comment["body"]["text"] %><br>
+</div>

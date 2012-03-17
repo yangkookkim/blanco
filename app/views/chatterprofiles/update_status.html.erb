@@ -1,0 +1,21 @@
+<li class="feed" >
+    <div class="feed_header" >
+        <span class="feed_header_image">
+            <%= image_tag @new_post["photoUrl"], :align => "middle" %>
+        </span>
+        <span class="feed_header_senderinfo">
+            <%= @new_post["actor"]["name"] %> commented on <%= @new_post["createdDate"] %>
+        </span>
+    </div>
+    <div class="feed_content" >
+        <div class="feed_parent">
+            <%= @new_post["body"]["text"] %><br>
+        </div>
+        <div class="feed_comments" name=<%= @new_post["id"] %>>
+        </div>
+    </div>
+    <div class="feed_comment_form">
+        <textarea class="feed_comment_form_textarea" name=<%= @new_post["id"] %> rows="3" cols="50" placeholder="Write a comment here..."></textarea>
+    </div>
+        <input class="submit_comment_feed_button" name=<%= @new_post["id"] %> type="image" src="/assets/submit_button_en.png" />
+</li>

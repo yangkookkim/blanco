@@ -8,8 +8,10 @@ $(function(){
         var feed_id = $(this).attr("name");
         var feed_comment = $(".feed_comment_form_textarea[name=" + feed_id + "]").val();
         $.get("post_feed_comment", {feed_id:feed_id, feed_comment:feed_comment, employee_id:employee_id},
-            function(data){
-                alert(data);
+            function(comment){
+                $(".feed_comments[name=" + feed_id + "]").append(comment);
+                $(".feed_comment_form_textarea[name=" + feed_id + "]").val("");
+                $("#status_update_form_textarea").val("");
         });
     });
 });
@@ -19,8 +21,12 @@ $(function(){
         var employee_id = <%= @employee.id %>;
         var text = $("#status_update_form_textarea").val();
         $.get("update_status", {text:text, employee_id:employee_id},
-            function(data){
-                alert(data);
+            function(post){
+                $("#feed_content_area").prepend(post);
         });
     });
+});
+
+$(function(){
+  $("ajax_load").load("ajax_load");
 });

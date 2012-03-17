@@ -1,7 +1,7 @@
 require 'pp'
 require 'chatterrails'
 class ChatterprofilesController < ApplicationController
-  layout "profile_chatterprofile"
+  layout "profile_chatterprofile", :except => [:post_feed_comment, :update_status]
   before_filter :sfdc_authenticate
   def show
     @employee = Employee.find(params[:employee_id])
@@ -11,8 +11,6 @@ class ChatterprofilesController < ApplicationController
     cp = ChatterRails.new()
     fds = cp.all_feeds_of(session[:sfdc_client], params[:id])
     @feeds = unescape_feeds(fds)
-    pp @feeds
-    
   end
 
   def update_status
@@ -20,8 +18,9 @@ class ChatterprofilesController < ApplicationController
     text = params[:text]
     @employee = Employee.find(employee_id)
     @profile = @employee.profile
-    @result = ChatterRails.update_status(session[:sfdc_client], @profile.chatterprofile.chatterid, text)
-    render :json => @result
+    result = ChatterRails.update_status(session[:sfdc_client], @profile.chatterprofile.chatterid, text)
+    pp result
+    @new_post = result.raw_hash
   end
 
   def post_feed_comment
@@ -31,8 +30,8 @@ class ChatterprofilesController < ApplicationController
     @employee = Employee.find(employee_id)
     @profile = @employee.profile
     cp = ChatterRails.new()
-    @result = cp.post_comment(session[:sfdc_client], feed_id, feed_comment)
-    render :json => @result
+    result = cp.post_comment(session[:sfdc_client], feed_id, feed_comment)
+    @new_comment = result.raw_hash
   end
 
   def show_js
