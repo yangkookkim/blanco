@@ -55,6 +55,13 @@ class ChatterRails < Databasedotcom::Chatter::Group
     feeditem.comment(comment)
   end
 
+  def self.delete_comment(client, comment_id)
+    result = Databasedotcom::Chatter::Comment.delete(client, comment_id)
+  end
+
+  def self.delete_feed(client, feed_id)
+    result = Databasedotcom::Chatter::FeedItem.delete(client, feed_id)
+  end
 end
 
 class String

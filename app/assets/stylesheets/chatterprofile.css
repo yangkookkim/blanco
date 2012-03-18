@@ -54,3 +54,11 @@ li.feed {
 	font-weight: bold;
 	font-size: 10px;
 }
+
+.delete_feed {
+	float:right;
+}
+
+.delete_comment {
+	float:right;
+}

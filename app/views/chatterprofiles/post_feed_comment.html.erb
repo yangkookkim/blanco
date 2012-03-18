@@ -1,10 +1,13 @@
-<div class="feed_comment">
+<div class="feed_comment" name=<%= @new_comment["id"] %>>
     <div class="feed_comment_header">
         <span class="feed_comment_header_image">
             <%= image_tag @new_comment["user"]["photo"]["smallPhotoUrl"], :align => "middle" %>
         </span>
         <span class="feed_comment_header_senderinfo">
             <%= @new_comment["user"]["name"] %> commented on <%= @new_comment["createdDate"] %>
+        </span>
+        <span class="delete_comment">
+            <input class="delete_comment_button" type="image" src="/assets/close_button.png" name=<%= @new_comment["id"] %>>
         </span>
     </div>
         <%= @new_comment["body"]["text"] %><br>

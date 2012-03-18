@@ -1,10 +1,13 @@
-<li class="feed" >
+<li class="feed" name=<%= @new_post["id"] %>>
     <div class="feed_header" >
         <span class="feed_header_image">
             <%= image_tag @new_post["photoUrl"], :align => "middle" %>
         </span>
         <span class="feed_header_senderinfo">
             <%= @new_post["actor"]["name"] %> commented on <%= @new_post["createdDate"] %>
+        </span>
+        <span class="delete_feed" name=<%= @new_post["id"] %>>
+            <input class="delete_feed_button" type="image" src="/assets/close_button.png" name=<%= @new_post["id"] %>>
         </span>
     </div>
     <div class="feed_content" >

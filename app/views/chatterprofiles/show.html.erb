@@ -6,15 +6,18 @@
         </div>
             <input id="submit_status_update_button" type="image" src="/assets/submit_button_en.png" />
     </li>
-    <% @feeds.each do |feed| %>
     <div id="feed_content_area" >
-    <li class="feed" >
+    <% @feeds.each do |feed| %>
+    <li class="feed" name=<%= feed[:parent]["id"] %>>
         <div class="feed_header" >
             <span class="feed_header_image">
                 <%= image_tag feed[:parent]["parent"]["photo"]["smallPhotoUrl"], :align => "middle" %>
             </span>
             <span class="feed_header_senderinfo">
                 <%= feed[:parent]["parent"]["name"] %> wrote at <%= feed[:parent]["createdDate"] %>
+            </span>
+            <span class="delete_feed" name=<%= feed[:parent]["id"] %>>
+                <input class="delete_feed_button" type="image" src="/assets/close_button.png" name=<%= feed[:parent]["id"] %>>
             </span>
         </div>
         <div class="feed_content" >
@@ -23,13 +26,16 @@
             </div>
             <div class="feed_comments" name=<%= feed[:parent]["id"] %>>
                 <% feed[:comments].each do |comment| %>
-                <div class="feed_comment">
+                <div class="feed_comment" name=<%= comment["id"] %>>
                     <div class="feed_comment_header">
                         <span class="feed_comment_header_image">
                             <%= image_tag comment["user"]["photo"]["smallPhotoUrl"], :align => "middle" %>
                         </span>
                         <span class="feed_comment_header_senderinfo">
                             <%= comment["user"]["name"] %> commented on <%= comment["createdDate"] %>
+                        </span>
+		        <span class="delete_comment" name=<%= comment["id"] %>>
+                            <input class="delete_comment_button" type="image" src="/assets/close_button.png" name=<%= comment["id"] %>>
                         </span>
                     </div>
                         <%= comment["body"]["text"] %><br>

@@ -1,7 +1,3 @@
-function post_comment_feed(f){
-  alert($(".submit_comment_feed_button").attr);
-}
-
 $(function(){
     $(".submit_comment_feed_button").live("click", function(){
         var employee_id = <%= @employee.id %>;
@@ -11,7 +7,6 @@ $(function(){
             function(comment){
                 $(".feed_comments[name=" + feed_id + "]").append(comment);
                 $(".feed_comment_form_textarea[name=" + feed_id + "]").val("");
-                $("#status_update_form_textarea").val("");
         });
     });
 });
@@ -23,10 +18,27 @@ $(function(){
         $.get("update_status", {text:text, employee_id:employee_id},
             function(post){
                 $("#feed_content_area").prepend(post);
+                $("#status_update_form_textarea").val("");
         });
     });
 });
 
 $(function(){
-  $("ajax_load").load("ajax_load");
+    $(".delete_feed_button").live("click", function(){
+        var feed_id = $(this).attr("name");
+        $.get("delete_feed", {feed_id:feed_id},
+            function(post){
+            $(".feed[name="+ feed_id + "]").remove();
+        });
+    });
+});
+
+$(function(){
+    $(".delete_comment_button").live("click", function(){
+        var comment_id = $(this).attr("name");
+        $.get("delete_comment", {comment_id:comment_id},
+            function(post){
+            $(".feed_comment[name="+ comment_id + "]").remove();
+        });
+    });
 });
