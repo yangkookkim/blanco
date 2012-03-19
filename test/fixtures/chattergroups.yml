@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  chattergroupid: 1
+  group_id: 1
+
+two:
+  chattergroupid: 1
+  group_id: 1

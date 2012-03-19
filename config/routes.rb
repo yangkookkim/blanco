@@ -30,6 +30,8 @@ Blanco::Application.routes.draw do
           get 'upload_image'
         end
       end
+      resources :chattergroups do
+      end
     end
   end
   

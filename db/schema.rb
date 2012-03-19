@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120312153941) do
+ActiveRecord::Schema.define(:version => 20120319233847) do
+
+  create_table "chattergroups", :force => true do |t|
+    t.integer  "chattergroupid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_id"
+  end
 
   create_table "chatterprofiles", :force => true do |t|
     t.integer  "profile_id"
@@ -42,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20120312153941) do
     t.string   "portrait"
     t.string   "username"
     t.string   "passwd"
+    t.integer  "chatteruserid"
   end
 
   create_table "groups", :force => true do |t|
@@ -51,6 +59,8 @@ ActiveRecord::Schema.define(:version => 20120312153941) do
     t.string   "share_with"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "ischattergroup"
+    t.integer  "chattergroup_id"
   end
 
   create_table "posts", :force => true do |t|
