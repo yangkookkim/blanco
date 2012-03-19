@@ -37,8 +37,7 @@
 <div id="mainWrap">
                 <table>
                     <tr>
-                        <td><%= link_to 'Chatter', employee_profile_chatterprofile_path(@employee.id, @profile.id, @chatterprofile.chatterid) %></td>
-                        <td>2</td>
+                        <td><%= link_to image_tag('/assets/chatter_icon.jpg', :size=>"50x45"), employee_profile_chatterprofile_path(@employee.id, @profile.id, @chatterprofile.chatterid) %></td>
                     </tr>
                 </table>
 		<div id="profile_main">
