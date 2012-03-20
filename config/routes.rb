@@ -31,6 +31,13 @@ Blanco::Application.routes.draw do
         end
       end
       resources :chattergroups do
+         collection do
+          get 'show_js'
+          get 'post_feed_comment'
+          get 'update_status'
+          get 'delete_comment'
+          get 'delete_feed'
+        end
       end
     end
   end

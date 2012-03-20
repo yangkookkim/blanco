@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  layout 'employees_groups_posts'
+  layout 'employees_chattergroups_groups_posts'
   def instant_search_show_result
     respond_to do |format|
       format.js   {render :layout => false}

@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20120319233847) do
 
   create_table "chattergroups", :force => true do |t|
-    t.integer  "chattergroupid"
+    t.string  "chattergroupid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"

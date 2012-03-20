@@ -31,7 +31,6 @@ class ChatterprofilesController < ApplicationController
     cp = ChatterRails.new()
     result = cp.post_comment(session[:sfdc_client], feed_id, feed_comment)
     @new_comment = result.raw_hash
-    pp @new_comment
   end
 
   def delete_comment

@@ -5,7 +5,7 @@ class EmployeesController < ApplicationController
     if action_name == 'login'
       #no layout
     else
-      "employees_groups_posts"
+      "employees_chattergroups_groups_posts"
     end
   end
 

@@ -12,6 +12,7 @@ g3 = Group.create(:name => "iaas", :is_feedbackgroup => false, :due => "", :shar
 g4 = Group.create(:name => "dev", :is_feedbackgroup => false, :due => "", :share_with => "")
 g5 = Group.create(:name => "complain", :is_feedbackgroup => false, :due => "", :share_with => "")
 g6 = Group.create(:name => "nico", :is_feedbackgroup => false, :due => "", :share_with => "")
+g7 = Group.create(:name => "chatter", :is_feedbackgroup => false, :due => "", :share_with => "", :ischattergroup => true )
 # Create some posts
 p1 = Post.create(:message => "fisrt post")
 p2 = Post.create(:message => "fisrt post")
@@ -85,3 +86,8 @@ c2 = Chatterprofile.create(:chatterid => "00510000000VMXp")
 p1.chatterprofile = c1
 p2.chatterprofile = c2
 
+# Create chattergroup
+cg1 = Chattergroup.create(:chattergroupid => "0F9d0000000H21k")
+
+# Add chattergroup to group
+g7.chattergroup = cg1
