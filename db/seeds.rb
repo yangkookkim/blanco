@@ -47,6 +47,7 @@ g3.employees << e1 << e2 << e3
 g4.employees << e10
 g5.employees << e1 << e2 << e3 << e4 << e6 << e7 << e8 << e9
 g6.employees << e1 << e2
+g7.employees << e1
 # Add posts to employees
 e1.posts << p1
 e1.posts << p2

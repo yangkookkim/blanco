@@ -41,6 +41,17 @@
 	width: 100px;
 }
 
+.chattergroup_name_inside_image {
+	position: absolute;
+	top: 30px; 
+	left: 10px;
+	width: 100px;
+}
+
+.image_chattergroup {
+	position: relative;
+}
+
 .unread_messages_oval {
 	position: absolute;
 	top: 20px; 
@@ -56,6 +67,13 @@
 }
 
 .group_name_inside_image a {
+	text-decoration: none;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.chattergroup_name_inside_image a {
 	text-decoration: none;
 	color: #FFFFFF;
 	font-size: 12px;

@@ -1,60 +1,72 @@
 <% content_for :content do %>
-        <div id="sideWrap" >
-                <div id="employees_groups_posts_template" >
-                        <div id="profile">
-		                       <div id="display_name">
-		                               <p><%= @employee.name %></p>
-		                       </div><!-- display_name -->
-		                       <div id="photo">
-		                               <%= image_tag @employee.icon_url(:icon).to_s if @employee.icon? %>
-		                       </div><!-- photo -->
-		                       <div id="photo_form">
-		                               <%= form_for(@employee) do |f| %>
-		                                       <%= f.file_field :icon %>
-		                                       <%= f.submit %>
-		                               <% end %>
-		                       </div><!-- photo_form -->
-                        </div><!-- profile -->
-			
-			<div id="group">
-		                       <div id ="add_group_button">
-		                               <%= image_tag 'add_group_button.png'%>
-		                               <div id="add_group_button_link">
-		                               <%= link_to "Add new group", new_employee_group_path(@employee.id) %>
-		                               </div>
-		                       </div><!-- add_group_button -->
-		                       <div id="display_group_list">
-		                               <table>
-		                                       <div id="subscribing_groups">
-		                                           <% @groups.each do |g| %>
-		                                               <tr>
-		                                               <% if g.id %>
-                                                                   <div class="image_group">
-                                                                       <img src="/assets/icon_group.png" width="100">
-                                                                       <div class="group_name_inside_image">
-                                                                            <%= link_to g.name, employee_group_path(@employee.id, g.id) %>
-                                                                       </div>
-                                                                       <% if @monitoring_post %>
-                                                                           <img src="/assets/unread_posts.png" class="unread_messages_oval">
-                                                                       <% end %>
-                                                                       <span class="unread_messages" name=<%=g.name %>></span>
-                                                                   </div>
-		                                               <% end %>
-		                                               </tr>
-		                                           <% end %>
-		                                       </div><!-- subscribing_groups -->
-		                               </table>
-		                       </div><!-- display_group_list -->
-			</div><!-- group -->
-                </div><!-- employees_groups_posts_template -->
-	
-                <div id="display_posts">
-                </div><!-- /display_posts -->
-        </div><!-- /sideWrap -->
-        <div id="mainWrap">
-                <div id="display_action_template" >
-                <%= yield %>
-                </div><!-- display_action_template -->
-        </div><!-- /mainWrap -->
+     <div id="sideWrap" >
+          <div id="employees_groups_posts_template" >
+              <div id="profile">
+                   <div id="display_name">
+                        <p><%= @employee.name %></p>
+                   </div><!-- display_name -->
+                   <div id="photo">
+                        <%= image_tag @employee.icon_url(:icon).to_s if @employee.icon? %>
+                   </div><!-- photo -->
+                   <div id="photo_form">
+                        <%= form_for(@employee) do |f| %>
+                             <%= f.file_field :icon %>
+                             <%= f.submit %>
+                        <% end %>
+                   </div><!-- photo_form -->
+              </div><!-- profile -->
+     	      <div id="group">
+                   <div id ="add_group_button">
+                        <%= image_tag 'add_group_button.png'%>
+                        <div id="add_group_button_link">
+                        <%= link_to "Add new group", new_employee_group_path(@employee.id) %>
+                        </div>
+                   </div><!-- add_group_button -->
+                   <div id="display_group_list">
+                        <table>
+                             <div id="subscribing_groups">
+                                 <% @groups.each do |g| %>
+                                     <tr>
+                                     <% if g.id %>
+                                         <% if g.ischattergroup %>
+                                              <div class="image_chattergroup">
+                                                   <img src="/assets/icon_chattergroup.png" width="130"><br>
+                                                   <div class="chattergroup_name_inside_image">
+                                                        <%= link_to g.name, employee_group_chattergroup_path(@employee.id, g.id, g.chattergroup.chattergroupid) %>
+                                                   </div>
+                                                   <% if @monitoring_post %>
+                                                       <img src="/assets/unread_posts.png" class="unread_messages_oval">
+                                                   <% end %>
+                                                   <span class="unread_messages" name=<%=g.name %>></span>
+                                              </div>                                         
+                                         <% else %>
+                                          <div class="image_group">
+                                              <img src="/assets/icon_group.png" width="100">
+                                              <div class="group_name_inside_image">
+                                                   <%= link_to g.name, employee_group_path(@employee.id, g.id) %>
+                                              </div>
+                                              <% if @monitoring_post %>
+                                                  <img src="/assets/unread_posts.png" class="unread_messages_oval">
+                                              <% end %>
+                                              <span class="unread_messages" name=<%=g.name %>></span>
+                                          </div>
+                                         <% end %>
+                                     <% end %>
+                                     </tr>
+                                 <% end %>
+                             </div><!-- subscribing_groups -->
+                        </table>
+                   </div><!-- display_group_list -->
+     	      </div><!-- group -->
+          </div><!-- employees_groups_posts_template -->
+     
+          <div id="display_posts">
+          </div><!-- /display_posts -->
+     </div><!-- /sideWrap -->
+     <div id="mainWrap">
+          <div id="display_action_template" >
+              <%= yield %>
+          </div><!-- display_action_template -->
+     </div><!-- /mainWrap -->
 <% end %>
 <%= render :template => 'layouts/application' %>
