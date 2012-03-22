@@ -7,7 +7,7 @@ Blanco::Application.routes.draw do
   get 'employees/login'
   resources :employees do
     resources :profiles do
-      resources :chatterprofiles do
+      resources :chatterprofiles, :controller => 'chatterfeeds' do
         collection do
           get 'show_js'
           get 'post_feed_comment'
@@ -30,7 +30,7 @@ Blanco::Application.routes.draw do
           get 'upload_image'
         end
       end
-      resources :chattergroups do
+      resources :chattergroups, :controller => 'chatterfeeds' do
          collection do
           get 'show_js'
           get 'post_feed_comment'
