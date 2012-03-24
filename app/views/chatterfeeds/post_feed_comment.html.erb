@@ -10,5 +10,5 @@
             <input class="delete_comment_button" type="image" src="/assets/close_button.png" name=<%= @new_comment["id"] %>>
         </span>
     </div>
-        <%= @new_comment["body"]["text"] %><br>
+        <%= simple_format(@new_comment["body"]["text"]) %><br>
 </div>

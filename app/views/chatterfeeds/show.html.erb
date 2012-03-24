@@ -22,7 +22,7 @@
         </div>
         <div class="feed_content" >
             <div class="feed_parent">
-                <%= feed[:parent]["body"]["text"] %><br>
+                <%= simple_format(feed[:parent]["body"]["text"]) %><br>
             </div>
             <div class="feed_comments" name=<%= feed[:parent]["id"] %>>
                 <% feed[:comments].each do |comment| %>
@@ -38,7 +38,7 @@
                             <input class="delete_comment_button" type="image" src="/assets/close_button.png" name=<%= comment["id"] %>>
                         </span>
                     </div>
-                        <%= comment["body"]["text"] %><br>
+                        <%= simple_format(comment["body"]["text"]) %><br>
                 </div>
                 <% end %>
             </div>
