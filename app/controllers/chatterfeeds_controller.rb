@@ -1,19 +1,18 @@
 require 'pp'
 require 'chatterrails'
 
+# ChatterfeedsController is the superclass of ChattergroupsController and ChatterprofileController.
+# Actions defined in ChatterfeedsController is not directly called, but called from subclass.
 class ChatterfeedsController < ApplicationController
-  layout 'employees_chattergroups_groups_posts', :except => [:post_feed_comment, :update_status, :delete_comment, :delete_feed]
-  before_filter :sfdc_authenticate
   
-  @@resource_type = nil
-
+  RESOURCE_TYPE= %w(Groups UserProfile)
+  
   def show
     @employee = Employee.find_by_id(params[:employee_id])
     @group = Group.find_by_id(params[:id])
     @groups = @employee.groups
     @profile = @employee.profile
     @resource_id = params[:id]
-    set_resource_type(@resource_id)
   end
 
   def update_status
@@ -21,13 +20,10 @@ class ChatterfeedsController < ApplicationController
     @group_id = params[:group_id]
     @resource_id = params[:resource_id]
     @text = params[:text]
-    set_resource_type(@resource_id)
   end
 
   def show_js
     @resource_id = params[:id].sub(/.js$/, "")
-    set_resource_type(@resource_id)
-
     @employee = Employee.find(params[:employee_id])
     respond_to do |format|
       format.js   {render :layout => false}
@@ -74,17 +70,5 @@ class ChatterfeedsController < ApplicationController
       raise "Wrong argument type. Must be array"
     end
     feeds
-  end
- 
-  def set_resource_type(resource_id)
-    group_expr = /0F9/
-    userprofile_expr = /005/
-    if resource_id.slice(0,3) =~ group_expr 
-      @@resource_type = "Group"
-    elsif resource_id.slice(0,3) =~ userprofile_expr 
-      @@resource_type = "UserProfile"
-    else
-      @@resource_type = nil
-    end
   end
 end

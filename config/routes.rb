@@ -1,12 +1,21 @@
 Blanco::Application.routes.draw do
 
-  # To handl salesforce callback url
+  # To handle salesforce callback url
   match '/auth/:provider/callback', :to => 'sessions#sfdc_client_auth'
   match '/instant_search' => 'application#instant_search'
 
   get 'employees/login'
   resources :employees do
     resources :profiles do
+      resources :chatterfeeds do
+        collection do
+          get 'show_js'
+          get 'post_feed_comment'
+          get 'update_status'
+          get 'delete_comment'
+          get 'delete_feed'
+        end
+      end
       resources :chatterprofiles do
         collection do
           get 'show_js'
@@ -28,6 +37,15 @@ Blanco::Application.routes.draw do
       resources :posts do
         collection do
           get 'upload_image'
+        end
+      end
+      resources :chatterfeeds do
+         collection do
+          get 'show_js'
+          get 'post_feed_comment'
+          get 'update_status'
+          get 'delete_comment'
+          get 'delete_feed'
         end
       end
       resources :chattergroups do
