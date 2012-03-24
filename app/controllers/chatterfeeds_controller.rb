@@ -12,12 +12,16 @@ class ChatterfeedsController < ApplicationController
     @group = Group.find_by_id(params[:id])
     @groups = @employee.groups
     @profile = @employee.profile
-    cr = ChatterRails.new()
-    resource_id = params[:id]
-    set_resource_type(resource_id)
-    
-    fds = cr.all_feeds(session[:sfdc_client], params[:id], @@resource_type)
-    @feeds = unescape_feeds(fds)
+    @resource_id = params[:id]
+    set_resource_type(@resource_id)
+  end
+
+  def update_status
+    @resource_id = params[:resource_id].sub(/.js$/, "")
+    @group_id = params[:group_id]
+    @resource_id = params[:resource_id]
+    @text = params[:text]
+    set_resource_type(@resource_id)
   end
 
   def show_js
@@ -29,24 +33,12 @@ class ChatterfeedsController < ApplicationController
       format.js   {render :layout => false}
     end
   end
-
-  def update_status
-    resource_id = params[:resource_id].sub(/.js$/, "")
-    set_resource_type(resource_id)
-
-    group_id = params[:group_id]
-    resource_id = params[:resource_id]
-    text = params[:text]
-    result = ChatterRails.update_status(session[:sfdc_client], @@resource_type, resource_id, text)
-    @new_post = result.raw_hash
-  end
-
+  
   def post_feed_comment
     employee_id = params[:employee_id]
     feed_id = params[:feed_id]
     feed_comment = params[:feed_comment]
-    cp = ChatterRails.new()
-    result = cp.post_comment(session[:sfdc_client], feed_id, feed_comment)
+    result = ChatterRails.post_comment(session[:sfdc_client], feed_id, feed_comment)
     @new_comment = result.raw_hash
     pp @new_comment
   end

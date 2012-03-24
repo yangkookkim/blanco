@@ -1,0 +1,53 @@
+<%= javascript_include_tag url_for({:controller => :chattergroups, :action => :show_js, :id => params[:id]}) %>
+<ul id="feeds" >
+    <li id="status_update">
+        <div class="status_update_form">
+	    <textarea id="status_update_form_textarea" rows="3" cols="50" placeholder="Update your status here..."></textarea>
+        </div>
+            <input id="submit_status_update_button" type="image" src="/assets/submit_button_en.png" />
+    </li>
+    <div id="feed_content_area" >
+    <% @feeds.each do |feed| %>
+    <li class="feed" name=<%= feed[:parent]["id"] %>>
+        <div class="feed_header" >
+            <span class="feed_header_image">
+                <%= image_tag feed[:parent]["parent"]["photo"]["smallPhotoUrl"], :align => "middle" %>
+            </span>
+            <span class="feed_header_senderinfo">
+                <%= feed[:parent]["parent"]["name"] %> wrote at <%= feed[:parent]["createdDate"] %>
+            </span>
+            <span class="delete_feed" name=<%= feed[:parent]["id"] %>>
+                <input class="delete_feed_button" type="image" src="/assets/close_button.png" name=<%= feed[:parent]["id"] %>>
+            </span>
+        </div>
+        <div class="feed_content" >
+            <div class="feed_parent">
+                <%= feed[:parent]["body"]["text"] %><br>
+            </div>
+            <div class="feed_comments" name=<%= feed[:parent]["id"] %>>
+                <% feed[:comments].each do |comment| %>
+                <div class="feed_comment" name=<%= comment["id"] %>>
+                    <div class="feed_comment_header">
+                        <span class="feed_comment_header_image">
+                            <%= image_tag comment["user"]["photo"]["smallPhotoUrl"], :align => "middle" %>
+                        </span>
+                        <span class="feed_comment_header_senderinfo">
+                            <%= comment["user"]["name"] %> commented on <%= comment["createdDate"] %>
+                        </span>
+		        <span class="delete_comment" name=<%= comment["id"] %>>
+                            <input class="delete_comment_button" type="image" src="/assets/close_button.png" name=<%= comment["id"] %>>
+                        </span>
+                    </div>
+                        <%= comment["body"]["text"] %><br>
+                </div>
+                <% end %>
+            </div>
+        </div>
+        <div class="feed_comment_form">
+	    <textarea class="feed_comment_form_textarea" name=<%= feed[:parent]["id"] %> rows="3" cols="50" placeholder="Write a comment here..."></textarea>
+        </div>
+            <input class="submit_comment_feed_button" name=<%= feed[:parent]["id"] %> type="image" src="/assets/submit_button_en.png" />
+    <% end %>
+    </li>
+    </div>
+</ul>

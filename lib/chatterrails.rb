@@ -33,7 +33,7 @@ class ChatterRails < Databasedotcom::Chatter::Group
     end
   end
 
-  def get_feeditems(client, id, resource_type)
+  def self.get_feeditems(client, id, resource_type)
     case resource_type
     when "Group"
       Databasedotcom::Chatter::RecordFeed.find(client, id)
@@ -48,8 +48,8 @@ class ChatterRails < Databasedotcom::Chatter::Group
   # :feeditem is a feeditem ruby object
   # :parent is the post which starts the feed
   # :comment is the array of comments for parent post.
-  def all_feeds(client, id, resource_type)
-    news_feeds = self.get_feeditems(client, id, resource_type)
+  def self.all_feeds(client, id, resource_type)
+    news_feeds = get_feeditems(client, id, resource_type)
     posts = []
     news_feeds.each do |n|
       post = {:feeditem =>n, :parent => n.raw_hash, :comments => n.comments}
@@ -58,13 +58,8 @@ class ChatterRails < Databasedotcom::Chatter::Group
     posts
   end
 
-  def post_comment(client, parent_post_id, comment)
+  def self.post_comment(client, parent_post_id, comment)
     feeditem = Databasedotcom::Chatter::FeedItem.find(client, parent_post_id)
-    feeditem.comment(comment)
-  end
-
-  def post_groupcomment(client, parent_post_id, comment)
-    feeditem = Databasedotcom::Chatter::Record.find(client, parent_post_id)
     feeditem.comment(comment)
   end
 
