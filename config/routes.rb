@@ -58,6 +58,13 @@ Blanco::Application.routes.draw do
         end
       end
     end
+    resources :lunchmaps do
+      collection do
+        get 'index_js'
+        get 'search_restaurant'
+	get 'get_restaurant_review_html'
+      end
+    end
   end
   
   resources :groups do
@@ -69,5 +76,6 @@ Blanco::Application.routes.draw do
   resource :sessions do
     get 'sfdc_client_auth'
   end
+
 
 end

@@ -1,0 +1,12 @@
+<% content_for :content do %>
+    <div id="sideWrap_lunch" >
+      Sidewrap  
+    </div> 
+    <div id="mainWrap_lunch">
+         <div id="display_action_template" >
+             <%= yield %>
+         </div><!-- display_action_template -->
+	 bbb
+     </div><!-- /mainWrap -->
+<% end %>
+<%= render :template => 'layouts/application' %>

@@ -1,0 +1,27 @@
+#mainWrap_lunch { 
+	width:600px;
+	float:right;
+	text-align:left;
+}
+
+#sideWrap_lunch { 
+	width:160px;
+	float:left;
+	text-align:left;
+	border: 1px solid #D2D9E7;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D2D9E7;
+}
+
+#map {
+       height: 250px;
+}
+
+#maincContent_lunch {
+       margin: 20px 0 0 0;
+}
+
+#search_result_lunch_imagelist {
+       list-style:none;
+}

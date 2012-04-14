@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -92,3 +94,7 @@ cg1 = Chattergroup.create(:chattergroupid => "0F9d0000000H21k")
 
 # Add chattergroup to group
 g7.chattergroup = cg1
+
+# Create restaurant
+#r1 = Restaurant.create(:rcd => 13023760, :name => "後楽そば 田町店", :latitude => 35.6450093221232, :longitude => 139.748367474)
+#r2 = Restaurant.create(:rcd => 13046911, :name => "中華そば むらさき山", :latitude => 35.6479526387307, :longitude => 139.746136884063)

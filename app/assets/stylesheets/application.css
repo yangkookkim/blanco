@@ -20,9 +20,9 @@ body {
 }
 
 #container { width:780px;
-			 text-align:left;
-			 margin-left: auto;
-			 margin-right: auto;
+        text-align:left;
+	margin-left: auto;
+	margin-right: auto;
 }
 .clear {
     clear:both;

@@ -11,6 +11,7 @@ gem 'omniauth-oauth'
 gem 'omniauth-salesforce'
 gem 'databasedotcom'
 gem 'httparty'
+gem 'nokogiri'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'

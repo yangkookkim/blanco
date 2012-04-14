@@ -11,10 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120319233847) do
+ActiveRecord::Schema.define(:version => 20120403161852) do
 
   create_table "chattergroups", :force => true do |t|
-    t.string  "chattergroupid"
+    t.string   "chattergroupid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"
@@ -63,6 +63,16 @@ ActiveRecord::Schema.define(:version => 20120319233847) do
     t.integer  "chattergroup_id"
   end
 
+  create_table "lunchmaps", :force => true do |t|
+    t.integer  "rcd"
+    t.string   "restaurant_name"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "posts", :force => true do |t|
     t.integer  "employee_id"
     t.integer  "group_id"
@@ -89,6 +99,16 @@ ActiveRecord::Schema.define(:version => 20120319233847) do
     t.datetime "updated_at"
     t.string   "focus"
     t.integer  "employee_id"
+  end
+
+  create_table "restaurants", :force => true do |t|
+    t.integer  "rcd"
+    t.string   "name"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|
