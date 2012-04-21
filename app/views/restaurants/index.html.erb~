@@ -13,7 +13,9 @@
         <% if restaurant.posts.empty? %>
 	  No one visted this place yet<br>
         <% else %>
-	<div class="each_restaurant_review_header">Following people visited this place</div>
+	<div class="each_restaurant_review_header">
+        Following people visited this place
+	</div>
         <div id="numberofposts"><%= restaurant.posts.size %></div>
 	<div class="button" name="left">left</div>
 	<div class="button" name="right">right</div>

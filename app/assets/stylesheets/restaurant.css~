@@ -52,10 +52,6 @@
 	margin: 0 5px 0 5px;
 }
 
-.each_restaurant_review_header {
-	margin: 0 5px 0 5px;
-}
-
 .clear {
     clear:both;
 }
