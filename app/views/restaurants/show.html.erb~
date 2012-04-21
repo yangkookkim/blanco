@@ -1,0 +1,19 @@
+
+<div id="restaurant_new_post">
+	<textarea id="input" name="freeans" rows="4" cols="40"></textarea>
+	<input id="upload" type="file" name="post[image]" enctype="multipart/form-data">
+        <div id="loader"><%= image_tag "ajax-loader.gif", :id => "spinner", :style => "display:none" %></div>
+        <div id="display_image"></div>
+	<div id="submit_post_button">
+		<input id="submit_post" type="image" src="/assets/submit_button_en.png" onclick="submit_post();"/>
+	</div>
+</div>
+
+<div id="msg"></div>
+	<%#
+	  ### When :collection is passed array object, partial file takes each element of array and sets it to local variable with the name of partial file.
+	  ### In this case, partial file "_post.html.erb" creates variable "post" with each element of "@posts". Then it renders partial page with each "page".
+	%>
+<ul id="posts" >
+	<%= render :partial => "/posts/each_post", :collection => @posts %>
+</ul>

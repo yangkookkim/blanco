@@ -1,0 +1,38 @@
+<div id="restaurant_info">
+  <% @restaurants.each do |restaurant| %>
+    <div class="each_restaurant">
+      <div class="each_restaurant_info">
+        <div class="each_restaurant_name">
+          <%= restaurant.name %>
+        </div>
+        <div class="each_restaurant_image">
+          <%= image_tag restaurant.image_url(:thumb), :align => "top" if restaurant.image? %>
+        </div>
+      </div>
+      <div class="each_restaurant_review_area">
+        <% if restaurant.posts.empty? %>
+	  No one visted this place yet<br>
+        <% else %>
+          Following people visited this place<br>
+        <div id="numberofposts"><%= restaurant.posts.size %></div>
+	<div class="left">left</div>
+	<div class="right">right</div>
+	<table class="animation_test">
+	    <tr>
+              <% restaurant.posts.each do |post| %>
+		  <td class="each_restaurant_review" name=<%= post.id %>>
+                  <div class="each_restaurant_review_image">
+	      	    <%= image_tag post.employee.icon_url(:thumb) if post.employee.icon? %>
+	          </div>
+                </td>
+              <% end %>
+	    </tr>
+	</table>
+	<div class="comment_display_area">
+	</div>
+  <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

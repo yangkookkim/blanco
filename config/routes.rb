@@ -58,11 +58,16 @@ Blanco::Application.routes.draw do
         end
       end
     end
-    resources :lunchmaps do
+    resources :restaurants do
       collection do
         get 'index_js'
         get 'search_restaurant'
 	get 'get_restaurant_review_html'
+	get 'index_get_active_message'
+      end
+      resources :posts do
+        collection do
+        end
       end
     end
   end

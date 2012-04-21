@@ -1,0 +1,8 @@
+<div class="restaurant_review">
+  <div class="restaurant_review_name">
+    <%= @restaurant.name %>
+  </div>
+  <div class="restaurant_review_image">
+    <%= image_tag @restaurant.icon_url if @restaurant.thumb? %>
+  </div>
+</div>

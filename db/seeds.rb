@@ -96,5 +96,13 @@ cg1 = Chattergroup.create(:chattergroupid => "0F9d0000000H21k")
 g7.chattergroup = cg1
 
 # Create restaurant
-#r1 = Restaurant.create(:rcd => 13023760, :name => "後楽そば 田町店", :latitude => 35.6450093221232, :longitude => 139.748367474)
-#r2 = Restaurant.create(:rcd => 13046911, :name => "中華そば むらさき山", :latitude => 35.6479526387307, :longitude => 139.746136884063)
+r1 = Restaurant.create(:rcd => 13023760, :name => "後楽そば 田町店", :latitude => 35.6450093221232, :longitude => 139.748367474)
+r2 = Restaurant.create(:rcd => 13046911, :name => "中華そば むらさき山", :latitude => 35.6479526387307, :longitude => 139.746136884063)
+
+# Create restaurant post
+rp1 = Post.create(:message => "This is a great restaurant!!")
+e1.posts << rp1
+
+# Add post to restaurant
+r1.posts << rp1
+

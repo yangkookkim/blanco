@@ -1,13 +1,19 @@
 # coding: utf-8
 require 'tabelog'
 
-class LunchmapsController < ApplicationController
-  layout 'lunchmap', :except => [:get_restaurant_review_html]
+class RestaurantsController < ApplicationController
+  layout 'restaurant', :except => [:get_restaurant_review_html]
   def index
+    @restaurants = Restaurant.find(:all)
   end
 
   def index_js
     @employee = Employee.find(params[:employee_id])
+  end
+
+  def index_get_active_message
+    message = Post.find(params[:post_id]).message
+    render :json => message.to_json
   end
 
   def search_restaurant
@@ -17,5 +23,8 @@ class LunchmapsController < ApplicationController
 
   def get_restaurant_review_html
     @restaurant = Restaurant.find(params[:id])
+  end
+
+  def show
   end
 end
