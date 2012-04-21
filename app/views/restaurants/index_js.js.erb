@@ -48,68 +48,64 @@ function search_restaurant() {
     function(result){
       for (i = 0; i < result.length; i++) {
         r = result[i];
-	var res_id = r.id;
+    var res_id = r.id;
         var res_lat = parseFloat(r.latitude);
         var res_lon = parseFloat(r.longitude);
         var res_name = r.name;
         var res_image = r.image;
         markonmap(res_lat, res_lon, res_name);
-	$.get("/employees/" + emp_id + "/restaurants/get_restaurant_review_html", {id:res_id},
+    $.get("/employees/" + emp_id + "/restaurants/get_restaurant_review_html", {id:res_id},
           function(result_html){
             $("#search_result_lunch_imagelist").append(result_html);
-	  });
+      });
         $("#search_box_lunch").val("");
       }
   });
 }
 
 $(function($){
-        var emp_id = <%= @employee.id%>
-	$(".each_restaurant_review").click(function(){
-		$("img", ".each_restaurant_review_image").css("border", "2px solid #FFFFFF");
-		$("img", this).css("border", "2px solid #498BF4");
-		var comment = $(".each_restaurant_review_comment", this).text();
-		var post_id = $(this).attr("name");
-	        $.get("/employees/" + emp_id + "/restaurants/index_get_active_message", {post_id:post_id},
+    var emp_id = <%= @employee.id%>
+    $(".each_restaurant_review").click(function(){
+        $("img", ".each_restaurant_review_image").css("border", "2px solid #FFFFFF");
+        $("img", this).css("border", "2px solid #498BF4");
+        var comment = $(".each_restaurant_review_comment", this).text();
+        var post_id = $(this).attr("name");
+            $.get("/employees/" + emp_id + "/restaurants/index_get_active_message", {post_id:post_id},
                     function(result_json){
-		    $(".comment_display_area").text(result_json);
-	        });
-	});
+            $(".comment_display_area").text(result_json);
+            });
+    });
 
 });
 
 $(function($){
-	$(".left").click(function(){
-		var each_image_width = 50;
-		var numofposts = $("#numberofposts").text();
-		var posts_width = parseInt(numofposts) * each_image_width;
-		var val = $("table").css("marginLeft");
-		var new_val = parseInt(val) - each_image_width;
-                var box_width = 250;
-		var hidden_width = posts_width + new_val;
-		if (hidden_width >= box_width ) {
-			var left = new_val + "px";
-			$("table:not(:animated)").animate({
-				marginLeft:left,
-			}, "slow", "swing")
-		}
-	});
-});
+    $(".button").click(function(){
+        var direction = $(this).attr("name");
+        var each_image_width = 50;
+        var numofposts = $("#numberofposts").text();
+        var posts_width = parseInt(numofposts) * each_image_width;
+        var val = $("table").css("marginLeft");
 
-$(function($){
-	$(".right").click(function(){
-		var each_image_width = 50;
-		var numofposts = $("#numberofposts").text();
-		var posts_width = parseInt(numofposts) * each_image_width;
-		var val = $("table").css("marginLeft");
-		var new_val = parseInt(val) + each_image_width;
-                var box_width = 250;
-		var hidden_width = posts_width + new_val;
-		if ((hidden_width >= box_width ) && (parseInt(val) < 0)) {
-			var right = new_val + "px";
-			$("table:not(:animated)").animate({
-				marginLeft:right,
-			}, "slow", "swing")
-		}
-	});
+        if (direction == "left") {
+            var new_val = parseInt(val) + each_image_width;
+                    var box_width = 250;
+            var hidden_width = posts_width + new_val;
+            if ((hidden_width >= box_width ) && (parseInt(val) < 0)) {
+                var right = new_val + "px";
+                $("table:not(:animated)").animate({
+                    marginLeft:right,
+                }, "normal", "swing")
+            }        
+        } else if (direction == "right") {
+            var new_val = parseInt(val) - each_image_width;
+                    var box_width = 250;
+            var hidden_width = posts_width + new_val;
+            if (hidden_width >= box_width ) {
+                var left = new_val + "px";
+                $("table:not(:animated)").animate({
+                    marginLeft:left,
+                }, "normal", "swing")
+            }
+        }
+    });
 });

@@ -15,8 +15,8 @@
         <% else %>
           Following people visited this place<br>
         <div id="numberofposts"><%= restaurant.posts.size %></div>
-	<div class="left">left</div>
-	<div class="right">right</div>
+	<div class="button" name="left">left</div>
+	<div class="button" name="right">right</div>
 	<table class="animation_test">
 	    <tr>
               <% restaurant.posts.each do |post| %>
