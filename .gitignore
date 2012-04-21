@@ -17,6 +17,7 @@
 # Ignore vi swap file
 *.swp
 *.swo
+*~
 
 # Ignore picture
 */uploads/post/*
