@@ -9,19 +9,19 @@
           <%= image_tag restaurant.image_url(:thumb), :align => "top" if restaurant.image? %>
         </div>
       </div>
-      <div class="each_restaurant_review_area">
+      <div class="each_restaurant_review_area" name="fuga">
         <% if restaurant.posts.empty? %>
 	  No one visted this place yet<br>
         <% else %>
 	<div class="each_restaurant_review_header">Following people visited this place</div>
-        <div id="numberofposts"><%= restaurant.posts.size %></div>
+        <div class="numberofposts"><%= restaurant.posts.size %></div>
 	<div class="button" name="left">left</div>
 	<div class="button" name="right">right</div>
 	<table class="animation_test">
 	    <tr>
               <% restaurant.posts.each_with_index do |post, i| %>
 		  <td class="each_restaurant_review" name=<%= post.id %>>
-                  <div class="each_restaurant_review_image">
+                  <div class="each_restaurant_review_image" name=<%= restaurant.id %>>
 			  <% if i == 0 %>
 			  	<%= image_tag(post.employee.icon_url(:thumb), :style => "border-style: solid; border-width: 2px; border-color:#498BF4;") if post.employee.icon? %>
 			<% else %>
@@ -32,7 +32,7 @@
               <% end %>
 	    </tr>
 	</table>
-	<div class="comment_display_area">
+	<div class=<%= "comment_display_area#{restaurant.id}"%> >
 		<%= restaurant.posts.first.message %>
 	</div>
   <% end %>

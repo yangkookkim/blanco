@@ -64,15 +64,16 @@ function search_restaurant() {
 }
 
 $(function($){
-    var emp_id = <%= @employee.id%>
+    var emp_id = <%= @employee.id %>
     $(".each_restaurant_review").click(function(){
         $("img", ".each_restaurant_review_image").css("border", "2px solid #FFFFFF");
         $("img", this).css("border", "2px solid #498BF4");
         var comment = $(".each_restaurant_review_comment", this).text();
         var post_id = $(this).attr("name");
+        var rest_id = $(this).find(".each_restaurant_review_image").attr("name");
             $.get("/employees/" + emp_id + "/restaurants/index_get_active_message", {post_id:post_id},
                     function(result_json){
-            $(".comment_display_area").text(result_json);
+            $(".comment_display_area" + rest_id).text(result_json);
             });
     });
 
@@ -82,28 +83,28 @@ $(function($){
     $(".button").click(function(){
         var direction = $(this).attr("name");
         var each_image_width = 50;
-        var numofposts = $("#numberofposts").text();
+	var parnt = $(this).parent();
+        var numofposts = parnt.find(".numberofposts").text();
         var posts_width = parseInt(numofposts) * each_image_width;
-        var val = $("table").css("marginLeft");
+        var val = parnt.find("table").css("marginLeft");
+        var box_width = 250;
 
         if (direction == "left") {
             var new_val = parseInt(val) + each_image_width;
-                    var box_width = 250;
             var hidden_width = posts_width + new_val;
             if ((hidden_width >= box_width ) && (parseInt(val) < 0)) {
-                var right = new_val + "px";
-                $("table:not(:animated)").animate({
-                    marginLeft:right,
+                var pixel = new_val + "px";
+                parnt.find("table:not(:animated)").animate({
+                    marginLeft:pixel,
                 }, "normal", "swing")
             }        
         } else if (direction == "right") {
             var new_val = parseInt(val) - each_image_width;
-                    var box_width = 250;
             var hidden_width = posts_width + new_val;
             if (hidden_width >= box_width ) {
-                var left = new_val + "px";
-                $("table:not(:animated)").animate({
-                    marginLeft:left,
+                var pixel = new_val + "px";
+                parnt.find("table:not(:animated)").animate({
+                    marginLeft:pixel,
                 }, "normal", "swing")
             }
         }
