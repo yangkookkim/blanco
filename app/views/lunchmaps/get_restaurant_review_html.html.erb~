@@ -1,4 +1,0 @@
-<div class="restaurant_review">
-  <%= @restaurant.name %>
-  <%= image_tag @restaurant.image_url if @restaurant.image? %>
-</div>

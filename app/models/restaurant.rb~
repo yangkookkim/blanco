@@ -1,3 +1,0 @@
-class Restaurant < ActiveRecord::Base
-  mount_uploader :image, PostUploader
-end
