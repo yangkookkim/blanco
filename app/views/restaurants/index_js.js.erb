@@ -66,8 +66,8 @@ function search_restaurant() {
 $(function($){
     var emp_id = <%= @employee.id %>
     $(".each_restaurant_review").click(function(){
-        $("img", ".each_restaurant_review_image").css("border", "2px solid #FFFFFF");
-        $("img", this).css("border", "2px solid #498BF4");
+	$(this).parent().find(".each_restaurant_review_image img").css("border", "2px solid #FFFFFF");
+	$(this).find(".each_restaurant_review_image img").css("border", "2px solid #498BF4");
         var comment = $(".each_restaurant_review_comment", this).text();
         var post_id = $(this).attr("name");
         var rest_id = $(this).find(".each_restaurant_review_image").attr("name");
