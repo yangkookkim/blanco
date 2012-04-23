@@ -2,74 +2,74 @@ var postid = null;
 
 $(function($){
     $("#upload").change(function(){ 
-	$("#spinner").show();
-	upload_image();
+    $("#spinner").show();
+    upload_image();
       });
 });
 
 $(function(){
-	$(".delete_post_button").live("click", function(){
-		var grp_id = <%= @group.id %>;
-		var emp_id = <%= @employee.id %>;
-		var pst_id = $(this).attr("name");
-		var url = "/posts/"+ pst_id;
+    $(".delete_post_button").live("click", function(){
+        var grp_id = <%= @group.id %>;
+        var emp_id = <%= @employee.id %>;
+        var pst_id = $(this).attr("name");
+        var url = "/posts/"+ pst_id;
 
-		var data_json = {
-        			  "channel":{"id":grp_id},
-        		   	  "post":{"message":null, "employee_id":emp_id, "group_id":grp_id, "id":pst_id},
-        		   	  "operation":"deletepost"
-		};
-		var data_str = JSON.stringify(data_json);
-		ws.send(data_str);
-	});
+        var data_json = {
+                      "channel":{"id":grp_id},
+                         "post":{"message":null, "employee_id":emp_id, "group_id":grp_id, "id":pst_id},
+                         "operation":"deletepost"
+        };
+        var data_str = JSON.stringify(data_json);
+        ws.send(data_str);
+    });
 });
 
 function upload_image(){
-	var grp_id = <%= @group.id %>;
-	var emp_id = <%= @employee.id %>;
-	var url = "/employees/"+ emp_id +"/groups/"+ grp_id +"/posts"
-	
+    var grp_id = <%= @group.id %>;
+    var emp_id = <%= @employee.id %>;
+    var url = "/employees/"+ emp_id +"/groups/"+ grp_id +"/posts"
+    
     $('#upload').upload(
     url, 
     {"employee_id":emp_id, "group_id":"grp_id", "type":"image"},
     function (res) {
-    	image = res.image
-    	imageurl = image.url
-    	postid = res.id
-    	html = '<img alt="The image you uploaded" height="100" src="'+ imageurl +'"  width="100" />';
-    	$("#display_image").html(html);
-	$("#spinner").hide();
+        image = res.image
+        imageurl = image.url
+        postid = res.id
+        html = '<img alt="The image you uploaded" height="100" src="'+ imageurl +'"  width="100" />';
+        $("#display_image").html(html);
+    $("#spinner").hide();
     },
-    	'json'
+        'json'
     );
-	$("#upload").change(triggerUpload);
+    $("#upload").change(triggerUpload);
 }
 
 function submit_post(f){
-	var grp_id = <%= @group.id %>;
-	var emp_id = <%= @employee.id %>;
-	var val = $("#input").val();
-	var data_json = {
-        			  "channel":{"id":grp_id},
-        		   	  "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "id":postid},
-        		   	  "operation":"sendmsg"
-	};
-	var data_str = JSON.stringify(data_json);
-	// Send data to websocket
-	ws.send(data_str);
-	
-	// TODO update message should be sperated
-	// Send update notification
-	var update_json = {
-        			  "channel":{"id":grp_id},
-        		   	  "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "id":postid},
-        		   	  "operation":"update"
-	};
-	var update_str = JSON.stringify(update_json);
-	//monitor_posts_ws.send(update_str);
-	
-	$("#input").val("");
-	postid = null;
+    var grp_id = <%= @group.id %>;
+    var emp_id = <%= @employee.id %>;
+    var val = $("#input").val();
+    var data_json = {
+                      "channel":{"id":grp_id},
+                      "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "id":postid},
+                      "operation":"sendmsg"
+    };
+    var data_str = JSON.stringify(data_json);
+    // Send data to websocket
+    ws.send(data_str);
+    
+    // TODO update message should be sperated
+    // Send update notification
+    var update_json = {
+                      "channel":{"id":grp_id},
+                      "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "id":postid},
+                      "operation":"update"
+    };
+    var update_str = JSON.stringify(update_json);
+    //monitor_posts_ws.send(update_str);
+    
+    $("#input").val("");
+    postid = null;
 }
 
 $(function(){
@@ -78,67 +78,66 @@ $(function(){
     var id = <%= @group.id %>;
     var expr = /(\r\n|\r|\n)/g
     ws.onmessage = function(evt) {
-    	if (evt.data) {
-			var json = $.parseJSON(evt.data)
-			var post = json.post
-			var employee = json.employee
-			
-			// Delete post
-			var res = json.res
-			if (res != null) {
-				suc = res.success;
-				if (suc == 1){
-					pst_id = res.id;
-					$("[name ="+ pst_id +"]", "#posts").remove();
-					return false;
-				}
-			}
-			// Delete post
-			
-		    var txt = post.message
-		    txt = txt.replace(/\r\n/g, '\n');
-		    txt = txt.replace(/\r/g, '\n');
-		    var lines = txt.split('\n');
+        if (evt.data) {
+            var json = $.parseJSON(evt.data)
+            var post = json.post
+            var employee = json.employee
+            
+            // Delete post
+            var res = json.res
+            if (res != null) {
+                suc = res.success;
+                if (suc == 1){
+                    pst_id = res.id;
+                    $("[name ="+ pst_id +"]", "#posts").remove();
+                    return false;
+                }
+            }
+            // Delete post
+            var txt = post.message
+            txt = txt.replace(/\r\n/g, '\n');
+            txt = txt.replace(/\r/g, '\n');
+            var lines = txt.split('\n');
 
-			var iconurl;
-			var iconhtml;
-			var imageurl;
-			var imagehtml;
+            var iconurl;
+            var iconhtml;
+            var imageurl;
+            var imagehtml;
 
-    	if (employee.icon.thumb.url == null) {
-    		iconhtml = "";
-    	} else {
-    		iconurl = employee.icon.thumb.url;
-    		iconhtml = '<img alt="Your icon" src="'+ iconurl +'" align="middle" />';
-    	}
-    			    
-    	if (post.image.url == null) {
-    		imagehtml = "";
-    	} else {
-    		imageurl = post.image.url;
-    		imagehtml = '<img alt="The image you uploaded" src="'+ imageurl +'" />';
-    	}
-    			    
-		var post_html = $("<li/>").attr({class:"post", name:post.id})
-		$(post_html).attr("class", "post")
-		$(post_html).append($("<div/>").addClass("post_header"))
-		$("div.post_header", post_html).append($("<span/>").addClass("post_header_image").html(iconhtml))
-		$("span.post_header_image", post_html).after($("<span/>").addClass("post_header_senderinfo").text(employee.name + ' wrote at ' + post.created_at))
-		$("span.post_header_senderinfo", post_html).after($("<div/>").addClass("delete_post"))
-		$("div.delete_post", post_html).prepend('<input class="delete_post_button" type="image" src="/assets/close_button.png" name='+ post.id +' >')
-		$(post_html).append($($("<div/>").addClass("post_image")).html(imagehtml))
-		$("div.post_image", post_html).after($($("<div/>").addClass("post_message")))
-		$("div.post_message", post_html).append($("<p/>"))
+        if (employee.icon.thumb.url == null) {
+            iconhtml = "";
+        } else {
+            iconurl = employee.icon.thumb.url;
+            iconhtml = '<img alt="Your icon" src="'+ iconurl +'" align="middle" />';
+        }
+                    
+        if (post.image.url == null) {
+            imagehtml = "";
+        } else {
+            imageurl = post.image.url;
+            imagehtml = '<img alt="The image you uploaded" src="'+ imageurl +'" />';
+        }
+                    
+        var post_html = $("<li/>").attr({class:"post", name:post.id})
+        $(post_html).attr("class", "post")
+        $(post_html).append($("<div/>").addClass("post_header"))
+        $("div.post_header", post_html).append($("<span/>").addClass("post_header_image").html(iconhtml))
+        $("span.post_header_image", post_html).after($("<span/>").addClass("post_header_senderinfo").text(employee.name + ' wrote at ' + post.created_at))
+        $("span.post_header_senderinfo", post_html).after($("<div/>").addClass("delete_post"))
+        $("div.delete_post", post_html).prepend('<input class="delete_post_button" type="image" src="/assets/close_button.png" name='+ post.id +' >')
+        $(post_html).append($($("<div/>").addClass("post_image")).html(imagehtml))
+        $("div.post_image", post_html).after($($("<div/>").addClass("post_message")))
+        $("div.post_message", post_html).append($("<p/>"))
 
-		    $("#posts").prepend(post_html.fadeIn(800));
-		    for (var i = 0; i < lines.length; i++) { // > dummy tag
-		      if (0 < i) { // > dummy tag
-		        $(".post:first p").append('<br />');
-		      };
-		      $(".post:first p").append(document.createTextNode(lines[i]));
-		    };
-		    $("#display_image").html("");
-    	};
+            $("#posts").prepend(post_html.fadeIn(800));
+            for (var i = 0; i < lines.length; i++) { // > dummy tag
+              if (0 < i) { // > dummy tag
+                $(".post:first p").append('<br />');
+              };
+              $(".post:first p").append(document.createTextNode(lines[i]));
+            };
+            $("#display_image").html("");
+        };
     };
 
     ws.onclose = function() {
@@ -146,15 +145,15 @@ $(function(){
     };
 
     ws.onopen = function() {
-    	var grp_id = <%= @group.id %>;
-		var emp_id = <%= @employee.id %>;
+        var grp_id = <%= @group.id %>;
+        var emp_id = <%= @employee.id %>;
         var data_json = {
-        				  "channel":{"id":grp_id},
-        				  "post":{"message":"", "employee_id":emp_id, "group_id":grp_id, "img_id":postid},
-        				  "operation":"setupcon"
-        				};
+                          "channel":{"id":grp_id},
+                          "post":{"message":"", "employee_id":emp_id, "group_id":grp_id, "img_id":postid},
+                          "operation":"setupcon"
+                        };
         var data_str = JSON.stringify(data_json);
         ws.send(data_str);
         postid = null;
-    };		    	
+    };                
 });
