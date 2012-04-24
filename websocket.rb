@@ -49,26 +49,18 @@ EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 10000) do |ws|
   
   ws.onmessage { |data|
     msg = JSON.parse(data) # msg is JSON
-    post = msg["post"]
     operation = msg["operation"]
-    channel = msg["channel"]    
+    channel_name = msg["channel"]    
+    message = msg["message"]
 
-  if operation == "setupcon"
-        puts "operation: START CON"
-        ws.join_channel(channel["id"], channels) # People who join the channel already setup
-  elsif operation == "sendmsg"
-      if post["id"] == nil
-        @post = Post.create(post) # post is a hash which contains attributes of post
-        @employee = @post.employee
-      else
-        @post = Post.find(post["id"])
-        @post.update_attribute(:message, post["message"])
-        @employee = @post.employee
-      end       
-        json_objects = concat_json_object(@post, @employee) # jsonize objects and put them together
-        channels[channel["id"]].each {|con|
-          con.send(json_objects) #send message to clients
+  if operation == "publish"
+	@post = Post.find(message["id"])
+        channels[channel_name].each {|con|
+          con.send(@post.to_json) #send message to clients
         }
+  elsif operation == "subscribe"
+        puts "operation: subscribe into #{channels[channel_name]}"
+        ws.join_channel(channel_name, channels) # People who join the channel already setup
   elsif operation == "deletepost"
     puts "operation: DELETEPOST"
     @post = Post.find(post["id"])

@@ -1,29 +1,47 @@
+require 'em-websocket'
+
 class PostsController < ApplicationController
   def create
-    # This is called from uploading image
-    if params[:type] == "image"
-      e = Employee.find(params[:employee_id])
-      g = Group.find(params[:group_id])
-      @post = Post.new(params[:post])
-      e.posts << @post
-      g.posts << @post
-      
-      if @post.save
-        # Caution!! "render :json => @post" does not work with jQuery.upload plugin.
-        # If you do, jQuery upload cannot parse the response as json.
-        # Only render:text => object.to_json works.
-        render :text => @post.to_json
-        return
-      end
+    grp_id = params[:group_id]
+    emp_id = params[:employee_id]
+    message = params[:message]
+    emp = Employee.find(emp_id)
+    grp = Group.find(grp_id)
+    if (@post = Post.create(:message => message))
+      emp.posts << @post
+      grp.posts << @post
     end
+    render :layout => false
+    ## This is called from uploading image
+    #if params[:type] == "image"
+    #  e = Employee.find(params[:employeemp_id])
+    #  g = Group.find(params[:group_id])
+    #  @post = Post.new(params[:post])
+    #  e.posts << @post
+    #  g.posts << @post
+    #  
+    #  if @post.save
+    #    # Caution!! "render :json => @post" does not work with jQuery.upload plugin.
+    #    # If you do, jQuery upload cannot parse the response as json.
+    #    # Only render:text => object.to_json works.
+    #    render :text => @post.to_json
+    #    return
+    #  end
+    #end
 
-    @post = Post.new(params[:post])
-    if @post.save
-      html = render_to_string :partial => "/posts/each_post", :collection => [@post]
-      render :json => {:success => 1, :html => html, :lastpost_id => @post.id}
-    else
-      render :json => {:error => @post.errors}
-    end
+    #@post = Post.new(params[:post])
+    #if @post.save
+    #  html = render_to_string :partial => "/posts/each_post", :collection => [@post]
+    #  render :json => {:success => 1, :html => html, :lastpost_id => @post.id}
+    #else
+    #  render :json => {:error => @post.errors}
+    #end
+  end
+
+  def show
+    id = params[:id]
+    @post = Post.find(id)
+    render :layout => false
   end
   
   def destroy

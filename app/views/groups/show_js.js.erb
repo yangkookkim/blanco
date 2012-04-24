@@ -49,94 +49,68 @@ function submit_post(f){
     var grp_id = <%= @group.id %>;
     var emp_id = <%= @employee.id %>;
     var val = $("#input").val();
-    var data_json = {
-                      "channel":{"id":grp_id},
-                      "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "id":postid},
-                      "operation":"sendmsg"
-    };
-    var data_str = JSON.stringify(data_json);
-    // Send data to websocket
-    ws.send(data_str);
-    
-    // TODO update message should be sperated
-    // Send update notification
-    var update_json = {
-                      "channel":{"id":grp_id},
-                      "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "id":postid},
-                      "operation":"update"
-    };
-    var update_str = JSON.stringify(update_json);
-    //monitor_posts_ws.send(update_str);
-    
-    $("#input").val("");
-    postid = null;
+    $.ajax({
+	    type: 'post',
+	    url: '/employees/' + emp_id + '/groups/' + grp_id + '/posts/',
+	    data: {
+		    'group_id':grp_id,
+		    'employee_id':emp_id,
+		    'message':val
+	    },
+	    success: function(html){
+		    $("#posts").prepend(html);
+                    $("#input").val("");
+		    var post_id = parseInt($(html, ".post").attr("name"));
+                    var data_json = {
+                      "operation":"publish",
+	              "channel":"groups:" + grp_id,
+		      "message":{
+		        "topic":"posts",
+		        "id":post_id
+		      }
+                    };
+                    var data_str = JSON.stringify(data_json);
+                    // Send data to websocket
+                    ws.send(data_str);
+	    }
+    });
+    //
+    //// TODO update message should be sperated
+    //// Send update notification
+    //var update_json = {
+    //                  "channel":{"id":grp_id},
+    //                  "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "id":postid},
+    //                  "operation":"update"
+    //};
+    //var update_str = JSON.stringify(update_json);
+    ////monitor_posts_ws.send(update_str);
+    //
+    //$("#input").val("");
+    //postid = null;
 }
 
 $(function(){
     //ws = new WebSocket("ws://websocket.servebeer.com:443");
     ws = new WebSocket("ws://localhost:10000");
-    var id = <%= @group.id %>;
-    var expr = /(\r\n|\r|\n)/g
+    var grp_id = <%= @group.id %>;
+    var emp_id = <%= @employee.id %>;
+
     ws.onmessage = function(evt) {
-        if (evt.data) {
-            var json = $.parseJSON(evt.data)
-            var post = json.post
-            var employee = json.employee
-            
-            // Delete post
-            var res = json.res
-            if (res != null) {
-                suc = res.success;
-                if (suc == 1){
-                    pst_id = res.id;
-                    $("[name ="+ pst_id +"]", "#posts").remove();
-                    return false;
-                }
-            }
-            // Delete post
-            var txt = post.message
-            txt = txt.replace(/\r\n/g, '\n');
-            txt = txt.replace(/\r/g, '\n');
-            var lines = txt.split('\n');
+        console.log(evt.data);
+        var json = $.parseJSON(evt.data)
+	var pst_id = json.post.id
 
-            var iconurl;
-            var iconhtml;
-            var imageurl;
-            var imagehtml;
-
-        if (employee.icon.thumb.url == null) {
-            iconhtml = "";
-        } else {
-            iconurl = employee.icon.thumb.url;
-            iconhtml = '<img alt="Your icon" src="'+ iconurl +'" align="middle" />';
-        }
-                    
-        if (post.image.url == null) {
-            imagehtml = "";
-        } else {
-            imageurl = post.image.url;
-            imagehtml = '<img alt="The image you uploaded" src="'+ imageurl +'" />';
-        }
-                    
-        var post_html = $("<li/>").attr({class:"post", name:post.id})
-        $(post_html).attr("class", "post")
-        $(post_html).append($("<div/>").addClass("post_header"))
-        $("div.post_header", post_html).append($("<span/>").addClass("post_header_image").html(iconhtml))
-        $("span.post_header_image", post_html).after($("<span/>").addClass("post_header_senderinfo").text(employee.name + ' wrote at ' + post.created_at))
-        $("span.post_header_senderinfo", post_html).after($("<div/>").addClass("delete_post"))
-        $("div.delete_post", post_html).prepend('<input class="delete_post_button" type="image" src="/assets/close_button.png" name='+ post.id +' >')
-        $(post_html).append($($("<div/>").addClass("post_image")).html(imagehtml))
-        $("div.post_image", post_html).after($($("<div/>").addClass("post_message")))
-        $("div.post_message", post_html).append($("<p/>"))
-
-            $("#posts").prepend(post_html.fadeIn(800));
-            for (var i = 0; i < lines.length; i++) { // > dummy tag
-              if (0 < i) { // > dummy tag
-                $(".post:first p").append('<br />');
-              };
-              $(".post:first p").append(document.createTextNode(lines[i]));
-            };
-            $("#display_image").html("");
+        if ((evt.data) && (emp_id != json.post.employee_id)) {
+            $.ajax({
+	        type: 'get',
+	        url: '/employees/' + emp_id + '/groups/' + grp_id + '/posts/' + pst_id,
+	        data: {
+	            'id':pst_id,
+	        },
+	        success: function(html){
+	            $("#posts").prepend(html);
+	        }
+	    });
         };
     };
 
@@ -147,10 +121,11 @@ $(function(){
     ws.onopen = function() {
         var grp_id = <%= @group.id %>;
         var emp_id = <%= @employee.id %>;
+	var channel = "groups:" + grp_id;
         var data_json = {
-                          "channel":{"id":grp_id},
+                          "channel":channel,
                           "post":{"message":"", "employee_id":emp_id, "group_id":grp_id, "img_id":postid},
-                          "operation":"setupcon"
+                          "operation":"subscribe"
                         };
         var data_str = JSON.stringify(data_json);
         ws.send(data_str);
