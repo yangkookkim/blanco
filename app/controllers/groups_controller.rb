@@ -53,7 +53,6 @@ class GroupsController < ApplicationController
   end
   
   def create
-
     group_members = []
     group_members = params[:group_members]
     myid = params[:myid]

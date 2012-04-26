@@ -3,6 +3,20 @@ require 'tabelog'
 
 class RestaurantsController < ApplicationController
   layout 'restaurant', :except => [:get_restaurant_review_html]
+
+  def create
+    res_id = params[:restaurant_id]
+    emp_id = params[:employee_id]
+    message = params[:message]
+    emp = Employee.find(emp_id)
+    grp = Group.find(grp_id)
+    if (@post = Post.create(:message => message))
+      emp.posts << @post
+      grp.posts << @post
+    end
+    render :layout => false
+  end
+
   def index
     @restaurants = Restaurant.find(:all)
   end
@@ -13,7 +27,7 @@ class RestaurantsController < ApplicationController
 
   def index_get_active_message
     message = Post.find(params[:post_id]).message
-    render :json => comment.to_json
+    render :json => message.to_json
   end
 
   def search_restaurant

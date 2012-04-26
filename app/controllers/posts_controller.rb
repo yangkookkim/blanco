@@ -2,14 +2,15 @@ require 'em-websocket'
 
 class PostsController < ApplicationController
   def create
-    grp_id = params[:group_id]
+    topic = params[:topic]
+    topic_id = params[:topic_id]
     emp_id = params[:employee_id]
     message = params[:message]
     emp = Employee.find(emp_id)
-    grp = Group.find(grp_id)
+    topic = Object.class.const_get(topic).find(topic_id)
     if (@post = Post.create(:message => message))
       emp.posts << @post
-      grp.posts << @post
+      topic.posts << @post
     end
     render :layout => false
     ## This is called from uploading image

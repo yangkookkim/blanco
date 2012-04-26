@@ -110,3 +110,26 @@ $(function($){
         }
     });
 });
+
+$(function($){
+    $(".submit_restaurant_post_button").click(function(){
+        var parnt = $(this).parents(".each_restaurant")
+        var emp_id = <%= @employee.id%>
+	var rst_id = parnt.attr("name")
+	var message = parnt.find(".new_post textarea").val();
+        $.ajax({
+	    type: 'post',
+	    url: '/employees/' + emp_id + '/restaurants/' + rst_id + '/posts/',
+	    data: {
+		    'topic':'Restaurant',
+		    'topic_id':rst_id,
+		    'employee_id':emp_id,
+		    'message':message
+	    },
+	    success: function(html){
+                parnt.find(".new_post textarea").val("");
+	    }
+        });
+    });
+});
+

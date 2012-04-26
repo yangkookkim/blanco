@@ -53,7 +53,8 @@ function submit_post(f){
 	    type: 'post',
 	    url: '/employees/' + emp_id + '/groups/' + grp_id + '/posts/',
 	    data: {
-		    'group_id':grp_id,
+		    'topic':'Group',
+		    'topic_id':grp_id,
 		    'employee_id':emp_id,
 		    'message':val
 	    },
