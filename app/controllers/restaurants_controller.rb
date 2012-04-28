@@ -30,6 +30,18 @@ class RestaurantsController < ApplicationController
     render :json => message.to_json
   end
 
+  def index_get_restaurant_record
+    restaurant = Restaurant.find(params[:restaurant_id])
+    render :json => restaurant.to_json
+  end
+
+  def index_get_commented_restaurants_all
+    all_restaurants = Restaurant.find(:all)
+    restaurants = []
+    restaurants = all_restaurants.each {|r| restaurants << r unless r.posts.empty?}
+    render :json => restaurants.to_json
+  end
+
   def search_restaurant
     search_results = Tabelog.search_restaurant(params[:query])
     render :json => search_results.to_json

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120414135357) do
+ActiveRecord::Schema.define(:version => 20120428160515) do
 
   create_table "chattergroups", :force => true do |t|
     t.string   "chattergroupid"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20120414135357) do
     t.datetime "updated_at"
     t.string   "image"
     t.integer  "restaurant_id"
+    t.integer  "rating"
   end
 
   create_table "profiles", :force => true do |t|
@@ -110,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20120414135357) do
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "rating"
   end
 
   create_table "sessions", :force => true do |t|

@@ -2,6 +2,7 @@ var map;
 var base_lat = 35.645335; // KVH Tamachi office latitiude
 var base_long = 139.748545; // KVH Tamachi office longitude
 var last_infowin = new Array();
+var emp_id = <%= @employee.id%>
 
 $(function($){
   var latlng = new google.maps.LatLng(base_lat, base_long);
@@ -12,13 +13,17 @@ $(function($){
   };
 
   map = new google.maps.Map(document.getElementById("map"), opts);
-
-  var infoWindowOpts = {
-        position: new google.maps.LatLng(base_lat, base_long),
-        content: "Test Test Test"
-  };
-  var infowin = new google.maps.InfoWindow(infoWindowOpts);
-  infowin.open(map);
+  $.get("/employees/" + emp_id + "/restaurants/index_get_commented_restaurants_all",
+      function(res){
+	  for(i=0; i < res.length; i++){
+              var markerOpts = {
+                  position: new google.maps.LatLng(res[i].latitude, res[i].longitude),
+                  map:map,
+                  title: res[i].name
+              };
+              var marker = new google.maps.Marker(markerOpts);
+	  };
+  });
 });
 
 function markonmap(lat, lon, name) {
@@ -73,7 +78,7 @@ $(function($){
         var rest_id = $(this).find(".each_restaurant_review_image").attr("name");
             $.get("/employees/" + emp_id + "/restaurants/index_get_active_message", {post_id:post_id},
                     function(result_json){
-            $(".comment_display_area" + rest_id).text(result_json);
+                        $(".comment_display_area" + rest_id).text(result_json);
             });
     });
 
@@ -112,7 +117,7 @@ $(function($){
 });
 
 $(function($){
-    $(".submit_restaurant_post_button").click(function(){
+    $(".submit_restaurant_post_button img").click(function(){
         var parnt = $(this).parents(".each_restaurant")
         var emp_id = <%= @employee.id%>
 	var rst_id = parnt.attr("name")
@@ -133,3 +138,43 @@ $(function($){
     });
 });
 
+$(function($){
+    var latitude;
+    var longitude;
+    var name;
+    $(".each_restaurant:first").css("background-color", "#FFFFE1");
+});
+
+
+$(function($){
+    var latitude;
+    var longitude;
+    var name;
+    var selected_restaurant;
+    $(".each_restaurant").click(function(){ 
+    if ($(this).get(0) != selected_restaurant) {
+       var emp_id = <%= @employee.id%>
+       var res_id = $(this).attr("name")
+
+       $(".each_restaurant").css("background-color", "#FFFFFF");
+       $(this).css("background-color", "#FFFFE1");
+
+       $.get("/employees/" + emp_id + "/restaurants/index_get_restaurant_record", {restaurant_id:res_id},
+           function(result_json){
+               latitude = result_json.latitude;
+               longitude = result_json.longitude;
+               name = result_json.name;
+	       map.panTo(new google.maps.LatLng(latitude, longitude));
+               unmarkonmap();
+	       markonmap(latitude, longitude, name);
+       });
+       selected_restaurant = $(this).get(0);
+    }
+    });
+});
+
+$(function($){
+	$('#rating').raty({
+		path: '/assets'
+	});
+});

@@ -1,0 +1,17 @@
+<li class="post" name=<%= @post.id %>> 
+        <div class="post_header">
+                <span class="post_header_image">
+                        <%= image_tag @post.employee.icon_url(:thumb).to_s, :align => "middle" if @post.employee.icon? %>
+                </span>
+                <span class="post_header_senderinfo">
+                        <%= @post.employee.name %> wrote at: <%= @post.created_at.to_s(:db) %>
+                </span>
+                <div class="delete_post"><input class="delete_post_button" type="image" src="/assets/close_button.png" name=<%= @post.id %>></div>
+        </div>
+        <div class="post_image">
+                <%= image_tag @post.image_url.to_s if @post.image? %>
+        </div>
+	<div class="post_message" name=<%= @post.id %> >
+                <%= simple_format(h(@post.message)) %>
+        </div>
+</li>

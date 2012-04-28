@@ -9,10 +9,10 @@ class RestaurantsController < ApplicationController
     emp_id = params[:employee_id]
     message = params[:message]
     emp = Employee.find(emp_id)
-    grp = Group.find(grp_id)
+    res = Group.find(res_id)
     if (@post = Post.create(:message => message))
       emp.posts << @post
-      grp.posts << @post
+      res.posts << @post
     end
     render :layout => false
   end
@@ -28,6 +28,18 @@ class RestaurantsController < ApplicationController
   def index_get_active_message
     message = Post.find(params[:post_id]).message
     render :json => message.to_json
+  end
+
+  def index_get_restaurant_record
+    restaurant = Restaurant.find(params[:restaurant_id])
+    render :json => restaurant.to_json
+  end
+
+  def index_get_commented_restaurants_all
+    all_restaurants = Restaurant.find(:all)
+    restaurants = []
+    restaurants = all_restaurants.each {|r| restaurants << r unless r.posts.empty?}
+    render :json => restaurant.to_json
   end
 
   def search_restaurant
