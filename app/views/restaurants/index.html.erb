@@ -5,6 +5,7 @@
             <div class="each_restaurant_info">
                 <div class="each_restaurant_name">
                   <%= restaurant.name %>
+		  <div class="rating_readonly" readonly_score=<%=restaurant.rating %>></div>
                 </div>
                 <div class="each_restaurant_image">
                   <%= image_tag restaurant.image_url(:thumb), :align => "top" if restaurant.image? %>
@@ -40,7 +41,7 @@
                 <div class="new_post">
                   <textarea id="input" rows="4" cols="30"></textarea>
                 </div>
-                <div id="rating"></div>
+                Your rating: <div class="rating"></div>
                 <div class="submit_restaurant_post_button">
                   <input type="image" src="/assets/submit_button_en.png"/>
                 </div>

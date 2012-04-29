@@ -117,22 +117,26 @@ $(function($){
 });
 
 $(function($){
-    $(".submit_restaurant_post_button img").click(function(){
+    $(".submit_restaurant_post_button input").click(function(){
         var parnt = $(this).parents(".each_restaurant")
         var emp_id = <%= @employee.id%>
 	var rst_id = parnt.attr("name")
 	var message = parnt.find(".new_post textarea").val();
+        var rating = parnt.find("[name=score]", "input").attr("value")
+	alert(rating);
         $.ajax({
 	    type: 'post',
-	    url: '/employees/' + emp_id + '/restaurants/' + rst_id + '/posts/',
+	    url: '/employees/' + emp_id + '/restaurants/' + rst_id + '/posts_restaurants/',
 	    data: {
 		    'topic':'Restaurant',
 		    'topic_id':rst_id,
 		    'employee_id':emp_id,
-		    'message':message
+		    'message':message,
+		    'rating':rating
 	    },
 	    success: function(html){
                 parnt.find(".new_post textarea").val("");
+		parnt.find(".rating").raty('cancel', true);
 	    }
         });
     });
@@ -174,7 +178,19 @@ $(function($){
 });
 
 $(function($){
-	$('#rating').raty({
+	$('.rating').raty({
 		path: '/assets'
+	});
+});
+
+$(function($){
+        $('.rating_readonly').each(function(index, domEle){
+	    var restaurant_rating = $(domEle).attr("readonly_score");
+	    $(domEle).raty({
+	    	path: '/assets',
+	    	readOnly:true,
+		scoreName: 'readonly_score',
+	    	start: restaurant_rating
+	    });
 	});
 });
