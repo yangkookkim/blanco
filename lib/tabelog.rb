@@ -73,7 +73,7 @@ class Tabelog
 
   def self.search_tabelog_database(keyword)
     keyword_reg = Regexp.new(keyword)
-    pagerange = (1..10)
+    pagerange = (1..50)
     xmls = []
     items = []
     match_items = []

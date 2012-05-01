@@ -1,52 +1,10 @@
 <%= javascript_include_tag "raty.js" %>
+<input id="search_box_lunch" type"text">
+<button onclick="search_restaurant()">Find Restauarant</button>
+<div align="center">
+    <%= image_tag "ajax-loader.gif", :id => "spinner", :style => "display:none" %>
+</div>
 <div id="restaurant_info">
-    <% @restaurants.each do |restaurant| %>
-        <div class="each_restaurant" name=<%=restaurant.id %>>
-            <div class="each_restaurant_info">
-                <div class="each_restaurant_name">
-                  <%= restaurant.name %>
-		  <div class="rating_readonly" readonly_score=<%=restaurant.rating %>></div>
-                </div>
-                <div class="each_restaurant_image">
-                  <%= image_tag restaurant.image_url(:thumb), :align => "top" if restaurant.image? %>
-                </div>
-            </div>
-            <div class="each_restaurant_review_area">
-                <% if restaurant.posts.empty? %>
-                No one visted this place yet<br>
-                <% else %>
-                    <div class="each_restaurant_review_header">Following people visited this place</div>
-                    <div class="numberofposts"><%= restaurant.posts.size %></div>
-                    <div class="button" name="left">left</div>
-                    <div class="button" name="right">right</div>
-                    <table class="animation_test">
-                        <tr>
-                            <% restaurant.posts.each_with_index do |post, i| %>
-                        <td class="each_restaurant_review" name=<%= post.id %>>
-                            <div class="each_restaurant_review_image" name=<%= restaurant.id %>>
-                              <% if i == 0 %>
-                              <%= image_tag(post.employee.icon_url(:thumb), :style => "border-style: solid; border-width: 2px; border-color:#498BF4;") if post.employee.icon? %>
-                              <% else %>
-                              <%= image_tag(post.employee.icon_url(:thumb)) if post.employee.icon? %>
-                              <% end %>
-                            </div>
-                        </td>
-                            <% end %>
-                        </tr>
-                    </table>
-                    <div class=<%= "comment_display_area#{restaurant.id}"%> >
-                      <%= restaurant.posts.first.message %>
-                    </div>
-                <% end %>
-                <div class="new_post">
-                  <textarea id="input" rows="4" cols="30"></textarea>
-                </div>
-                Your rating: <div class="rating"></div>
-                <div class="submit_restaurant_post_button">
-                  <input type="image" src="/assets/submit_button_en.png"/>
-                </div>
-            </div>
-        </div>
-    <% end %>
+    <%= render :partial => "/restaurants/each_restaurant", :collection => @restaurants %>
 </div>
 

@@ -22,3 +22,4 @@
 # Ignore picture
 */uploads/post/*
 */uploads/employee/*
+/public/uploads/*

@@ -45,43 +45,50 @@ function unmarkonmap() {
 
 function search_restaurant() {
   var emp_id = <%= @employee.id%>
-
+  $("#restaurant_info").empty();
+  $("#spinner").show();
   unmarkonmap();
-  $("#search_result_lunch_imagelist").empty();
   var keyword = $("#search_box_lunch").val();
+
+  // To fill the gap of search speed between local and tabelog database, delay showing results
+  setTimeout(function(){
   $.get("/employees/" + emp_id + "/restaurants/search_restaurant", {query:keyword},
     function(result){
-      for (i = 0; i < result.length; i++) {
-        r = result[i];
-    var res_id = r.id;
-        var res_lat = parseFloat(r.latitude);
-        var res_lon = parseFloat(r.longitude);
-        var res_name = r.name;
-        var res_image = r.image;
-        markonmap(res_lat, res_lon, res_name);
-    $.get("/employees/" + emp_id + "/restaurants/get_restaurant_review_html", {id:res_id},
-          function(result_html){
-            $("#search_result_lunch_imagelist").append(result_html);
-      });
+        $("#spinner").hide();
+	$("#restaurant_info").prepend(result.html);
+	readonly_raty();
+	modifiable_raty();
         $("#search_box_lunch").val("");
-      }
-  });
+    }
+  );
+  }, 500);
+}
+
+function readonly_raty(){
+    $('.rating_readonly').each(function(index, domEle){
+        var restaurant_rating = $(domEle).attr("readonly_score");
+        $(domEle).raty({
+        	path: '/assets',
+        	readOnly:true,
+    	scoreName: 'readonly_score',
+        	start: restaurant_rating
+        });
+    });
+}
+
+function modifiable_raty(){
+    $('.rating').raty({
+    	path: '/assets'
+    });
 }
 
 $(function($){
-    var emp_id = <%= @employee.id %>
-    $(".each_restaurant_review").click(function(){
-	$(this).parent().find(".each_restaurant_review_image img").css("border", "2px solid #FFFFFF");
-	$(this).find(".each_restaurant_review_image img").css("border", "2px solid #498BF4");
-        var comment = $(".each_restaurant_review_comment", this).text();
-        var post_id = $(this).attr("name");
-        var rest_id = $(this).find(".each_restaurant_review_image").attr("name");
-            $.get("/employees/" + emp_id + "/restaurants/index_get_active_message", {post_id:post_id},
-                    function(result_json){
-                        $(".comment_display_area" + rest_id).text(result_json);
-            });
-    });
-
+    var latitude;
+    var longitude;
+    var name;
+    $(".each_restaurant:first").css("background-color", "#FFFFE1");
+    readonly_raty();
+    modifiable_raty();
 });
 
 $(function($){
@@ -117,13 +124,12 @@ $(function($){
 });
 
 $(function($){
-    $(".submit_restaurant_post_button input").click(function(){
+    $(".submit_restaurant_post_button input").live("click", function(){
         var parnt = $(this).parents(".each_restaurant")
         var emp_id = <%= @employee.id%>
 	var rst_id = parnt.attr("name")
 	var message = parnt.find(".new_post textarea").val();
         var rating = parnt.find("[name=score]", "input").attr("value")
-	alert(rating);
         $.ajax({
 	    type: 'post',
 	    url: '/employees/' + emp_id + '/restaurants/' + rst_id + '/posts_restaurants/',
@@ -146,16 +152,8 @@ $(function($){
     var latitude;
     var longitude;
     var name;
-    $(".each_restaurant:first").css("background-color", "#FFFFE1");
-});
-
-
-$(function($){
-    var latitude;
-    var longitude;
-    var name;
     var selected_restaurant;
-    $(".each_restaurant").click(function(){ 
+    $(".each_restaurant").live("click", function(){
     if ($(this).get(0) != selected_restaurant) {
        var emp_id = <%= @employee.id%>
        var res_id = $(this).attr("name")
@@ -175,22 +173,4 @@ $(function($){
        selected_restaurant = $(this).get(0);
     }
     });
-});
-
-$(function($){
-	$('.rating').raty({
-		path: '/assets'
-	});
-});
-
-$(function($){
-        $('.rating_readonly').each(function(index, domEle){
-	    var restaurant_rating = $(domEle).attr("readonly_score");
-	    $(domEle).raty({
-	    	path: '/assets',
-	    	readOnly:true,
-		scoreName: 'readonly_score',
-	    	start: restaurant_rating
-	    });
-	});
 });

@@ -43,8 +43,9 @@ class RestaurantsController < ApplicationController
   end
 
   def search_restaurant
-    search_results = Tabelog.search_restaurant(params[:query])
-    render :json => search_results.to_json
+    @search_results = Tabelog.search_restaurant(params[:query])
+    html = render_to_string :partial => "/restaurants/each_restaurant", :collection => @search_results
+    render :json => {:success => 1, :html => html}
   end
 
   def get_restaurant_review_html
