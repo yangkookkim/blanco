@@ -1,4 +1,18 @@
 <% content_for :content do %>
+    <div id="topWrap_lunch">
+	<div id="topWrap_lunch_search_area">
+            <input id="search_box_lunch" type"text" placeholder="Search Restaurants..." >
+	    <!-- <button onclick="search_restaurant()">Find Restauarant</button> -->
+            <input id="search_box_lunch_search_button" type="image" onclick="search_restaurant()" src="/assets/search_button_en.png"/>
+	    <form id="topWrap_lunch_sort_items_form">
+                <select>
+                <option id= "select_default" value="default" selected>Sort Restaurants By
+                <option value="num_posts">Number of Posts
+                <option value="date_updated">Date Updated
+                </select>
+            </form>
+	</div>
+    </div>
     <div id="sideWrap_lunch" >
          <div id="display_action_template">
              <%= yield %>

@@ -11,6 +11,36 @@
 	overflow: hidden;
 }
 
+#topWrap_lunch {
+	width:780px;
+	height: 70px;
+}
+
+
+#topWrap_lunch_search_area {
+	position: relative;
+}
+
+#search_box_lunch {
+	position: absolute;
+	top: 0;
+	left: 260px;
+	width: 260px;
+	height: 25px;
+	font-size: 20px;
+}
+
+#search_box_lunch_search_button {
+	position: absolute;
+	top: 0;
+	left: 530px;
+}
+
+#topWrap_lunch_sort_items_form {
+	position: absolute;
+	top: 40px;
+}
+
 #map {
        height: 550px;
 }

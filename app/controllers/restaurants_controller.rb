@@ -21,6 +21,22 @@ class RestaurantsController < ApplicationController
     @restaurants = Restaurant.find(:all)
   end
 
+  def sort
+    sort_method = params[:sort_method]
+    sort_items = params[:sort_items]
+    puts sort_method.class
+    case sort_method
+    when "date_updated"
+        @restaurants_sorted = sort_by_date_updated(sort_items)
+    when "num_posts"
+        @restaurants_sorted = sort_by_num_posts(sort_items)
+    else
+	raise "Unknown sort method"
+    end
+        html = render_to_string :partial => "/restaurants/each_restaurant", :collection => @restaurants_sorted
+        render :json => {:success => 1, :html => html}
+  end
+
   def index_js
     @employee = Employee.find(params[:employee_id])
   end
@@ -53,5 +69,19 @@ class RestaurantsController < ApplicationController
   end
 
   def show
+  end
+
+  private
+
+  def sort_by_date_updated(items)
+    restaurants_sorted = Restaurant.find(items, :include => :posts, :order => "posts.updated_at DESC")
+  end
+
+  def sort_by_num_posts(items)
+    restaurants = []
+    items.each do |item|
+        restaurants << Restaurant.find(item)
+    end
+    restaurants_sorted = restaurants.sort {|a,b| b.posts.size <=> a.posts.size}
   end
 end

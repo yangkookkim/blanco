@@ -66,6 +66,7 @@ Blanco::Application.routes.draw do
 	get 'index_get_active_message'
 	get 'index_get_restaurant_record'
 	get 'index_get_commented_restaurants_all'
+	get 'sort'
       end
       resources :posts_restaurants do
         collection do

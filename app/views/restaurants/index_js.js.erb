@@ -174,3 +174,21 @@ $(function($){
     }
     });
 });
+
+$(function($){
+    $("#topWrap_lunch_sort_items_form").change(function(){
+        var sort_method = $("select option:selected").val();
+	var displayed_restaurants = []
+	$(".each_restaurant").each(function(i){
+            displayed_restaurants.push($(this).attr("name"));
+        });
+	$.get("/employees/" + emp_id + "/restaurants/sort", {sort_method:sort_method, sort_items:displayed_restaurants},
+	    function(result_json){
+            //$("#select_default").attr("selected", "selected");
+            $("#restaurant_info").empty();
+	    $("#restaurant_info").prepend(result_json.html);
+	    readonly_raty();
+	    modifiable_raty();
+        });
+    });
+});
