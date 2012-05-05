@@ -34,6 +34,8 @@ Blanco::Application.routes.draw do
          get 'instant_search_show_result'
          get 'monitor_posts_js'
       end   
+      resources :posts_groups do
+      end
       resources :posts do
         collection do
           get 'upload_image'
@@ -85,5 +87,7 @@ Blanco::Application.routes.draw do
     get 'sfdc_client_auth'
   end
 
+  resources :tempimages do
+  end
 
 end

@@ -27,35 +27,37 @@ $(function(){
 function upload_image(){
     var grp_id = <%= @group.id %>;
     var emp_id = <%= @employee.id %>;
-    var url = "/employees/"+ emp_id +"/groups/"+ grp_id +"/posts"
+    var url = "/tempimages"
     
     $('#upload').upload(
     url, 
-    {"employee_id":emp_id, "group_id":"grp_id", "type":"image"},
-    function (res) {
-        image = res.image
-        imageurl = image.url
-        postid = res.id
-        html = '<img alt="The image you uploaded" height="100" src="'+ imageurl +'"  width="100" />';
+    {},
+    function (tempimage) {
+        image = tempimage.image
+	html = '<img alt="The image you uploaded" height="100" src="'+ image.url +'"'
+	       + 'name="'+ tempimage.id + '"' +  'width="100" />';
         $("#display_image").html(html);
-    $("#spinner").hide();
+        $("#spinner").hide();
     },
         'json'
     );
-    $("#upload").change(triggerUpload);
 }
 
 function submit_post(f){
     var grp_id = <%= @group.id %>;
     var emp_id = <%= @employee.id %>;
     var val = $("#input").val();
+    var tmpimg_id;
+    tmpimg_id = $("#display_image img").attr("name");
+
     $.ajax({
 	    type: 'post',
-	    url: '/employees/' + emp_id + '/groups/' + grp_id + '/posts/',
+	    url: '/employees/' + emp_id + '/groups/' + grp_id + '/posts_groups/',
 	    data: {
 		    'topic':'Group',
 		    'topic_id':grp_id,
 		    'employee_id':emp_id,
+	            'tempimage_id':tmpimg_id,
 		    'message':val
 	    },
 	    success: function(html){
