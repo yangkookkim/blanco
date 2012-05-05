@@ -36,7 +36,7 @@ function upload_image(){
         image = tempimage.image
 	html = '<img alt="The image you uploaded" height="100" src="'+ image.url +'"'
 	       + 'name="'+ tempimage.id + '"' +  'width="100" />';
-        $("#display_image").html(html);
+        $("#image_thumbnail").html(html);
         $("#spinner").hide();
     },
         'json'
@@ -44,7 +44,7 @@ function upload_image(){
 }
 
 function cleanup_thumnail(){
-    $("#display_image").empty();
+    $("#image_thumbnail").empty();
 }
 
 function submit_post(f){
@@ -52,7 +52,7 @@ function submit_post(f){
     var emp_id = <%= @employee.id %>;
     var val = $("#input").val();
     var tmpimg_id;
-    tmpimg_id = $("#display_image img").attr("name");
+    tmpimg_id = $("#image_thumbnail img").attr("name");
 
     $.ajax({
 	    type: 'post',
