@@ -43,6 +43,10 @@ function upload_image(){
     );
 }
 
+function cleanup_thumnail(){
+    $("#display_image").empty();
+}
+
 function submit_post(f){
     var grp_id = <%= @group.id %>;
     var emp_id = <%= @employee.id %>;
@@ -61,6 +65,7 @@ function submit_post(f){
 		    'message':val
 	    },
 	    success: function(html){
+		    cleanup_thumnail();
 		    $("#posts").prepend(html);
                     $("#input").val("");
 		    var post_id = parseInt($(html, ".post").attr("name"));
@@ -73,23 +78,9 @@ function submit_post(f){
 		      }
                     };
                     var data_str = JSON.stringify(data_json);
-                    // Send data to websocket
                     ws.send(data_str);
 	    }
     });
-    //
-    //// TODO update message should be sperated
-    //// Send update notification
-    //var update_json = {
-    //                  "channel":{"id":grp_id},
-    //                  "post":{"message":val, "employee_id":emp_id, "group_id":grp_id, "id":postid},
-    //                  "operation":"update"
-    //};
-    //var update_str = JSON.stringify(update_json);
-    ////monitor_posts_ws.send(update_str);
-    //
-    //$("#input").val("");
-    //postid = null;
 }
 
 $(function(){
@@ -111,7 +102,7 @@ $(function(){
 	            'id':pst_id,
 	        },
 	        success: function(html){
-	            $("#posts").prepend(html);
+	            $("#posts").prepend($(html).fadeIn(800));
 	        }
 	    });
         };
