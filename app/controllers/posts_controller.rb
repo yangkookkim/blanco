@@ -2,41 +2,6 @@ require 'em-websocket'
 
 class PostsController < ApplicationController
   def create
-    topic_name = params[:topic]
-    topic_id = params[:topic_id]
-    emp_id = params[:employee_id]
-    message = params[:message]
-    emp = Employee.find(emp_id)
-    topic = Object.class.const_get(topic_name).find(topic_id)
-    if (@post = Post.create(:message => message))
-      emp.posts << @post
-      topic.posts << @post
-    end
-    render :layout => false, :template => "posts_#{topic_name.downcase.pluralize}/create"
-    ## This is called from uploading image
-    #if params[:type] == "image"
-    #  e = Employee.find(params[:employeemp_id])
-    #  g = Group.find(params[:group_id])
-    #  @post = Post.new(params[:post])
-    #  e.posts << @post
-    #  g.posts << @post
-    #  
-    #  if @post.save
-    #    # Caution!! "render :json => @post" does not work with jQuery.upload plugin.
-    #    # If you do, jQuery upload cannot parse the response as json.
-    #    # Only render:text => object.to_json works.
-    #    render :text => @post.to_json
-    #    return
-    #  end
-    #end
-
-    #@post = Post.new(params[:post])
-    #if @post.save
-    #  html = render_to_string :partial => "/posts/each_post", :collection => [@post]
-    #  render :json => {:success => 1, :html => html, :lastpost_id => @post.id}
-    #else
-    #  render :json => {:error => @post.errors}
-    #end
   end
 
   def show
@@ -60,5 +25,15 @@ class PostsController < ApplicationController
       html = render_to_string :partial => "/posts/each_post", :collection => [@post]
       render :json => {:success => 1, :html => html, :lastpost_id => @post.id}
     end
+  end
+
+  private
+  def create_post(params)
+    topic_name = params[:topic]
+    topic_id = params[:topic_id]
+    employee_id = params[:employee_id]
+    message = params[:message]
+    topic_sym = "#{topic_name.downcase}_id".to_sym
+    Post.new(topic_sym => topic_id, :employee_id => employee_id, :message => message)
   end
 end
