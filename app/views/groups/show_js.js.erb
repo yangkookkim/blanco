@@ -85,12 +85,11 @@ function submit_post(f){
 
 $(function(){
     //ws = new WebSocket("ws://websocket.servebeer.com:443");
-    ws = new WebSocket("ws://localhost:10000");
+    ws = new WebSocket("ws://localhost:80");
     var grp_id = <%= @group.id %>;
     var emp_id = <%= @employee.id %>;
 
     ws.onmessage = function(evt) {
-        console.log(evt.data);
         var json = $.parseJSON(evt.data)
 	var pst_id = json.post.id
 

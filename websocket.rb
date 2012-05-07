@@ -1,3 +1,4 @@
+#!/Users/hiro/.rvm/rubies/ruby-1.9.2-p180/bin/ruby
 require 'active_record'
 require 'carrierwave'
 require 'carrierwave/orm/activerecord'
@@ -40,7 +41,8 @@ module JsonHelper
 end
 
 channels = Hash.new
-EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 10000) do |ws|
+#EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 10000) do |ws|
+EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 80) do |ws|
   include JsonHelper
   ws.extend(BlancoWebSocket)
   
